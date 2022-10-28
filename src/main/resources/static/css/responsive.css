@@ -1,0 +1,72 @@
+/* PC */
+@media (min-width: 1024px) {}
+
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+
+    /* Body */
+    #wrapper {
+        width: 1024px;
+    }
+
+    /* Header */
+    #header {
+        position: sticky;
+        width: 100%;
+        height: 60px;
+        padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #2A2C31;
+    }
+
+    .header__menu {
+        text-decoration: none;
+        font-size: 2.4rem;
+        line-height: 64px;
+        font-weight: 900;
+    }
+
+    .header__logo {
+        margin-top: 10px;
+        margin-left: -200px;
+    }
+
+    .header__functions {
+        display: flex;
+        margin-top: 10px;
+        margin-left: -133px;
+    }
+
+    .header__search-rps {
+        display: block;
+        color: #fff;
+        font-size: 1.6rem;
+    }
+
+    .header__search-rps > a {
+        text-decoration: none;
+    }
+
+    .header__login {
+        margin-top: 10px;
+    }
+
+    .header__search {
+        display: none;
+    }
+
+    .header__contacts {
+        display: none;
+    }
+
+    .header__functions-donate-btn {
+        display: none;
+    }
+
+    /* Slider */
+
+}
+
+/* Mobile */
+@media (max-width: 740px) {}

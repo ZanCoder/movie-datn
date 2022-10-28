@@ -1,0 +1,316 @@
+body{
+	background: black;
+}
+.detail{
+    background-color: transparent;
+    padding-left: 35px;
+    width: 100%;
+    padding-top: 70px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+}
+
+
+.detail-left{
+    display: flex;
+    justify-content: center;
+    width: 15%;
+    margin-top: 20px;
+}
+
+.detail-left .poster{
+    width: 180px;
+    height: 250px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.detail-left .poster img{
+    width: 100%;
+    height: 100%;
+}
+
+.detail-center{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 55%;
+    row-gap: 20px;
+}
+
+.detail-center .bread{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+.detail-center .bread li{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: grey;
+    font-size: 12px;
+}
+
+.detail-center .bread i{
+    font-size: 5px;
+    margin: 0;
+}
+
+.detail-center .bread a{
+    color: white;
+    text-decoration: none;
+}
+
+.detail-center .bread a:hover{
+    color: #cae962!important;
+}
+
+.detail-center .name{
+    font-size: 40px;
+    color: white;
+    font-weight: 600;
+}
+
+.detail-center .info li{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin-right: 10px;
+    color: white;
+    font-size: 15px;
+}
+
+.detail-center .info li i{
+    margin: 0;
+    padding: 0;
+    font-size: 3px;
+    color: grey;
+}
+
+.detail-center .info{
+    display: flex;
+    justify-content: flex-start ;
+    padding: 0;
+}
+
+.detail-buttons{
+	padding: 0;
+}
+
+.detail-center .detail-buttons .detail-watch{
+    border-radius: 20px;
+    background: #cae962!important;
+    padding: 10px;
+    outline: none;
+    font-size: 15px;
+}
+
+.detail-center .detail-buttons .detail-add-to-list{
+    border-radius: 20px;
+    background: #fff!important;
+    padding: 10px;
+    outline: none;
+    font-size: 15px;
+}
+
+.detail-center .detail-desc span{
+    color: white;
+    font-size: 12px;
+}
+
+.detail-share{
+    display: flex;
+    align-items: center;
+    border-left: 2px solid #cae962;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+
+.detail-share p span{
+    font-weight: 600;
+    font-size: 14px;
+    color: #cae962;
+}
+
+.detail-share p{
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    color: white;
+    margin-right: 20px;
+}
+
+.detail-share .facebook i,
+.detail-share .twitter i,
+.detail-share .reddit i{
+    margin: 0;
+    padding: 0;
+}
+
+.detail-share .facebook{
+    display: inline-block;
+    color: white;
+    background-color: rgb(59, 89, 152);
+    border-radius: 14px;
+    width: 40px;
+    padding: 5px;
+    font-size: 20px;
+    text-align:center;
+}
+
+.detail-share .twitter{
+    display: inline-block;
+    color: white;
+    background-color: rgb(29, 161, 242);
+    border-radius: 14px;
+    width: 40px;
+    padding: 5px;
+    font-size: 20px;
+    text-align:center;
+}
+
+.detail-share .reddit{
+    display: inline-block;
+    color: white;
+    background-color: rgb(255, 87, 0);
+    border-radius: 14px;
+    width: 40px;
+    padding: 5px;
+    font-size: 20px;
+    text-align:center;
+}
+
+.detail-right{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 14px;
+    width: 30%;
+    padding: 30px;
+    background: rgba(255,255,255,.05);
+}
+
+.detail-right a{
+    text-decoration: none;
+}
+
+.detail-right a:hover{
+    color: #cae962!important;
+}
+
+.detail-seasons{
+    width: 100%;
+    background-color: #202125;
+    padding: 10px;
+    padding-left: 35px;
+}
+
+.detail-seasons h1{
+    font-size: 22px!important;
+    line-height: 40px;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 20px;
+    color: #cae962;
+}
+
+.detail-seasons .seasons{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-seasons .seasons .season-item{
+    position: relative;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    color: white;
+    text-decoration: none;
+    width: 15%;
+    height: 5%;
+    border-radius: 0.5rem;
+    text-align: center;
+    line-height: 8vh;
+    z-index: 2;
+    font-size: 13px;
+    font-family: Montserrat,Arial;
+    font-weight: 600;
+    background-color: rgba(255 , 255, 255, .1);
+}
+
+.detail-seasons .seasons .season-item::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    z-index: -1;
+    filter: blur(3px);
+    opacity: .3;
+    background-image: var(--img);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.detail-seasons .seasons .season-item::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(https://zoro.to/images/live-thumb.png) repeat;
+}
+
+.detail-seasons .seasons .season-item.current-season{
+    border: 1px solid #cae962;
+    color: #cae962;
+}
+
+.detail-seasons .seasons .season-item:hover{
+    color: #cae962;
+}
+
+.anime-related{
+    background-color: #202125;
+    padding: 10px;
+    padding-left: 35px;
+    width: 100%;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.anime-related h1{
+    font-size: 22px!important;
+    line-height: 40px;
+    font-weight: 600;
+    margin: 0;
+    color: #cae962;
+}
+
+.anime-related .related ul{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.anime-related .related ul > li{
+    margin: 20px;
+    width: 200px;
+}

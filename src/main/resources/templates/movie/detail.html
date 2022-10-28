@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html th:replace="~{/layout/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+<main>
+	<style th:inline="css">
+		.detail::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			filter: blur(20px);
+			opacity: .35;
+			background: url([[${movie.poster}]]);
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+		}
+	</style>
+	<div class="detail">
+		<div class="detail-left">
+			<div class="poster">
+				<img th:src="${ movie.poster }" alt="">
+			</div>
+		</div>
+		<div class="detail-center">
+			<ul class="bread">
+				<li class="bread-item"><a th:href="@{/home}">Home</a></li>
+				<li class="bread-item"><i class="fas fa-circle"></i></li>
+				<li class="bread-item"><a href="">[[${ movie.type.movie_type_name }]]</a></li>
+				<li class="bread-item"><i class="fas fa-circle"></i></li>
+				<li class="bread-item">[[${ movie.title }]]</li>
+			</ul>
+			<div class="name">
+				<span>[[${ movie.title }]]</span>
+			</div>
+			<ul class="info">
+				<li>
+					<span class="badge badge-warning mr-1" th:if="${movie.vip == true}">VIP</span>
+					<span class="badge border border-light text-light mr-1">[[${ movie.quality.quality_name }]]</span>
+					<span class="badge border border-light text-light mr-1">SUB</span>
+				</li>
+				<li class="bread-item"><i class="fas fa-circle"></i></li>
+				<li><span>[[${ movie.type.movie_type_name }]]</span></li>
+				<li class="bread-item"><i class="fas fa-circle"></i></li>
+				<li><span th:if="${movie.type.movie_type_name == 'TV-Series'}">Ep [[${ #lists.size(movie_eps) }]]</span>
+					<span th:unless="${movie.type.movie_type_name == 'TV-Series'}">Full</span>
+				</li>
+				<li class="bread-item"><i class="fas fa-circle"></i></li>
+				<li><span>[[${ movie.duration_min }]]</span></li>
+			</ul>
+			<ul class="detail-buttons">
+				<span class="detail-watch mr-2"><a class="text-dark"
+						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
+							class="fas fa-play-circle mr-2"></i>Watch
+						now</a></span>
+				<span class="detail-add-to-list"><a class="text-dark"><i class="fas fa-plus mr-2"></i>Add to
+						list</a></span>
+			</ul>
+			<div class="detail-desc">
+				<span data-read-more="{ visible: false, useStyledContainer: true }">[[${ movie.description }]]</span>
+			</div>
+			<div class="detail-share">
+				<p><span>Share movie<br /></span> to your friends</p>
+				<div class="button-share">
+					<a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+					<a class="twitter" href="#"><i class="fab fa-twitter"></i></a>
+					<a class="reddit" href="#"><i class="fab fa-reddit-alien"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="detail-right">
+			<span class="detail-jp-name font-weight-bold">Title: &nbsp;<span class="font-weight-light"> [[${ movie.title
+					}]]
+				</span></span><br />
+			<span class="detail-jp-name font-weight-bold">Released: &nbsp;<span class="font-weight-light"> [[${
+					#dates.format(movie.release_date, 'dd-MM-yyyy') }]] </span></span><br />
+			<span class="detail-jp-name font-weight-bold">Duration: &nbsp;<span class="font-weight-light"> [[${
+					movie.duration_min }]]</span></span><br />
+			<span class="detail-jp-name font-weight-bold">Type: &nbsp;<span class="font-weight-light"> [[${
+					movie.type.movie_type_name }]] </span></span><br />
+			<span class="detail-jp-name font-weight-bold">IMDB: &nbsp;<span class="font-weight-light"> [[${
+					movie.imdb_rate }]] </span></span><br />
+			<span class="detail-genres font-weight-bold">Genres: &nbsp;
+				<a th:each="g: ${movie.getMovie_genres() }" href="{{ url_for('genres', name=g.name) }}"
+					class="badge border border-light font-weight-light text-white mr-2"> [[${ g.genre.genre_name }]]
+				</a> </span><br />
+			<span class="detail-countries font-weight-bold">Countries: &nbsp;
+				<a th:each="c: ${ movie.getMovie_countries() }" href="{{ url_for('genres', name=g.name) }}"
+					class="badge border border-light font-weight-light text-white mr-2"> [[${ c.country.country_name }]]
+				</a> </span><br />
+			<span class="detail-producers font-weight-bold">Productions: &nbsp;
+				<a th:each="p: ${productions}" href="#"
+					class="badge border border-light font-weight-light text-white mr-2"> [[${ p }]] </a></span>
+		</div>
+	</div>
+
+	<div class="detail-seasons" th:if="${ movie.type.id == 2 }">
+		<h1>More Seasons</h1>
+		<div class="seasons">
+			<a th:each="s: ${#numbers.sequence(1, seasons, 1)}"
+				th:href="@{/movie/{slug}/{season} (slug=${movie.slug}, season=${s})}" class="season-item"
+				th:classappend="${season == s} ? current-season : ''" th:text="'Season ' + ${s}"></a>
+		</div>
+	</div>
+
+	<!-- Watching Content -->
+	<div id="watchContent">
+		<!-- Content 1 -->
+		<div class="watchContent__main">
+			<div class="watchContent__main-movies">
+				<div class="watchContent__main-movies-title">
+					<span class="watchContent__main-movies-title-heading">
+						Recommended for you
+					</span>
+				</div>
+
+				<div class="flex-movies">
+					<!-- Movies -->
+					<div class="watchContent__main-movies-films" th:each="rm: ${recommend_movies}">
+						<div class="box-img">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${rm.slug}, season=1) }"
+								class="watchContent__main-movies-films-img"><img th:src="${rm.poster}"
+									th:alt="${rm.title}" class="watchContent__main-movies-films-img-logo">
+								<div th:if="${rm.vip}" class="items-vip">VIP</div>
+								<div class="items-sub">SUB</div>
+								<div th:if="${rm.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep 
+									[[${ #lists.size(movie_ep.findByMovieAndSeasonAndServer(rm.id, 1, 1)) }]]</div>
+								<div th:unless="${rm.type.movie_type_name == 'TV-Series'}" class="items-parts">Full</div>
+								<i class="fa-solid fa-caret-right item-plays"></i>
+							</a>
+						</div>
+						<div class="watchContent__main-movies-films-content">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${rm.slug}, season=1) }"
+								rel="noopener noreferrer">
+								<h4 class="watchContent__main-movies-films-title">
+									[[${rm.title}]]</h4>
+							</a>
+							<span class="watchContent__main-movies-films-desc">
+								[[${rm.type.movie_type_name}]] <span
+									class="topFilms__items-details-descriptionDot"></span> [[${rm.duration_min}]]
+							</span>
+							<div class="watchContent__main-movies-films-items">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</main>
+
+</html>
+</body>
+
+</html>

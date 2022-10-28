@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html th:replace="~{/layout/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<main>
+		<style>
+		.watch::before{
+		    content: '';
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    background-image: url([[${movie.poster}]]);
+		    background-size: cover;
+		    background-position: center center;
+		    background-repeat: no-repeat;
+		    filter: blur(20px);
+		    opacity: .35;
+		}</style>
+		<div class="empty" style="padding-top: 70px;"></div>
+		<ul class="bread">
+			<li class="bread-item"><a th:href="@{/home}">Home</a></li>
+			<li class="bread-item"><i class="fas fa-circle"></i></li>
+			<li class="bread-item"><a href="#">[[${ movie.type.movie_type_name }]]</a></li>
+			<li class="bread-item"><i class="fas fa-circle"></i></li>
+			<li class="bread-item">[[${ movie.title }]]</li>
+		</ul>
+
+		<div class="watch">
+			<div class="we">
+				<ul class="list-eps">
+					<li class="list-eps-top">
+						<div class="search-box">
+							<i class="fas fa-search"></i>
+							<input class="search-ep-input" type="text" placeholder="Number of Ep">
+						</div>
+					</li>
+					<li>
+						<ul class="eps">
+							<li th:each="m, iter: ${movie_eps}" class="ep"
+								th:classappend="${iter.index + 1 == movie_ep.ep ? 'current' : 'none'}">
+								<a class="w-m"
+									th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-'+${m.ep})}">
+									<span class="mr-3 ml-1 font-weight-bold">[[${ iter.index + 1 }]]</span> [[${m.title}]]
+									<div th:if="${iter.index + 1 == movie_ep.ep}" class="ssli-btn">
+			                            <div class="btn btn-circle"><i class="fas fa-play"></i></div>
+			                        </div>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+				<div class="player watch-center">
+
+					<iframe id="my_video" width="1000" height="470" 
+							th:src="${server.getId() == 1} ? 'https://short.ink/'+${movie_ep.api_key} : 'https://slwatch.co/e/'+${movie_ep.api_key}"
+							frameborder="0" scrolling="0" allowfullscreen></iframe>
+
+					<div class="loading-body">
+						<div class="scene" style="--hue: 500; --saturation: 55; --lightness: 59;">
+							<div class="word">
+								<div class="letter_wrap" style="--index: 0;">
+									<div class="letter" data-letter="L"><span class="letter_panel"
+											aria-hidden="true">L</span><span class="letter_panel"
+											aria-hidden="true">W</span><span class="letter_panel"
+											aria-hidden="true">L</span><span class="letter_panel"
+											aria-hidden="true">W</span><span class="letter_panel"></span></div>
+								</div>
+								<div class="letter_wrap" style="--index: 1;">
+									<div class="letter" data-letter="o"><span class="letter_panel"
+											aria-hidden="true">o</span><span class="letter_panel"
+											aria-hidden="true">a</span><span class="letter_panel"
+											aria-hidden="true">o</span><span class="letter_panel"
+											aria-hidden="true">a</span><span class="letter_panel"></span></div>
+								</div>
+								<div class="letter_wrap" style="--index: 2;">
+									<div class="letter" data-letter="a"><span class="letter_panel"
+											aria-hidden="true">a</span><span class="letter_panel"
+											aria-hidden="true">i</span><span class="letter_panel"
+											aria-hidden="true">a</span><span class="letter_panel"
+											aria-hidden="true">i</span><span class="letter_panel"></span></div>
+								</div>
+								<div class="letter_wrap" style="--index: 3;">
+									<div class="letter" data-letter="d"><span class="letter_panel"
+											aria-hidden="true">d</span><span class="letter_panel"
+											aria-hidden="true">t</span><span class="letter_panel"
+											aria-hidden="true">d</span><span class="letter_panel"
+											aria-hidden="true">t</span><span class="letter_panel"></span></div>
+								</div>
+								<div class="letter_wrap" style="--index: 4;">
+									<div class="letter" data-letter="i"><span class="letter_panel"
+											aria-hidden="true">i</span><span class="letter_panel"
+											aria-hidden="true">.</span><span class="letter_panel"
+											aria-hidden="true">i</span><span class="letter_panel"
+											aria-hidden="true">.</span><span class="letter_panel"></span></div>
+								</div>
+								<div class="letter_wrap" style="--index: 5;">
+									<div class="letter" data-letter="n"><span class="letter_panel"
+											aria-hidden="true">n</span><span class="letter_panel"
+											aria-hidden="true">.</span><span class="letter_panel"
+											aria-hidden="true">n</span><span class="letter_panel"
+											aria-hidden="true">.</span><span class="letter_panel"></span></div>
+								</div>
+								<div class="letter_wrap" style="--index: 6;">
+									<div class="letter" data-letter="g"><span class="letter_panel"
+											aria-hidden="true">g</span><span class="letter_panel"
+											aria-hidden="true">.</span><span class="letter_panel"
+											aria-hidden="true">g</span><span class="letter_panel"
+											aria-hidden="true">.</span><span class="letter_panel"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="watch-setting">
+						<div class="watch-setting-top">
+							<div class="watch-setting-top-left">
+								<span><i class="fas fa-lightbulb"></i> Light <span class="turn turn-light"
+										style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;">On</span></span>
+								<span>Auto Play <span class="turn turn- turn-auto-play">On</span></span>
+								<span>Auto Next <span class="turn turn- turn-auto-next">On</span></span>
+							</div>
+							<div class="watch-setting-top-right">
+								<div class="watch-prev"><a href="#"><i class="fas fa-backward"></i></a></div>
+								<div class="watch-next"><a href="#"><i class="fas fa-forward"></i></a></div>
+								<div class="watch-plus"><i class="fas fa-plus"></i></div>
+							</div>
+						</div>
+
+						<div class="watch-setting-bottom">
+							<div class="watch-setting-bottom-left">You are watching <br /> <span
+									class="font-weight-bold">[[${ movie_ep.title }]]</span></div>
+							<div class="watch-setting-bottom-right">
+								<span><i class="fas fa-server"></i> SERVER: </span>
+								<div class="servers"><span class="btn-change-server mr-2" th:each="s: ${servers}" 
+													th:attr="data-movie=${movie.id}, data-server=${s.getId()}, data-ep=${movie_ep.ep}"
+													th:classappend="${server.getMovie_server_name() == s.movie_server_name} ? current-server : ''"
+													>[[${s.movie_server_name}]]</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="watch-seasons" th:if="${ movie.type.id == 2 }">
+							<p class="font-weight-bold">Watch more seasons of this movie</p>
+							<div class="seasons">
+								<a th:each="s: ${#numbers.sequence(1, seasons, 1)}"
+									th:href="@{/movie/{slug}/{season} (slug=${movie.slug}, season=${season})}"
+									class="season-item" th:classappend="${season == s} ? 'current-season' : ''"
+									th:text="'Season ' + ${s}"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="watch-detail">
+				<div class="poster">
+					<img th:src="${ movie.poster }" alt="">
+				</div>
+				<div class="watch-name">
+					<span>[[${ movie.title }]]</span>
+				</div>
+				<ul class="watch-info">
+					<li>
+						<span class="badge badge-warning mr-1" th:if="${movie.vip == true}">VIP</span>
+						<span class="badge border border-light text-light mr-1">[[${ movie.quality.quality_name
+							}]]</span>
+						<span class="badge border border-light text-light mr-1">SUB</span>
+					</li>
+					<li class="bread-item"><i class="fas fa-circle"></i></li>
+					<li><span>[[${ movie.type.movie_type_name }]]</span></li>
+					<li class="bread-item"><i class="fas fa-circle"></i></li>
+					<li><span th:if="${movie.type.movie_type_name == 'TV-Series'}">Ep [[${ #lists.size(movie_eps)
+							}]]</span>
+						<span th:unless="${movie.type.movie_type_name == 'TV-Series'}">Full</span>
+					</li>
+				</ul>
+				<div class="watch-desc">
+					<span data-read-more="{ visible: false, useStyledContainer: true }">[[${ movie.description
+						}]]</span>
+				</div>
+				<div class="link-detail">
+					<a th:href="@{/movie/{slug}/{season} (slug=${movie.slug}, season=${season})}">View detail</a>
+				</div>
+				<div class="watch-vote">
+					<div class="watch-vote-top">
+						<div>
+							<span>⭐ <span class="font-weight-bold">9.6</span> <span style="font-size:10px;">(234234
+									voted)</span></span>
+							<span class="font-weight-bold">Vote now</span>
+						</div>
+						<span style="font-size: 12px;">What do you think about movie?</span>
+					</div>
+					<div class="watch-vote-bot">
+						<a href="#"><span>🤬</span> <span style="font-size: 12px">***</span></a>
+						<a href="#"><span>🥱</span> <span style="font-size: 12px">Boring</span></a>
+						<a href="#"><span>😐</span> <span style="font-size: 12px">Normal</span></a>
+						<a href="#"><span>😀</span> <span style="font-size: 12px">Great</span></a>
+						<a href="#"><span>🤩</span> <span style="font-size: 12px">Amazing</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			document.querySelector('.eps').setAttribute("style",`height:${document.querySelector('.watch-center').clientHeight - document.querySelector('.list-eps-top').clientHeight}px`);
+		</script>
+	</main>
+</body>
+
+</html>
