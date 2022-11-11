@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html th:replace="~{/layout/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<main>
+		<!-- Search All Movies -->
+		<div id="searchAll">
+			<!-- Space -->
+			<div id="space"></div>
+
+			<!-- Contact Content -->
+			<div id="contactList">
+				<div class="contactList__gif">
+					<img src="/img/eating-popcorn-venom.gif" alt="gif-venom" class="contactList__gif-item">
+				</div>
+				<div class="contactList__share">
+					<span class="contactList__share-title">Share 404Movie</span>
+					<p class="contactList__share-desc">to your friends</p>
+				</div>
+				<div class="contactList__btn">
+					<div class="contactList__btn-icon">
+						<button class="contactList__btn-icon-facebooks">
+							<i class="fa-brands fa-facebook contactList__btn-icon-facebook"></i>
+							Facebook
+						</button>
+					</div>
+					<div class="contactList__btn-icon">
+						<button class="contactList__btn-icon-twitters">
+							<i class="fa-brands fa-twitter contactList__btn-icon-twitter"></i>
+							Twitter
+						</button>
+					</div>
+					<div class="contactList__btn-icon">
+						<button class="contactList__btn-icon-reddits">
+							<i class="fa-brands fa-reddit-alien contactList__btn-icon-reddit"></i>
+							Reddit
+						</button>
+					</div>
+					<div class="contactList__btn-icon">
+						<button class="contactList__btn-icon-telegrams">
+							<i class="fa-brands fa-telegram contactList__btn-icon-telegram"></i>
+							Telegram
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="searchAll-Movies">
+				<div class="watchContent__main">
+					<div class="watchContent__main-movies">
+
+						<div class="watchContent__main-movies-title">
+							<span class="watchContent__main-movies-title-heading">
+								[[${topic}]]
+							</span>
+						</div>
+
+						<div class="searchAll-Movies__new">
+							<!-- Movies 1 -->
+							<div class="watchContent__main-movies-films" th:each="movie, iter: ${movies}"
+								th:if="${#lists.size(movies) == 16 and iter.index < 4}">
+								<div class="box-img qtip-movie" th:attr="data-id=${movie.id}">
+									<a href="" class="watchContent__main-movies-films-img"><img th:src="${movie.poster}"
+											th:alt="${movie.title}"
+											class="watchContent__main-movies-films-img-logoSearch">
+										<div th:if="${movie.vip}" class="items-vip">VIP</div>
+										<div class="items-sub">SUB</div>
+										<div th:if="${movie.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep
+											[[${
+											#lists.size(movie_eps.findByMovieAndSeasonAndServer(movie.id, 1, 1)) }]]
+										</div>
+										<div th:unless="${movie.type.movie_type_name == 'TV-Series'}"
+											class="items-parts">Full
+										</div>
+										<i class="fa-solid fa-caret-right item-plays"></i>
+									</a>
+								</div>
+								<div class="watchContent__main-movies-films-contentSearch">
+									<a href="" target="_blank" rel="noopener noreferrer">
+										<h4 class="watchContent__main-movies-films-title">[[${movie.title}]]</h4>
+									</a>
+									<span class="watchContent__main-movies-films-desc">
+										[[${movie.type.movie_type_name}]] <span
+											class="topFilms__items-details-descriptionDot"></span>
+										[[${movie.duration_min}]]
+									</span>
+									<div class="watchContent__main-movies-films-items">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="flex-movies">
+							<!-- Movies 12 -->
+							<div class="watchContent__main-movies-films" th:each="movie, iter: ${movies}"
+								th:if="${#lists.size(movies) < 16 ? iter.index == iter.index : iter.index >= 4}">
+								<div class="box-img qtip-movie" th:attr="data-id=${movie.id}">
+									<a href="" class="watchContent__main-movies-films-img"><img th:src="${movie.poster}"
+											th:alt="${movie.title}" class="watchContent__main-movies-films-img-logo">
+										<div th:if="${movie.vip}" class="items-vip">VIP</div>
+										<div class="items-sub">SUB</div>
+										<div th:if="${movie.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep
+											[[${
+											#lists.size(movie_eps.findByMovieAndSeasonAndServer(movie.id, 1, 1)) }]]
+										</div>
+										<div th:unless="${movie.type.movie_type_name == 'TV-Series'}"
+											class="items-parts">Full
+										</div>
+										<i class="fa-solid fa-caret-right item-plays"></i>
+									</a>
+								</div>
+								<div class="watchContent__main-movies-films-content">
+									<a href="" target="_blank" rel="noopener noreferrer">
+										<h4 class="watchContent__main-movies-films-title">[[${movie.title}]]</h4>
+									</a>
+									<span class="watchContent__main-movies-films-desc">
+										[[${movie.type.movie_type_name}]] <span
+											class="topFilms__items-details-descriptionDot"></span>
+										[[${movie.duration_min}]]
+									</span>
+									<div class="watchContent__main-movies-films-items">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Paging -->
+						<div th:replace="/utilities/paginate::.paginate"></div>
+
+					</div>
+
+					<div class="watchContent__main-sidebar">
+						<div class="watchContent__main-sidebar-title">Most Viewed</div>
+						<div class="watchContent__main-sidebar-mostView">
+							<div class="watchContent__main-sidebar-mostView-header">
+								<a href="" class="watchContent__main-sidebar-mostView-header-today"><span
+										class="today">Today</span></a>
+								<a href="" class="watchContent__main-sidebar-mostView-header-week"><span
+										class="week">Week</span></a>
+								<a href="" class="watchContent__main-sidebar-mostView-header-month"><span
+										class="month">Month</span></a>
+							</div>
+
+							<div class="watchContent__main-sidebar-mostView-content"
+								th:each="mostView, iter: ${mostViews}">
+								<h2 class="watchContent__main-sidebar-mostView-content-top" th:with="num=${iter.index}">
+									[[${#numbers.formatInteger(#strings.toString(num + 1), 2)}]]</h2>
+								<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }"
+									class="watchContent__main-sidebar-mostView-content-img"><img
+										th:src="${mostView.poster}" th:alt="${mostView.title}"
+										class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+								<div class="watchContent__main-sidebar-mostView-content-desc">
+									<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }">
+										<h3 class="watchContent__main-sidebar-mostView-content-descTitle">
+											[[${mostView.title}]]</h3>
+									</a>
+									<div>
+										<span class="watchContent__main-sidebar-mostView-content-descViews">
+											<i class="fa-sharp fa-solid fa-eye"></i>
+											234,674
+										</span>
+										<span class="watchContent__main-sidebar-mostView-content-descViews">
+											<i class="fa-solid fa-heart"></i>
+											39.301
+										</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+	</main>
+</body>
+
+</html>

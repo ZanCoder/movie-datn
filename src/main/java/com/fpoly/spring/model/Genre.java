@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +24,8 @@ public class Genre {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	String genre_name;
+	String genre_slug;
 	@OneToMany(mappedBy="genre")
+	@JsonIgnore
 	private List<Movie_Genre> movie_genres;
 }

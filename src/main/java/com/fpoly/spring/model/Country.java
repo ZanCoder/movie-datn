@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +23,8 @@ public class Country {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	String country_name;
+	String country_slug;
 	@OneToMany(mappedBy="country")
+	@JsonIgnore
 	private List<Movie_Country> movie_countries;
 }

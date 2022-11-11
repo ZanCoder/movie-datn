@@ -56,12 +56,34 @@
 				<li><span>[[${ movie.duration_min }]]</span></li>
 			</ul>
 			<ul class="detail-buttons">
-				<span class="detail-watch mr-2"><a class="text-dark"
+							
+				<span sec:authorize="isAuthenticated()">
+					<span th:if="${movie.vip} == false" class="detail-watch mr-2"><a class="text-dark" 
 						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
-							class="fas fa-play-circle mr-2"></i>Watch
-						now</a></span>
+								class="fas fa-play-circle mr-2"></i>Watch now</a></span>
+								
+					<span th:if="${movie.vip} == true and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} == 0" class="detail-watch mr-2"><a class="text-dark open-purchaseModal" 
+						data-toggle="modal" data-target="#modalconfirm-purchase" 
+						th:attr="data-movieId=${movie.id}, data-movieTitle=${movie.title}, data-movieBudget=${movie.budget}"
+						href="javascript:void(0);"><i class="fas fa-play-circle mr-2"></i>Buy [[${ movie.budget }]] coin</a></span>
+						
+					<span th:if="${movie.vip} == true and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} != 0" class="detail-watch mr-2"><a class="text-dark" 
+						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i class="fas fa-play-circle mr-2"></i>Watch now</a></span>
+				</span>
+				
+				<span sec:authorize="isAnonymous()">
+					<span th:if="${movie.vip} == false" class="detail-watch mr-2"><a class="text-dark" 
+					th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
+							class="fas fa-play-circle mr-2"></i>Watch now</a></span>
+							
+					<span th:if="${movie.vip} == true" class="detail-watch mr-2"><a class="text-dark open-purchaseModal" 
+						data-toggle="modal" data-target="#modallogin" 
+						href="javascript:void(0);"><i class="fas fa-play-circle mr-2"></i>Buy [[${ movie.budget }]] coin</a></span>
+				</span>
+				
 				<span class="detail-add-to-list"><a class="text-dark"><i class="fas fa-plus mr-2"></i>Add to
 						list</a></span>
+						
 			</ul>
 			<div class="detail-desc">
 				<span data-read-more="{ visible: false, useStyledContainer: true }">[[${ movie.description }]]</span>

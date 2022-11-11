@@ -1,0 +1,113 @@
+<div id="qtip" class="qtip qtip-default qtip-pos-tl qtip-fixed qtip-pos-bl qtip-focus qtip-hover" tracking="false"
+	role="alert" aria-live="polite" aria-atomic="false" aria-describedby="qtip-1-content" aria-hidden="false"
+	data-qtip-id="1" style="width: 300px;z-index: 15096;top: 574.75px;left: 368px;display: block;">
+	<div class="qtip-tip" style="display: none"><canvas></canvas></div>
+	<div class="qtip-content" id="qtip-1-content" aria-atomic="true">
+		<div class="pre-qtip-content">
+			<div class="pre-qtip-title">
+				<span>[[${movie.title}]]</span>
+			</div>
+			<div class="pre-qtip-detail">
+				<span class="pqd-li mr-3"><i class="fas fa-star mr-1 text-warning"></i>[[${movie.rate}]]</span>
+
+				<span class="pqd-li" th:if="${movie.type.id == 2}">Ep [[${ #lists.size(movie_eps) }]]</span>
+				<span class="pqd-li" th:unless="${movie.type.id == 2}">Full</span>
+
+				<span class="pqd-li text-dark badge-quality float-right ml-2">[[${movie.type.movie_type_name}]]</span>
+				<div class="clearfix"></div>
+			</div>
+			<div class="pre-qtip-description">
+				<span>[[${movie.description}]]</span>
+			</div>
+
+			<div class="pre-qtip-line">
+				<span class="stick">IMDB:</span>
+				<span class="stick-text">[[${movie.imdb_rate}]]</span>
+			</div>
+
+			<div class="pre-qtip-line">
+				<span class="stick">Released:</span>
+				<span class="stick-text">[[${ #dates.format(movie.release_date, 'dd-MM-yyyy') }]]</span>
+			</div>
+
+			<div class="pre-qtip-line">
+				<span class="stick">Status:</span>
+				<span class="stick-text">[[${movie.status.status_name}]]</span>
+			</div>
+
+			<div class="pre-qtip-line">
+				<span class="stick">Duration:</span>
+				<span class="stick-text">[[${movie.duration_min}]]</span>
+			</div>
+
+			<div class="pre-qtip-line">
+				<span class="stick">Genres:</span>
+				<a th:each="g, tier: ${movie.getMovie_genres() }" href="#" th:title="${g.genre.genre_name}"
+					th:text="!${tier.last} ? ${g.genre.genre_name} + ', ': ${g.genre.genre_name}">
+				</a>
+			</div>
+			<div class="pre-qtip-button">
+
+				<span sec:authorize="isAuthenticated()">
+					<a th:if="${movie.vip} == false"
+						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep='1-1')}"
+						class="btn btn-block btn-play">
+						<i class="fa fa-play mr-2" style="font-size: 15px"></i>Watch now</a>
+
+					<a th:if="${movie.vip} == true and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} == 0"
+						th:href="@{ /movie/{slug}/{season} (slug=${movie.slug}, season=1) }"
+						class="btn btn-block btn-play">
+						<i class="fa fa-play mr-2" style="font-size: 15px"></i>Buy now</a>
+
+					<a th:if="${movie.vip} == true and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} != 0"
+						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep='1-1')}"
+						class="btn btn-block btn-play">
+						<i class="fa fa-play mr-2" style="font-size: 15px"></i>Watch now</a>
+
+					<div class="dr-tip-fav" id="wl-qtip-100">
+						<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							class="btn btn-block btn-fav">
+							<i class="fas fa-plus"></i>
+						</a>
+
+						<div class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list">
+							<a class="wl-item dropdown-item added" data-type="1" data-movieid="100" data-page="qtip"
+								href="javascript:;">Watching<i class="fas fa-check ml-2"></i>
+							</a>
+
+							<a class="wl-item dropdown-item" data-type="2" data-movieid="100" data-page="qtip"
+								href="javascript:;">On-Hold
+							</a>
+
+							<a class="wl-item dropdown-item" data-type="3" data-movieid="100" data-page="qtip"
+								href="javascript:;">Plan to watch
+							</a>
+
+							<a class="wl-item dropdown-item" data-type="4" data-movieid="100" data-page="qtip"
+								href="javascript:;">Dropped
+							</a>
+
+							<a class="wl-item dropdown-item" data-type="5" data-movieid="100" data-page="qtip"
+								href="javascript:;">Completed
+							</a>
+
+							<a class="wl-item dropdown-item text-danger" data-page="qtip" data-movieid="100"
+								href="javascript:;" data-type="0">Remove</a>
+						</div>
+					</div>
+				</span>
+
+				<span sec:authorize="isAnonymous()">
+					<a th:if="${movie.vip} == false"
+						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep='1-1')}"
+						class="btn btn-block btn-play">
+						<i class="fa fa-play mr-2" style="font-size: 15px"></i>Watch now</a>
+
+					<a th:if="${movie.vip} == true" th:href="@{ /movie/{slug}/{season} (slug=${movie.slug}, season=1) }"
+						class="btn btn-block btn-play">
+						<i class="fa fa-play mr-2" style="font-size: 15px"></i>Buy now</a>
+				<span>
+			</div>
+		</div>
+	</div>
+</div>

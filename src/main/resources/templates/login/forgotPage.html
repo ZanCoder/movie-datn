@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<body>
+	<form id="forgot-form" type="POST">
+		<input type="email" name="f_email" id="f_email" />
+		<span id="forgot-recaptcha" class="g-recaptcha col-sm-5"
+          	th:attr="data-sitekey=${@captchaSettings.getSite()}"></span>
+		<button type="submit">Submit</button>
+	</form>
+	
+	<script>
+      		$(document).on('submit', '#forgot-form', function(e){
+		        e.preventDefault();
+				var data = {};
+				
+				data['email'] = $("#f_email").val();
+				data['recaptcha'] = $('#forgot-recaptcha .g-recaptcha-response').val();
+				
+		        $.ajax({
+		            type: 'POST',
+		            url: "/forgot",
+		            data: {email: data.email, recaptcha: data.recaptcha}, 
+		            success: function(response){
+		            	console.log(response);
+		            }
+		        });
+		    });
+      </script>
+</body>
+</html>

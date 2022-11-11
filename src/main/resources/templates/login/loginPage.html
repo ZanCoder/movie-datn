@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title>Login</title>
+   </head>
+   <script src='https://www.google.com/recaptcha/api.js'></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+   <body>
+      <h1>Login</h1>
+      
+      <div id="a" style="color:red;margin:10px 0px;">
+         
+      </div>
+     
+      <h3>Enter user name and password:</h3>
+      <form id="login-form" name="loginForm" method="POST">
+         <table>
+            <tr>
+               <td>Email:</td>
+               <td><input id="email" type="email" name="email" value=""></td>
+            </tr>
+            <tr>
+               <td>Password:</td>
+               <td><input id="password" type="password" name="password" /></td>
+            </tr>
+            <tr>
+               <td>Remember Me?</td>
+               <td><input id="rememberme" type="checkbox" name="rememberme" /></td>
+            </tr>      
+             <tr>
+            	<td id="login-recaptcha" class="g-recaptcha col-sm-5"
+		          th:attr="data-sitekey=${@captchaSettings.getSite()}"></td>
+		        <td id="captchaError" class="alert alert-danger col-sm-4"></td>
+            </tr>      
+            <tr>
+               <td><input name="submit" type="submit" value="submit" /></td>
+            </tr>
+         </table>
+      </form>
+      
+      <br>
+      Username/pass:
+      <ul>
+        <li>nhatphat123/1</li>
+      </ul>  
+      
+      <script>
+      		$(document).on('submit', '#login-form', function(e){
+		        e.preventDefault();
+				var data = {};
+				
+				data['email'] = $("#email").val();
+				data['password'] = $("#password").val();
+				data['rememberme'] = $("#rememberme").val();
+				data['recaptcha'] = $('#login-recaptcha .g-recaptcha-response').val();
+				
+		        $.ajax({
+		            type: 'POST',
+		            url: "/j_spring_security_check",
+		            data: {emailAre: data.email + ',' + data.recaptcha, password: data.password}, 
+		            success: function(response){
+		            	var status = JSON.parse(response);
+		            	console.log(response);
+		                if(status['success'] == true) {
+		                	$('#a').text('Success!');
+		                }else{
+		                	$('#a').text('Failed!');
+		                }
+		            }
+		        });
+		    });
+      </script>
+   </body>
+   
+</html>

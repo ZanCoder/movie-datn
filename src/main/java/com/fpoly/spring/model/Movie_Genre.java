@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Movie_Genre {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int id;
+	long id;
 	@ManyToOne @JoinColumn(name="movie")
 	private Movie movie;
 	@ManyToOne @JoinColumn(name="genre")

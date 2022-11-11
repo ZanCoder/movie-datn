@@ -1,0 +1,120 @@
+<div class="modal fade premodal premodal-login" id="modallogin" tabindex="-1" role="dialog" aria-labelledby="modallogintitle" aria-hidden="true" style="font-size:14px">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="tab-content">
+                <div id="modal-tab-login" class="tab-pane active">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="modallogintitle">Welcome back!</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger mb-3 animated bounceIn" id="login-error" style="display: none;"></div>
+                        <form class="preform" id="login-form" method="POST" action="" novalidate>
+                            <div class="form-group">
+                                <label class="prelabel" for="email">EMAIL ADDRESS</label>
+                        		<input class="form-control" type="email" placeholder="name@gmail.com" id="login-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="prelabel" for="password">PASSWORD</label>
+                        		<input class="form-control" type="password" placeholder="password" id="login-password" required>
+                            </div>
+                            <div class="form-check custom-control custom-checkbox">
+                                <div class="float-left">
+                                    <input type="checkbox" name="remember" class="custom-control-input" id="remember" checked>
+			                        <label class="custom-control-label" for="remember">Remember me</label> 
+                                </div>
+                                <div class="float-right">
+                                    <a data-show="#modal-tab-forgot" class="link-highlight text-forgot forgot-tab-link">Forgot password?</a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div data-theme="dark" class="mb-3 mt-3" id="login-recaptcha"><div style="width: 304px; height: 78px; z-index:1000;">
+                            	<div data-theme="dark" class="g-recaptcha" th:attr="data-sitekey=${@captchaSettings.getSite()}"></div>
+                            </div></div>
+                            <div class="form-group login-btn mb-0">
+                                <button id="btn-login" class="btn btn-primary btn-block" type="submit">Login</button>
+                                <div th:replace="/utilities/loading-popup::.loading-relative(content='login-loading')"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer text-center">
+                        Don't have an account? <a data-show="#modal-tab-register" class="link-highlight register-tab-link" title="Register">Register</a>
+                    </div>
+                </div>
+
+                <div id="modal-tab-register" class="tab-pane">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="modallogintitle2">Create an Account</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger mb-3 animated bounceIn" id="register-error" style="display: none;"></div>
+                        <div class="alert alert-success mb-3 animated bounceIn" id="register-success" style="display: none;"></div>
+                        <form th:object="${registerForm}" class="preform" method="post" id="register-form" name="registerForm">
+                            <div class="form-group">
+                                <label class="prelabel" for="re-username">USERNAME</label>
+                        		<input th:field="*{username}" class="form-control" type="text" placeholder="username" id="re-username">
+                            </div>
+                            <div class="form-group">
+                                <label class="prelabel" for="re-email">EMAIL ADDRESS</label>
+                        		<input th:field="*{email}" class="form-control" type="email" placeholder="name@email.com" id="re-email">
+                            </div>
+                            <div class="form-group">
+                                <label class="prelabel" for="re-password">PASSWORD</label>
+                        		<input th:field="*{password}" class="form-control" type="password" placeholder="password" id="re-password">
+                            </div>
+                            <div class="form-group">
+                                <label class="prelabel" for="re-confirmpassword">CONFIRM PASSWORD</label>
+                        		<input th:field="*{confirmPassword}" class="form-control" type="password" placeholder="confirm password" id="re-confirmpassword">
+                            </div>
+                            <div data-theme="dark" class="mb-3 mt-3" id="register-recaptcha"><div style="width: 304px; height: 78px; z-index:1000;">
+                            	<div data-theme="dark" class="g-recaptcha" th:attr="data-sitekey=${@captchaSettings.getSite()}" name="recaptcha"></div>
+							</div></div>
+                            <div class="form-group login-btn mb-0">
+                               <button id="btn-login" class="btn btn-primary btn-block" type="submit">Register</button>
+                                <div th:replace="/utilities/loading-popup::.loading-relative(content='register-loading')"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer text-center">
+                        Have an account? <a data-show="#modal-tab-login" class="link-highlight login-tab-link" title="Login">Login</a>
+                    </div>
+                </div>
+                <div id="modal-tab-forgot" class="tab-pane">
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="modallogintitle3">Reset Password</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding-bottom: 20px;">
+                    	<div class="alert alert-danger mb-3 animated bounceIn" id="forgot-error" style="display: none;"></div>
+                        <div class="alert alert-success mb-3 animated bounceIn" id="forgot-success" style="display: none;"></div>
+                        <form class="preform" method="POST" id="forgot-form">
+                            <div class="alert alert-success mb-3" id="forgot-success" style="display:none"></div>
+                            <div class="alert alert-danger mb-3" id="forgot-error" style="display:none"></div>
+                            <div class="form-group">
+                                <label class="prelabel" for="forgot-email">EMAIL ADDRESS</label>
+                        		<input class="form-control" type="email" placeholder="name@email.com" id="forgot-email">  
+                            </div>
+                            <div data-theme="dark" class="mb-3 mt-3" id="forgot-recaptcha"><div style="width: 304px; height: 78px; z-index:1000;">
+                            	<div data-theme="dark" class="g-recaptcha" th:attr="data-sitekey=${@captchaSettings.getSite()}" name="recaptcha"></div>             	
+                            </div></div>
+                            <div class="form-group login-btn mb-0">
+                                <button id="btn-login" class="btn btn-primary btn-block" type="submit">Reset</button>
+                                <div th:replace="/utilities/loading-popup::.loading-relative(content='forgot-loading')"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <a data-show="#modal-tab-login" class="link-highlight login-tab-link" title=""><i class="fas fa-angle-left mr-2"></i>Back to Sign-in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

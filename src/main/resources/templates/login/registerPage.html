@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title th:utext="${title}"></title>
+      <style>
+         th, td {
+         padding: 5px;
+         }
+         td span  {
+         font-size:90%;
+         font-style: italic;
+         color: red;
+         }
+         .error {
+         color: red;
+         font-style: italic;
+         }
+      </style>
+   </head>
+   <script src='https://www.google.com/recaptcha/api.js'></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+   <body>
+      
+      <h2>Register</h2>
+      
+      <div th:if="${errorMessage != null}" th:utext="${errorMessage}" class="re-error"></div>
+      
+      <form id="register-form" th:object="${registerForm}" method="POST" name="registerForm">
+         <table>
+            <tr>
+               <td>User Name</td>
+               <td><input id="username" type="text" th:field="*{username}" name="username"/></td>
+            </tr>
+            <tr>
+               <td>Password</td>
+               <td><input id="password" type="password" th:field="*{password}" name="password"/> </td>
+            </tr>
+            <tr>
+               <td>Confirm</td>
+               <td><input id="confirmPassword" type="password" th:field="*{confirmPassword}" name="confirmPassword"/> </td>
+            </tr>
+            <tr>
+               <td>Email</td>
+               <td><input id="email" type="text" th:field="*{email}" email="email"/> </td>
+            </tr>
+            <tr>
+            	<td id="register-recaptcha" class="g-recaptcha col-sm-5"
+		          th:attr="data-sitekey=${@captchaSettings.getSite()}"></td>
+		        <td id="captchaError" class="alert alert-danger col-sm-4"></td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+               <td>
+                  <input type="submit" value="Submit" />
+                  <a th:href="@{/}">Cancel</a>
+               </td>
+               <td>&nbsp;</td>
+            </tr>
+         </table>
+      </form>
+      
+      <script>
+      		$(document).on('submit', '#register-form', function(e){
+		        e.preventDefault();
+				var data = {};
+				data['username'] = $("#username").val();
+				data['password'] = $("#password").val();
+				data['email'] = $("#email").val();
+				data['confirmPassword'] = $("#confirmPassword").val();
+				data['recaptcha'] = $('#register-recaptcha .g-recaptcha-response').val();
+				
+		        $.ajax({
+		            type: 'POST',
+		            url: "/register",
+		            contentType:'application/json;charset=utf-8',
+		            data: JSON.stringify(data), 
+		            success: function(response){
+		                console.log(response);
+		            }
+		        });
+		    });
+      </script>
+   </body>
+</html>

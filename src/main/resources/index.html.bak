@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Movies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="header__menu">
+                <button onclick="openBtn()"><i class="fa-solid fa-bars header__menu-icon"></i></button>
+            </div>
+            <div class="header__logo">
+                <a href=""><img src="./assets/img/logo.png" alt="img-logo" class="header_logo-img"></a>
+            </div>
+            <div class="header__search">
+                <input type="text" placeholder="Search movie..." class="header__search-input">
+                <a href="" class="header__search-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
+
+                <!-- Search Result -->
+                <div class="header__search-result">
+                    <!-- Result 1 -->
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                        <div class="header__search-result-items">
+                            <img src="https://img.zorores.com/_r/300x400/100/a3/dd/a3dd11265bb0ca3af7a23125ecfcae15/a3dd11265bb0ca3af7a23125ecfcae15.jpg"
+                                alt="" class="header__search-result-items-logo">
+                            <div class="flex-search">
+                                <h3 class="header__search-result-items-title">ABCiee Working Diary</h3>
+                                <div class="header__search-result-items-name">Abciee Shuugyou Nikki</div>
+                                <div class="header__search-result-items-infor">
+                                    <span>Jan 7, 2021</span>
+                                    <i class="dot"></i>
+                                    TV
+                                    <i class="dot"></i>
+                                    <span>2m</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+
+                    <!-- Result 2 -->
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                        <div class="header__search-result-items">
+                            <img src="https://img.zorores.com/_r/300x400/100/a3/dd/a3dd11265bb0ca3af7a23125ecfcae15/a3dd11265bb0ca3af7a23125ecfcae15.jpg"
+                                alt="" class="header__search-result-items-logo">
+                            <div class="flex-search">
+                                <h3 class="header__search-result-items-title">ABCiee Working Diary</h3>
+                                <div class="header__search-result-items-name">Abciee Shuugyou Nikki</div>
+                                <div class="header__search-result-items-infor">
+                                    <span>Jan 7, 2021</span>
+                                    <i class="dot"></i>
+                                    TV
+                                    <i class="dot"></i>
+                                    <span>2m</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Views All Result -->
+                    <div class="header__search-result-viewAll">
+                        <a href="_searchAll.html" class="header__search-result-viewAll-link">View all results <i
+                                class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="header__contacts">
+                <div class="header__contacts-background-discord">
+                    <a href="" target="_blank" class="header__contacts-icons"><i class="fa-brands fa-discord"></i></a>
+                </div>
+                <div class="header__contacts-background-telegram">
+                    <a href="" target="_blank" class="header__contacts-icons"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+                <div class="header__contacts-background-reddit">
+                    <a href="" target="_blank" class="header__contacts-icons"><i class="fab fa-reddit-alien"></i></a>
+                </div>
+                <div class="header__contacts-background-twitter">
+                    <a href="" target="_blank" class="header__contacts-icons"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="header__functions">
+                <a href="" class="header__functions-icons">
+                    <div class="header__functions-icons-watch">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <div class="header__functions-icons-name right-name">
+                        Watch2gether
+                    </div>
+                </a>
+                <a href="" class="header__functions-icons">
+                    <div class="header__functions-icons-watch right-random">
+                        <i class="fa-solid fa-shuffle"></i>
+                    </div>
+                    <div class="header__functions-icons-name">
+                        Random
+                    </div>
+                </a>
+                <a href="" class="header__functions-icons">
+                    <div class="header__functions-icons-watch">
+                        <i class="fa-solid fa-comment"></i>
+                    </div>
+                    <div class="header__functions-icons-name">
+                        Community
+                    </div>
+                </a>
+                <div class="header__functions-btn">
+                    <button class="header__functions-donate-btn js-modal-rechargeBtn">Recharge</button>
+                </div>
+            </div>
+            <div class="header__search-rps"><a href=""><i class="fa-solid fa-magnifying-glass"></i></a></div>
+            <div class="header__login">
+                <button class="header__login-btn js-modal-login">Login</button>
+            </div>
+        </header>
+
+        <!-- Slider -->
+        <div id="slider">
+            <!-- Spotlight 1 -->
+            <div class="slider__background">
+                <img src="https://img.zorores.com/_r/1366x768/100/ed/bb/edbb6d921cc766ae3f5e36b55a2e30df/edbb6d921cc766ae3f5e36b55a2e30df.jpg"
+                    alt="Background-Slider" class="slider__background-style">
+                <div class="slider__content">
+                    <div class="slider__content-number">
+                        #1 Spotlight
+                    </div>
+                    <div class="slider__content-title">
+                        Jujutsu Kaisen (TV)
+                    </div>
+                    <div class="slider__content-time">
+                        <pan class="slider__content-time-play"><i
+                                class="fa-solid fa-circle-play slider__content-time-icon"></i> TV</pan>
+                        <pan class="slider__content-time-oclock"><i
+                                class="fa-solid fa-clock slider__content-time-icon"></i> 23m</pan>
+                        <pan class="slider__content-time-years"><i
+                                class="fa-solid fa-calendar-days slider__content-time-icon"></i> Oct 3, 2020</pan>
+                        <div class="slider-background-hd">
+                            <pan class="slider__content-time-hd">HD</pan>
+                        </div>
+                        <div class="slider-background-sub">
+                            <pan class="slider__content-time-sub">SUB</pan>
+                        </div>
+                        <div class="slider-background-dub">
+                            <pan class="slider__content-time-dub">DUB</pan>
+                        </div>
+                    </div>
+                    <div class="slider__content-description">
+                        Idly indulging in baseless paranormal activities with the Occult Club, high schooler Yuuji
+                        Itadori
+                        spends his days at either the clubroom or the hospital, where he visits his bedridden
+                        grandfather.
+                        However, this leisurely lifestyle soon takes a turn for the strange when he unknowingly
+                        encounters a
+                        cursed item. Triggering a chain of supernatural occurrences, Yuuji finds himself suddenly
+                        thrust
+                        into the world of Curses—dreadful beings formed from human malice and negativity—after
+                        swallowing
+                        the said item, revealed to be a finger belonging to the demon Sukuna Ryoumen, the "King of
+                        Curses."
+                        Yuuji experiences first-hand the threat these Curses pose to society as he discovers his own
+                        newfound powers. Introduced to the Tokyo Metropolitan Jujutsu Technical High School, he
+                        begins
+                        to
+                        walk down a path from which he cannot return—the path of a Jujutsu sorcerer.
+                        [Written by MAL Rewrite]
+
+                    </div>
+                </div>
+                <div class="slider__content-btn-play">
+                    <div class="slider__content-playBtn">
+                        <div class="slider__content-playBtn-watch">
+                            <button class="slider__content-playBtn-watch-btn">
+                                <i class="fa-solid fa-circle-play"></i>
+                                Watch Now
+                            </button>
+                        </div>
+                        <div class="slider__content-playBtn-detail">
+                            <button class="slider__content-playBtn-detail-btn">
+                                Detail
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spotlight 2 -->
+            <div class="slider__background">
+                <img src="https://img.zorores.com/_r/1366x768/100/0b/10/0b1050c4e94c5be68e58856518940454/0b1050c4e94c5be68e58856518940454.jpg"
+                    alt="Background-Slider" class="slider__background-style">
+                <div class="slider__content">
+                    <div class="slider__content-number">
+                        #2 Spotlight
+                    </div>
+                    <div class="slider__content-title">
+                        Spy x Family, Part 2
+                    </div>
+                    <div class="slider__content-time">
+                        <pan class="slider__content-time-play"><i
+                                class="fa-solid fa-circle-play slider__content-time-icon"></i> TV</pan>
+                        <pan class="slider__content-time-oclock"><i
+                                class="fa-solid fa-clock slider__content-time-icon"></i> 23m</pan>
+                        <pan class="slider__content-time-years"><i
+                                class="fa-solid fa-calendar-days slider__content-time-icon"></i> Oct 1, 2022</pan>
+                        <div class="slider-background-hd">
+                            <pan class="slider__content-time-hd">HD</pan>
+                        </div>
+                        <div class="slider-background-sub">
+                            <pan class="slider__content-time-sub">SUB</pan>
+                        </div>
+                        <div class="slider-background-dub">
+                            <pan class="slider__content-time-dub">DUB</pan>
+                        </div>
+                    </div>
+                    <div class="slider__content-description">
+                        The master spy codenamed has spent his days on undercover missions, all for the dream of a
+                        better world. But one day, he receives a particularly difficult new order from command. For his
+                        mission, he must form a temporary family and start a new life?! A Spy/Action/Comedy about a
+                        one-of-a-kind family!
+
+                    </div>
+                </div>
+                <div class="slider__content-btn-play">
+                    <div class="slider__content-playBtn">
+                        <div class="slider__content-playBtn-watch">
+                            <button class="slider__content-playBtn-watch-btn">
+                                <i class="fa-solid fa-circle-play"></i>
+                                Watch Now
+                            </button>
+                        </div>
+                        <div class="slider__content-playBtn-detail">
+                            <button class="slider__content-playBtn-detail-btn">
+                                Detail
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Next - Previous -->
+            <div class="slider__content-btn-view">
+                <div class="slider__content-viewBtn">
+                    <div class="slider__content-viewBtn-next">
+                        <button class="slider__content-viewBtn-next-btn" onclick="plusDivs(1)">
+                            <i class="fa-solid fa-chevron-right slider__content-viewBtn-next-btn-icon"></i>
+                        </button>
+                    </div>
+                    <div class="slider__content-viewBtn-back">
+                        <button class="slider__content-viewBtn-back-btn" onclick="plusDivs(-1)">
+                            <i class="fa-solid fa-chevron-left slider__content-viewBtn-back-btn-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background RGBA -->
+        <div id="background-rgba"></div>
+
+        <!-- Movies Trending -->
+        <div id="moviesTrending">
+            <h2 class="moviesTrending__title">Trending</h2>
+
+            <div class="moviesTrending__list">
+                <!-- 1 Trending -->
+                <div class="moviesTrending__list-items">
+                    <div class="moviesTrending__list-items-title">
+                        Chainsaw Man
+                    </div>
+                    <div class="moviesTrending__list-items-number">
+                        01
+                    </div>
+                </div>
+                <div class="moviesTrending__list-img">
+                    <a href=""><img
+                            src="https://img.zorores.com/_r/300x400/100/b3/da/b3da1326e07269ddd8d73475c5dabf2c/b3da1326e07269ddd8d73475c5dabf2c.jpg"
+                            alt="img-item" class="moviesTrending__list-img-item"></a>
+                </div>
+
+                <!-- 2 Trending -->
+                <div class="moviesTrending__list-items">
+                    <div class="moviesTrending__list-items-title">
+                        One Piece
+                    </div>
+                    <div class="moviesTrending__list-items-number">
+                        02
+                    </div>
+                </div>
+                <div class="moviesTrending__list-img">
+                    <a href=""><img
+                            src="https://img.zorores.com/_r/300x400/100/54/90/5490cb32786d4f7fef0f40d7266df532/5490cb32786d4f7fef0f40d7266df532.jpg"
+                            alt="img-item" class="moviesTrending__list-img-item"></a>
+                </div>
+
+                <!-- 3 Trending -->
+                <div class="moviesTrending__list-items">
+                    <div class="moviesTrending__list-items-title">
+                        Spy x Family, Part 2
+                    </div>
+                    <div class="moviesTrending__list-items-number">
+                        03
+                    </div>
+                </div>
+                <div class="moviesTrending__list-img">
+                    <a href=""><img
+                            src="https://img.zorores.com/_r/300x400/100/53/d2/53d283223e562b22a14023d8dc1e934d/53d283223e562b22a14023d8dc1e934d.jpg"
+                            alt="img-item" class="moviesTrending__list-img-item"></a>
+                </div>
+
+                <!-- 4 Trending -->
+                <div class="moviesTrending__list-items">
+                    <div class="moviesTrending__list-items-title">
+                        Bleach: Thousand-Year Blood War Arc
+                    </div>
+                    <div class="moviesTrending__list-items-number">
+                        04
+                    </div>
+                </div>
+                <div class="moviesTrending__list-img">
+                    <a href=""><img
+                            src="https://img.zorores.com/_r/300x400/100/10/1e/101ecbb80baf2e42cfb22595e0bee368/101ecbb80baf2e42cfb22595e0bee368.jpg"
+                            alt="img-item" class="moviesTrending__list-img-item"></a>
+                </div>
+
+                <!-- 5 Trending -->
+                <div class="moviesTrending__list-items">
+                    <div class="moviesTrending__list-items-title">
+                        Blue Lock
+                    </div>
+                    <div class="moviesTrending__list-items-number">
+                        05
+                    </div>
+                </div>
+                <div class="moviesTrending__list-img">
+                    <a href=""><img
+                            src="https://img.zorores.com/_r/300x400/100/fb/62/fb62eaa04d6bf4d4d66170200d7d7a68/fb62eaa04d6bf4d4d66170200d7d7a68.png"
+                            alt="img-item" class="moviesTrending__list-img-item"></a>
+                </div>
+
+                <!-- 6 Trending -->
+                <div class="moviesTrending__list-items">
+                    <div class="moviesTrending__list-items-title">
+                        Mob Psycho 100 III
+                    </div>
+                    <div class="moviesTrending__list-items-number">
+                        06
+                    </div>
+                </div>
+                <div class="moviesTrending__list-img">
+                    <a href=""><img
+                            src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                            alt="img-item" class="moviesTrending__list-img-item"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Content -->
+        <div id="contactList">
+            <div class="contactList__gif">
+                <img src="https://zoro.to/images/share-icon.gif" alt="gif-luffy" class="contactList__gif-item">
+            </div>
+            <div class="contactList__share">
+                <span class="contactList__share-title">Share Zoro</span>
+                <p class="contactList__share-desc">to your friends</p>
+            </div>
+            <div class="contactList__btn">
+                <div class="contactList__btn-icon">
+                    <button class="contactList__btn-icon-facebooks">
+                        <i class="fa-brands fa-facebook contactList__btn-icon-facebook"></i>
+                        Facebook
+                    </button>
+                </div>
+                <div class="contactList__btn-icon">
+                    <button class="contactList__btn-icon-twitters">
+                        <i class="fa-brands fa-twitter contactList__btn-icon-twitter"></i>
+                        Twitter
+                    </button>
+                </div>
+                <div class="contactList__btn-icon">
+                    <button class="contactList__btn-icon-reddits">
+                        <i class="fa-brands fa-reddit-alien contactList__btn-icon-reddit"></i>
+                        Reddit
+                    </button>
+                </div>
+                <div class="contactList__btn-icon">
+                    <button class="contactList__btn-icon-telegrams">
+                        <i class="fa-brands fa-telegram contactList__btn-icon-telegram"></i>
+                        Telegram
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disscusion -->
+        <div id="disscusion">
+            <div class="disscusion__img">
+                <img src="https://zoro.to/images/discussion.png" alt="logo-Zoro" class="disscusion__img-logo">
+            </div>
+            <div class="disscusion__Newtop">
+                <!-- <div class="disscusion__Newtop-newCmt">
+                    <button class="disscusion__Newtop-newCmt-btn">
+                        Newest Comments
+                    </button>
+                    <button class="disscusion__Newtop-topCmt-btn">
+                        Top Comments
+                    </button>
+                </div> -->
+
+                <!-- Comments 1 -->
+                <div class="disscusion__items">
+                    <div class="disscusion__items-infs">
+                        <div class="disscusion__items-infs-avt">
+                            <img src="https://img.zorores.com/_r/100x100/100/avatar/zoro_chibi/avatar2-04.png"
+                                alt="logo-avt" class="disscusion__items-infs-avt-logo">
+                        </div>
+                        <div class="disscusion__items-infs-title">
+                            <span class="disscusion__items-infs-title-role">
+                                <img src="https://zoro.to/images/level-a.png" alt="logo-role"
+                                    class="disscusion__items-infs-title-role-img">
+                            </span>
+                            <span class="disscusion__items-infs-title-name">
+                                Minato Namikaze
+                            </span>
+                            <div class="disscusion__items-infs-block">
+                                <div class="disscusion__items-infs-role">
+                                    <span class="disscusion__items-infs-roleName">
+                                        Angelfish
+                                    </span>
+                                    <span class="disscusion__items-infs-roleTime">
+                                        - a minute ago
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disscusion__items-cmt">
+                        yuri is angry beacause her mom scold at her when she was 6 or 5 year old the reason of that was
+                        dippresion not that she dont likes you if she dont liked her she ll be gone long why her mother
+                        is
+                        still with her simple beacause her mother loves yuri lmao
+                    </div>
+                    <div class="disscusion__items-nameFilms">
+                        <a href="" target="_blank" class="disscusion__items-nameFilms-link"><i
+                                class="fa-solid fa-file disscusion__items-nameFilms-icon"></i>
+                            Battle in 5 seconds after meeting.</a>
+                    </div>
+                </div>
+
+                <!-- Comments 2 -->
+                <div class="disscusion__items">
+                    <div class="disscusion__items-infs">
+                        <div class="disscusion__items-infs-avt">
+                            <img src="https://img.zorores.com/_r/100x100/100/avatar/one_piece/user-08.jpeg"
+                                alt="logo-avt" class="disscusion__items-infs-avt-logo">
+                        </div>
+                        <div class="disscusion__items-infs-title">
+                            <span class="disscusion__items-infs-title-role">
+                                <img src="https://zoro.to/images/level-a.png" alt="logo-role"
+                                    class="disscusion__items-infs-title-role-img">
+                            </span>
+                            <span class="disscusion__items-infs-title-name">
+                                Ichigo
+                            </span>
+                            <div class="disscusion__items-infs-block">
+                                <div class="disscusion__items-infs-role">
+                                    <span class="disscusion__items-infs-roleName">
+                                        Angelfish
+                                    </span>
+                                    <span class="disscusion__items-infs-roleTime">
+                                        - 5 hours ago
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disscusion__items-cmt">
+                        I read the manga before it was even popular, and it just makes me so happy that this manga
+                        already has an anime adaptation and getting its recognition! its like watching your child grow
+                        up. Hello I am Ichigo Kurosaki. For every like on this comment I will shout BANKAI
+                    </div>
+                    <div class="disscusion__items-nameFilms">
+                        <a href="" target="_blank" class="disscusion__items-nameFilms-link"><i
+                                class="fa-solid fa-file disscusion__items-nameFilms-icon"></i>
+                            Bleach: Thousand-Year Blood War Arc</a>
+                    </div>
+                </div>
+
+                <!-- Comments 3 -->
+                <div class="disscusion__items">
+                    <div class="disscusion__items-infs">
+                        <div class="disscusion__items-infs-avt">
+                            <img src="https://img.zorores.com/_r/100x100/100/avatar/zoro_chibi/avatar2-06.png"
+                                alt="logo-avt" class="disscusion__items-infs-avt-logo">
+                        </div>
+                        <div class="disscusion__items-infs-title">
+                            <span class="disscusion__items-infs-title-role">
+                                <img src="https://zoro.to/images/level-a.png" alt="logo-role"
+                                    class="disscusion__items-infs-title-role-img">
+                            </span>
+                            <span class="disscusion__items-infs-title-name">
+                                why.. just why
+                            </span>
+                            <div class="disscusion__items-infs-block">
+                                <div class="disscusion__items-infs-role">
+                                    <span class="disscusion__items-infs-roleName">
+                                        Angelfish
+                                    </span>
+                                    <span class="disscusion__items-infs-roleTime">
+                                        - a minute ago
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disscusion__items-cmt">
+                        Yes yes yes yes yes yes yes yes yes YEEEEEEEEESS AFTER 2 YEARS IT CAME :)🍇. Lmao that mermaid
+                        is so weird. Interesting,
+                        I read the manga before it was even popular, and it just makes me so happy that this manga
+                        already has an anime adaptation!
+
+                    </div>
+                    <div class="disscusion__items-nameFilms">
+                        <a href="" target="_blank" class="disscusion__items-nameFilms-link"><i
+                                class="fa-solid fa-file disscusion__items-nameFilms-icon"></i>
+                            Battle in 5 seconds after meeting.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Films -->
+        <div id="topFilms">
+            <div class="topFilms-flex">
+                <!-- Box Films 1 -->
+                <div class="topFilms__items">
+                    <div class="topFilms__items-title">
+                        <h3 class="topFilms__items-title-airing">Top Airing</h3>
+                    </div>
+
+                    <!-- Details 1 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/10/1e/101ecbb80baf2e42cfb22595e0bee368/101ecbb80baf2e42cfb22595e0bee368.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Bleach: Thousand-Year Blood War
+                                Arc</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                        <div class="topFilms__items-vip">VIP</div>
+                    </div>
+
+                    <!-- Details 2 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/b3/da/b3da1326e07269ddd8d73475c5dabf2c/b3da1326e07269ddd8d73475c5dabf2c.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Chainsaw Man</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3/12 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">24m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 3 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/53/d2/53d283223e562b22a14023d8dc1e934d/53d283223e562b22a14023d8dc1e934d.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Spy x Family, Part 2</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 4/13 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 4 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/54/90/5490cb32786d4f7fef0f40d7266df532/5490cb32786d4f7fef0f40d7266df532.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">One Piece</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 1037 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">24m</span>
+                            </div>
+                        </div>
+                        <div class="topFilms__items-vip">VIP</div>
+                    </div>
+
+                    <!-- Details 5 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Mob Psycho 100 III</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topFilms__items-views">
+                        <a href="" class="topFilms__items-views-link">
+                            View more
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Box Films 2 -->
+                <div class="topFilms__items">
+                    <div class="topFilms__items-title">
+                        <h3 class="topFilms__items-title-airing">Most Popular</h3>
+                    </div>
+
+                    <!-- Details 1 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/de/bf/debf027d032c6d40b91fab16b2ff9bd4/debf027d032c6d40b91fab16b2ff9bd4.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Attack on Titan</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 25/25 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                        <div class="topFilms__items-vip">VIP</div>
+                    </div>
+
+                    <!-- Details 2 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/5e/61/5e61f3e7c0045e46b670d31a5bb39c68/5e61f3e7c0045e46b670d31a5bb39c68.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Death Note</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 37/37 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 3 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/0d/2d/0d2d0a1d4276e7e2595702dc4cebbda9/0d2d0a1d4276e7e2595702dc4cebbda9.jpeg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Fullmetal Alchemist: Brotherhood</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 64/64 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 4 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/f5/d1/f5d173f8317f592c6c70d594829b89e4/f5d173f8317f592c6c70d594829b89e4.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">One Punch Man</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 5 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/90/dc/90dca175561e61180622bc79218104cb/90dca175561e61180622bc79218104cb.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Sword Art Online</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topFilms__items-views">
+                        <a href="" class="topFilms__items-views-link">
+                            View more
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Box Films 3 -->
+                <div class="topFilms__items">
+                    <div class="topFilms__items-title">
+                        <h3 class="topFilms__items-title-airing">Most Favorite</h3>
+                    </div>
+
+                    <!-- Details 1 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/90/dc/90dca175561e61180622bc79218104cb/90dca175561e61180622bc79218104cb.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Sword Art Online</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 2 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/10/1e/101ecbb80baf2e42cfb22595e0bee368/101ecbb80baf2e42cfb22595e0bee368.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Bleach: Thousand-Year Blood War
+                                Arc</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 3 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/5e/61/5e61f3e7c0045e46b670d31a5bb39c68/5e61f3e7c0045e46b670d31a5bb39c68.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Death Note</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 37/37 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                        <div class="topFilms__items-vip">VIP</div>
+                    </div>
+
+                    <!-- Details 4 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/53/d2/53d283223e562b22a14023d8dc1e934d/53d283223e562b22a14023d8dc1e934d.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Spy x Family, Part 2</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 4/13 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 5 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/90/dc/90dca175561e61180622bc79218104cb/90dca175561e61180622bc79218104cb.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Sword Art Online</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                        <div class="topFilms__items-vip">VIP</div>
+                    </div>
+                    <div class="topFilms__items-views">
+                        <a href="" class="topFilms__items-views-link">
+                            View more
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Box Films 4 -->
+                <div class="topFilms__items">
+                    <div class="topFilms__items-title">
+                        <h3 class="topFilms__items-title-airing">Completed</h3>
+                    </div>
+
+                    <!-- Details 1 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/de/bf/debf027d032c6d40b91fab16b2ff9bd4/debf027d032c6d40b91fab16b2ff9bd4.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Attack on Titan</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 25/25 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                        <div class="topFilms__items-vip">VIP</div>
+                    </div>
+
+                    <!-- Details 2 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/5e/61/5e61f3e7c0045e46b670d31a5bb39c68/5e61f3e7c0045e46b670d31a5bb39c68.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Death Note</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 37/37 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 3 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/0d/2d/0d2d0a1d4276e7e2595702dc4cebbda9/0d2d0a1d4276e7e2595702dc4cebbda9.jpeg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Fullmetal Alchemist: Brotherhood</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 64/64 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details 4 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/f5/d1/f5d173f8317f592c6c70d594829b89e4/f5d173f8317f592c6c70d594829b89e4.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">One Punch Man</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                        <div class="topFilms__items-vip">VIP</div>
+                    </div>
+
+                    <!-- Details 5 -->
+                    <div class="topFilms__items-details">
+                        <div class="topFilms__items-details-img">
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <img src="https://img.zorores.com/_r/300x400/100/90/dc/90dca175561e61180622bc79218104cb/90dca175561e61180622bc79218104cb.jpg"
+                                    alt="logo-film" class="topFilms__items-details-img-logo">
+                            </a>
+                        </div>
+                        <div class="topFilms__items-details-title">
+                            <a href="" class="topFilms__items-details-title-link">Sword Art Online</a>
+                            <div class="topFilms__items-details-description">
+                                <span class="topFilms__items-details-descriptionTV">TV</span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionItem"> Ep 3 </span>
+                                <span class="topFilms__items-details-descriptionDot"></span>
+                                <span class="topFilms__items-details-descriptionDuration">23m</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topFilms__items-views">
+                        <a href="" class="topFilms__items-views-link">
+                            View more
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Watching Content -->
+        <div id="watchContent">
+            <!-- Content 1 -->
+            <div class="watchContent__main">
+                <div class="watchContent__main-movies">
+                    <div class="watchContent__main-movies-title">
+                        <span class="watchContent__main-movies-title-heading">
+                            Latest Episode
+                        </span>
+                        <a href="">
+                            <span class="watchContent__main-movies-title-viewmore">
+                                View more <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="flex-movies">
+                        <!-- Movies 1 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-dub">DUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Muv-Luv Alternative 2nd Season</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 2 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Do It Yourself!!</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 3 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Legendary Twins</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 4 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Love Flops</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 5 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Mob Psycho 100 III</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 6 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Immoral Guild</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 7 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Do It Yourself!!</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 8 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-dub">DUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Muv-Luv Alternative 2nd Season</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 9 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Love Flops</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 10 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Legendary Twins</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 11 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Immoral Guild</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 12 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Mob Psycho 100 III</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="watchContent__main-sidebar">
+                    <div class="watchContent__main-sidebar-title">Genres</div>
+                    <div class="watchContent__main-sidebar-items">
+                        <div class="watchContent__main-sidebar-items-key">
+                            <ul class="watchContent__main-sidebar-items-keyWord">
+                                <div>
+                                    <li><a href="">Action</a></li>
+                                    <li><a href="">Adventure</a></li>
+                                    <li><a href="">Cars</a></li>
+                                    <li><a href="">Comedy</a></li>
+                                    <li><a href="">Dementia</a></li>
+                                    <li><a href="">Demons</a></li>
+                                    <li><a href="">Drama</a></li>
+                                    <li><a href="">Ecchi</a></li>
+                                </div>
+                                <div>
+                                    <li><a href="">Fantasy</a></li>
+                                    <li><a href="">Game</a></li>
+                                    <li><a href="">Harem</a></li>
+                                    <li><a href="">Historical</a></li>
+                                    <li><a href="">Horror</a></li>
+                                    <li><a href="">Isekai</a></li>
+                                    <li><a href="">Josei</a></li>
+                                    <li><a href="">Kids</a></li>
+                                </div>
+                                <div>
+                                    <li><a href="">Magic</a></li>
+                                    <li><a href="">Martial Arts</a></li>
+                                    <li><a href="">Mecha</a></li>
+                                    <li><a href="">Military</a></li>
+                                    <li><a href="">Music</a></li>
+                                    <li><a href="">Mystery</a></li>
+                                    <li><a href="">Parody</a></li>
+                                    <li><a href="">Police</a></li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="watchContent__main-sidebar-items-btnShow">
+                            <a href="" class="watchContent__main-sidebar-items-btnShowLink">Show more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content 2 -->
+            <div class="watchContent__main">
+                <div class="watchContent__main-movies">
+                    <!-- Movies Content 1 -->
+                    <div class="watchContent__main-movies-title">
+                        <span class="watchContent__main-movies-title-heading">
+                            New On Zoro
+                        </span>
+                        <a href="">
+                            <span class="watchContent__main-movies-title-viewmore">
+                                View more <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="flex-movies">
+                        <!-- Movies 1 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-dub">DUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Muv-Luv Alternative 2nd Season</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 2 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Do It Yourself!!</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 3 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Legendary Twins</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 4 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Love Flops</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 5 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Mob Psycho 100 III</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 6 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Immoral Guild</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 7 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Do It Yourself!!</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 8 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-dub">DUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Muv-Luv Alternative 2nd Season</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 9 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Love Flops</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 10 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Legendary Twins</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 11 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Immoral Guild</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 12 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Mob Psycho 100 III</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Movies Content 2 -->
+                    <div class="watchContent__main-movies-title">
+                        <span class="watchContent__main-movies-title-heading">
+                            Top Upcoming
+                        </span>
+                        <a href="">
+                            <span class="watchContent__main-movies-title-viewmore">
+                                View more <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="flex-movies">
+                        <!-- Movies 1 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-dub">DUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Muv-Luv Alternative 2nd Season</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 2 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Do It Yourself!!</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 3 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Legendary Twins</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 4 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Love Flops</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 5 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Mob Psycho 100 III</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 6 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Immoral Guild</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 7 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Do It Yourself!!</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 8 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-dub">DUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Muv-Luv Alternative 2nd Season</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 9 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Love Flops</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 10 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Legendary Twins</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 11 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Immoral Guild</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Movies 12 -->
+                        <div class="watchContent__main-movies-films">
+                            <div class="box-img">
+                                <a href="" class="watchContent__main-movies-films-img"><img
+                                        src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
+                                        alt="" class="watchContent__main-movies-films-img-logo">
+                                    <div class="items-vip">VIP</div>
+                                    <div class="items-sub">SUB</div>
+                                    <div class="items-parts">EP 4/12</div>
+                                    <i class="fa-solid fa-caret-right item-plays"></i>
+                                </a>
+                            </div>
+                            <div class="watchContent__main-movies-films-content">
+                                <a href="" target="_blank" rel="noopener noreferrer">
+                                    <h4 class="watchContent__main-movies-films-title">
+                                        Mob Psycho 100 III</h4>
+                                </a>
+                                <span class="watchContent__main-movies-films-desc">
+                                    TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+                                </span>
+                                <div class="watchContent__main-movies-films-items">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="watchContent__main-sidebar">
+                    <div class="watchContent__main-sidebar-title">Most Viewed</div>
+                    <div class="watchContent__main-sidebar-mostView">
+                        <div class="watchContent__main-sidebar-mostView-header">
+                            <a href="" class="watchContent__main-sidebar-mostView-header-today"><span
+                                    class="today">Today</span></a>
+                            <a href="" class="watchContent__main-sidebar-mostView-header-week"><span
+                                    class="week">Week</span></a>
+                            <a href="" class="watchContent__main-sidebar-mostView-header-month"><span
+                                    class="month">Month</span></a>
+                        </div>
+
+                        <!-- Movies Top 1 -->
+                        <div class="watchContent__main-sidebar-mostView-content" style="padding-top: 30px;">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">01</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/54/90/5490cb32786d4f7fef0f40d7266df532/5490cb32786d4f7fef0f40d7266df532.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">One Piece</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 2 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">02</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/b3/da/b3da1326e07269ddd8d73475c5dabf2c/b3da1326e07269ddd8d73475c5dabf2c.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">Chainsaw Man</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 3 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">03</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/9c/bc/9cbcf87f54194742e7686119089478f8/9cbcf87f54194742e7686119089478f8.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">Naruto: Shippuden
+                                    </h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 4 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">04</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/bd/5a/bd5ae1d387a59c5abcf5e1a6a616728c/bd5ae1d387a59c5abcf5e1a6a616728c.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">Bleach</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 5 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">05</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/85/18/8518b30ae16addc1d11ff3c79a3f98a0/8518b30ae16addc1d11ff3c79a3f98a0.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">The Eminence in
+                                        Shadow</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 6 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">06</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/b3/da/b3da1326e07269ddd8d73475c5dabf2c/b3da1326e07269ddd8d73475c5dabf2c.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">Chainsaw Man</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 7 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">07</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/9c/bc/9cbcf87f54194742e7686119089478f8/9cbcf87f54194742e7686119089478f8.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">Naruto: Shippuden
+                                    </h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 8 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">08</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/bd/5a/bd5ae1d387a59c5abcf5e1a6a616728c/bd5ae1d387a59c5abcf5e1a6a616728c.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">Bleach</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 9 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">09</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/85/18/8518b30ae16addc1d11ff3c79a3f98a0/8518b30ae16addc1d11ff3c79a3f98a0.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">The Eminence in
+                                        Shadow</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Movies Top 10 -->
+                        <div class="watchContent__main-sidebar-mostView-content">
+                            <h2 class="watchContent__main-sidebar-mostView-content-top">10</h2>
+                            <a href="" class="watchContent__main-sidebar-mostView-content-img"><img
+                                    src="https://img.zorores.com/_r/300x400/100/54/90/5490cb32786d4f7fef0f40d7266df532/5490cb32786d4f7fef0f40d7266df532.jpg"
+                                    alt="" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+                            <div class="watchContent__main-sidebar-mostView-content-desc">
+                                <a href="">
+                                    <h3 class="watchContent__main-sidebar-mostView-content-descTitle">One Piece</h3>
+                                </a>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                    110,172
+                                </span>
+                                <span class="watchContent__main-sidebar-mostView-content-descViews">
+                                    <i class="fa-solid fa-heart"></i>
+                                    174,488
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <div id="about">
+                <div class="logo-contact">
+                    <a href="" class="logo-contact__img"><img src="https://zoro.to/images/logo.png" alt=""
+                            class="logo-contact__img-logo"></a>
+                    <span class="y">|</span>
+                    <a href="" class="logo-contact__img"><img src="./assets/img/footer/contact.PNG" alt=""
+                            class="logo-contact__img-logo-contact"></a>
+                </div>
+                <div class="x"><img src="./assets/img/footer/y.PNG" alt=""></div>
+                <div class="list">
+                    <span class="list__search">A-Z LIST</span>
+                    <span class="y">|</span>
+                    <span class="list__desc">Searching anime order by alphabet name A to Z.</span>
+                </div>
+                <ul class="keyword">
+                    <li><a href="">All</a></li>
+                    <li><a href="">#</a></li>
+                    <li><a href="">0-9</a></li>
+                    <li><a href="">A</a>
+                    </li>
+                    <li><a href="">B</a>
+                    </li>
+                    <li><a href="">C</a>
+                    </li>
+                    <li><a href="">D</a>
+                    </li>
+                    <li><a href="">E</a>
+                    </li>
+                    <li><a href="">F</a>
+                    </li>
+                    <li><a href="">G</a>
+                    </li>
+                    <li><a href="">H</a>
+                    </li>
+                    <li><a href="">I</a>
+                    </li>
+                    <li><a href="">J</a>
+                    </li>
+                    <li><a href="">K</a>
+                    </li>
+                    <li><a href="">L</a>
+                    </li>
+                    <li><a href="">M</a>
+                    </li>
+                    <li><a href="">N</a>
+                    </li>
+                    <li><a href="">O</a>
+                    </li>
+                    <li><a href="">P</a>
+                    </li>
+                    <li><a href="">Q</a>
+                    </li>
+                    <li><a href="">R</a>
+                    </li>
+                    <li><a href="">S</a>
+                    </li>
+                    <li><a href="">T</a>
+                    </li>
+                    <li><a href="">U</a>
+                    </li>
+                    <li><a href="">V</a>
+                    </li>
+                    <li><a href="">W</a>
+                    </li>
+                    <li><a href="">X</a>
+                    </li>
+                </ul>
+                <div class="about-contact">
+                    <a href="">
+                        <span class="about-contact__items">Terms of service</span>
+                    </a>
+                    <a href="">
+                        <span class="about-contact__items">DMCA</span>
+                    </a>
+                    <a href="">
+                        <span class="about-contact__items">Contact</span>
+                    </a>
+                </div>
+                <div class="about-desc">
+                    <p>Error does not store any files on our server, we only linked to the media which is hosted on 3rd
+                        party services.</p>
+                    <p>© Error</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <!-- Start Modal Login -->
+    <div class="modal js-modal">
+        <div class="modal-container js-modal-container">
+            <div class="modal-close js-modal-close">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <!-- Modal Login -->
+            <div class="modal-login">
+                <div class="modal-title">
+                    <h2>Login</h2>
+                </div>
+                <div class="modal-form">
+                    <div class="form-group">
+                        <label for="email">EMAIL ADDRESS</label>
+                        <input class="form-control" type="email" placeholder="name@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">PASSWORD</label>
+                        <input class="form-control" type="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-checked">
+                        <input type="checkbox" name="remember" checked>
+                        <label for="remember">Remember me</label>
+                        <span><a href="#forgot">Forgot Password?</a></span>
+                    </div>
+                    <div class="form-btn">
+                        <button class="login-btn">Login</button>
+                    </div>
+                </div>
+                <div class="form-text">
+                    <span>Don't have an account? <a href="#register">Register</a> or <a href="#verify">Verify</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Login -->
+
+    <!-- Start Modal Register -->
+    <div class="modal js-modal">
+        <div class="modal-container js-modal-container">
+            <div class="modal-close js-modal-close">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <!-- Modal Register -->
+            <div class="modal-login">
+                <div class="modal-title">
+                    <h2>Create an Account</h2>
+                </div>
+                <div class="modal-form">
+                    <div class="form-group">
+                        <label for="email">YOUR NAME</label>
+                        <input class="form-control" type="fullname" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">EMAIL ADDRESS</label>
+                        <input class="form-control" type="email" placeholder="name@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">PASSWORD</label>
+                        <input class="form-control" type="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">CONFIRM PASSWORD</label>
+                        <input class="form-control" type="password" placeholder="Confirm password" required>
+                    </div>
+                    <div class="form-btn">
+                        <button class="login-btn">Register</button>
+                    </div>
+                </div>
+                <div class="form-text">
+                    <span>Have an account? <a href="#login">Login</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Register -->
+
+    <!-- Start Modal ForgotPassword -->
+    <div class="modal js-modal">
+        <div class="modal-container js-modal-container">
+            <div class="modal-close js-modal-close">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <!-- Modal Login -->
+            <div class="modal-forgot">
+                <div class="modal-title">
+                    <h2>Reset Password</h2>
+                </div>
+                <div class="modal-form">
+                    <div class="form-group">
+                        <label for="email">EMAIL ADDRESS</label>
+                        <input class="form-control" type="email" placeholder="name@gmail.com" required>
+                    </div>
+                    <div class="form-btn">
+                        <button class="login-btn">Submit</button>
+                    </div>
+                </div>
+                <div class="form-text">
+                    <span><a href="">Back to Sign-in</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal ForgotPassword -->
+
+    <!-- Modal Collapsed Sidebar -->
+    <div id="close-bg" class="js-closeMenu">
+        <div id="close" class="js-closeMenu-container">
+            <button class="close-btn" onclick="closeBtn()"><i class="fa-solid fa-chevron-left"></i> Close menu</button>
+            <div class="donate-btn">
+                <button>Donate</button>
+            </div>
+            <div class="community-btn">
+                <button><i class="fa-solid fa-comment"></i> Community</button>
+            </div>
+            <div class="siderbar-lists">
+                <ul>
+                    <li><a href="" class="nav-link">Home</a></li>
+                    <li><a href="" class="nav-link">Subbed Anime</a></li>
+                    <li><a href="" class="nav-link">Dubbed Anime</a></li>
+                    <li><a href="" class="nav-link">Most Popular</a></li>
+                    <li><a href="" class="nav-link">Movies</a></li>
+                    <li><a href="" class="nav-link">TV Series</a></li>
+                    <li><a href="" class="nav-link">OVAs</a></li>
+                    <li><a href="" class="nav-link">ONAs</a></li>
+                    <li><a href="" class="nav-link">Specials</a></li>
+                    <li><a href="" class="nav-link">Events</a></li>
+                    <li>
+                        <div class="nav-link">
+                            Genre
+                        </div>
+                        <ul class="list-genre">
+                            <li><a href="" class="nav-link">Action</a></li>
+                            <li><a href="" class="nav-link">Adventure</a></li>
+                            <li><a href="" class="nav-link">Cars</a></li>
+                            <li><a href="" class="nav-link">Comedy</a></li>
+                            <li><a href="" class="nav-link">Dementia</a></li>
+                            <li><a href="" class="nav-link">Demons</a></li>
+                            <li><a href="" class="nav-link">Drama</a></li>
+                            <li><a href="" class="nav-link">Ecchi</a></li>
+                            <li><a href="" class="nav-link">Fantasy</a></li>
+                            <li><a href="" class="nav-link">Game</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Modal Recharge -->
+    <div class="modal js-modal-recharge">
+        <div class="modal-container-recharge js-modal-container-recharge">
+            <div class="modal-close-recharge js-modal-close-recharge">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <!-- Modal Recharge -->
+            <div class="modal-recharge">
+                <div class="recharge-title">
+                    <h2>Recharge Coin</h2>
+                </div>
+                <div class="recharge-form">
+                    <div class="recharge-info">
+                        <span><i class="fa-solid fa-user"></i> Username</span>
+                        <span><i class="fa-solid fa-envelope"></i> Email</span>
+                        <span><i class="fa-solid fa-coins"></i> Xu hiện có</span>
+                    </div>
+                    <h2 class="coin-title">Deposit coins into your account</h2>
+                    <div class="coins">
+                        <div class="info-coin">
+                            <h3 class="pay-title">Deposit amount <span>(10 xu = 1.000đ)</span></h3>
+                            <ul>
+                                <li><input class="btn-radio" type="radio" name="money"> 20.000đ <span>(20 Xu)</span></li>
+                                <li><input class="btn-radio" type="radio" name="money"> 50.000đ <span>(55 Xu)</span></li>
+                                <li><input class="btn-radio" type="radio" name="money"> 100.000đ <span>(120 Xu)</span></li>
+                                <li><input class="btn-radio" type="radio" name="money"> 500.000đ <span>(600 Xu)</span></li>
+                            </ul>
+                        </div>
+                        <div class="pay-coin">
+                            <h3 class="pay-title">Payment Methods</h3>
+                            <div class="pay-cash">
+                                <div class="form-section">
+                                    <select>
+                                        <option value="Visa">Visa</option>
+                                        <option value="Momo">Momo</option>
+                                    </select>
+                                </div>
+                                <input type="text" placeholder="Enter account number">
+                                <div class="coin-capcha">
+                                    <p>
+                                        <img src="https://sharecode.vn/FilesUpload/Captcha/captcha567.jpg" alt="img-capcha">
+                                    </p>
+                                    <input type="text" placeholder="Insert Code">
+                                    <a href="">Other Code</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="payBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Recharge -->
+
+
+    <!-- Href Javascript -->
+    <script src="modalRecharge.js"></script>
+    <script src="./assets/js/slider.js"></script>
+    <script src="./assets/js/modal.js"></script>
+    <script src="./assets/js/navbar-menu.js"></script>
+</body>
+
+</html>

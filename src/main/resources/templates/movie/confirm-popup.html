@@ -1,0 +1,34 @@
+<div class="modal fade premodal premodal-login" id="modalconfirm-purchase" role="dialog" aria-labelledby="modallogintitle"
+	aria-hidden="true" style="font-size:14px">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="tab-content">
+				<div id="modal-tab-rechare" class="tab-pane active">
+					<div class="modal-header">
+						<h1 class="modal-title" id="modalconfirmtitle">Purchase Movie</h1>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="alert alert-danger mb-3 animated bounceIn" id="purchase-error" style="display: none;"></div>
+						<form class="preform" id="purchase-form" method="POST">
+							<input type="hidden" id="movie-id">
+							<div class="confirm-question">Are you sure you want to buy this movie?</div>
+							<div class="confirm-info">
+								<span class="confirm-info-title"></span> &nbsp; <span class="confirm-info-coin"></span>
+							</div>
+							<div class="mb-3 mt-3 d-flex justify-content-center" id="purchase-recaptcha"><div style="width: 304px; height: 78px; z-index:1000;">
+                            	<div data-theme="dark" class="g-recaptcha" th:attr="data-sitekey=${@captchaSettings.getSite()}" name="recaptcha"></div>             	
+                            </div></div>
+							<div class="form-group confirm-btn mb-0">
+                                <button id="btn-confirm" class="btn btn-primary btn-block" type="submit">Confirm</button>
+                                <div th:replace="/utilities/loading-popup::.loading-relative(content='confirm-loading')"></div>
+                            </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

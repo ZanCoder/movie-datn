@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Home</title>
 </head>
 
 <body>
@@ -12,8 +12,7 @@
 		<div id="slider">
 			<!-- Spotlight 1 -->
 			<div class="slider__background" th:each="spotlight, iter: ${spotlights}">
-				<img th:src="${spotlight.cover}"
-					th:alt="${spotlight.title}" class="slider__background-style">
+				<img th:src="${spotlight.cover}" th:alt="${spotlight.title}" class="slider__background-style">
 				<div class="slider__content">
 					<div class="slider__content-number">
 						#[[${iter.index + 1}]] Spotlight
@@ -23,12 +22,14 @@
 					</div>
 					<div class="slider__content-time">
 						<pan class="slider__content-time-play"><i
-								class="fa-solid fa-circle-play slider__content-time-icon"></i> [[${spotlight.type.movie_type_name}]]</pan>
+								class="fa-solid fa-circle-play slider__content-time-icon"></i>
+							[[${spotlight.type.movie_type_name}]]</pan>
 						<pan class="slider__content-time-oclock"><i
-								class="fa-solid fa-clock slider__content-time-icon"></i> [[${spotlight.duration_min}]]</pan>
+								class="fa-solid fa-clock slider__content-time-icon"></i> [[${spotlight.duration_min}]]
+						</pan>
 						<pan class="slider__content-time-years"><i
 								class="fa-solid fa-calendar-days slider__content-time-icon"></i> [[${
-						#dates.format(spotlight.release_date, 'dd-MM-yyyy') }]]</pan>
+							#dates.format(spotlight.release_date, 'dd-MM-yyyy') }]]</pan>
 						<div class="slider-background-hd">
 							<pan class="slider__content-time-hd">[[${spotlight.quality.quality_name}]]</pan>
 						</div>
@@ -43,13 +44,15 @@
 				<div class="slider__content-btn-play">
 					<div class="slider__content-playBtn">
 						<div class="slider__content-playBtn-watch">
-							<a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${spotlight.slug}, se_ep='1-1')}" class="slider__content-playBtn-watch-btn">
+							<a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${spotlight.slug}, se_ep='1-1')}"
+								class="slider__content-playBtn-watch-btn">
 								<i class="fa-solid fa-circle-play"></i>
 								Watch Now
 							</a>
 						</div>
 						<div class="slider__content-playBtn-detail">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${spotlight.slug}, season=1) }" class="slider__content-playBtn-detail-btn">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${spotlight.slug}, season=1) }"
+								class="slider__content-playBtn-detail-btn">
 								Detail
 								<i class="fa-solid fa-chevron-right"></i>
 							</a>
@@ -84,7 +87,7 @@
 
 			<div class="moviesTrending__list">
 				<!-- Trending -->
-				
+
 				<div class="d-flex" th:each="trend, tier: ${trends}">
 					<div class="moviesTrending__list-items">
 						<div class="moviesTrending__list-items-title">
@@ -94,12 +97,13 @@
 							[[${#numbers.formatInteger(#strings.toString(num + 1), 2)}]]
 						</div>
 					</div>
-					<div class="moviesTrending__list-img">
-						<a th:href="@{ /movie/{slug}/{season} (slug=${trend.slug}, season=1) }"><img th:src="${trend.poster}"
-								th:alt="${trend.title}" class="moviesTrending__list-img-item"></a>
+					<div class="moviesTrending__list-img qtip-movie" th:attr="data-id=${trend.id}">
+						<a th:href="@{ /movie/{slug}/{season} (slug=${trend.slug}, season=1) }"><img
+								th:src="${trend.poster}" th:alt="${trend.title}"
+								class="moviesTrending__list-img-item"></a>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 
@@ -276,22 +280,28 @@
 					</div>
 
 					<!-- Details 1 -->
-					<div class="topFilms__items-details"  th:each="airing: ${airings}">
-						<div class="topFilms__items-details-img">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${airing.slug}, season=1) }" rel="noopener noreferrer">
-								<img th:src="${airing.poster}"
-									th:alt="${airing.title}" class="topFilms__items-details-img-logo">
+					<div class="topFilms__items-details" th:each="airing: ${airings}">
+						<div class="topFilms__items-details-img qtip-movie" th:attr="data-id=${airing.id}">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${airing.slug}, season=1) }"
+								rel="noopener noreferrer">
+								<img th:src="${airing.poster}" th:alt="${airing.title}"
+									class="topFilms__items-details-img-logo">
 							</a>
 						</div>
 						<div class="topFilms__items-details-title">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${airing.slug}, season=1) }" class="topFilms__items-details-title-link">[[${airing.title}]]</a>
+							<a th:href="@{ /movie/{slug}/{season} (slug=${airing.slug}, season=1) }"
+								class="topFilms__items-details-title-link">[[${airing.title}]]</a>
 							<div class="topFilms__items-details-description">
-								<span class="topFilms__items-details-descriptionTV">[[${airing.type.movie_type_name}]]</span>
+								<span
+									class="topFilms__items-details-descriptionTV">[[${airing.type.movie_type_name}]]</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span th:if="${airing.type.movie_type_name == 'TV-Series'}" class="topFilms__items-details-descriptionItem"> Ep [[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(airing.id, 1, 1)) }]] </span>
-								<span th:unless="${airing.type.movie_type_name == 'TV-Series'}">Full</span> 
+								<span th:if="${airing.type.movie_type_name == 'TV-Series'}"
+									class="topFilms__items-details-descriptionItem"> Ep [[${
+									#lists.size(movie_eps.findByMovieAndSeasonAndServer(airing.id, 1, 1)) }]] </span>
+								<span th:unless="${airing.type.movie_type_name == 'TV-Series'}">Full</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span class="topFilms__items-details-descriptionDuration">[[${airing.duration_min}]]</span>
+								<span
+									class="topFilms__items-details-descriptionDuration">[[${airing.duration_min}]]</span>
 							</div>
 						</div>
 					</div>
@@ -311,22 +321,28 @@
 					</div>
 
 					<!-- Details 1 -->
-					<div class="topFilms__items-details"  th:each="popular: ${populars}">
-						<div class="topFilms__items-details-img">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${popular.slug}, season=1) }" rel="noopener noreferrer">
-								<img th:src="${popular.poster}"
-									th:alt="${popular.title}" class="topFilms__items-details-img-logo">
+					<div class="topFilms__items-details" th:each="popular: ${populars}">
+						<div class="topFilms__items-details-img qtip-movie" th:attr="data-id=${popular.id}">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${popular.slug}, season=1) }"
+								rel="noopener noreferrer">
+								<img th:src="${popular.poster}" th:alt="${popular.title}"
+									class="topFilms__items-details-img-logo">
 							</a>
 						</div>
 						<div class="topFilms__items-details-title">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${popular.slug}, season=1) }" class="topFilms__items-details-title-link">[[${popular.title}]]</a>
+							<a th:href="@{ /movie/{slug}/{season} (slug=${popular.slug}, season=1) }"
+								class="topFilms__items-details-title-link">[[${popular.title}]]</a>
 							<div class="topFilms__items-details-description">
-								<span class="topFilms__items-details-descriptionTV">[[${popular.type.movie_type_name}]]</span>
+								<span
+									class="topFilms__items-details-descriptionTV">[[${popular.type.movie_type_name}]]</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span th:if="${popular.type.movie_type_name == 'TV-Series'}" class="topFilms__items-details-descriptionItem"> Ep [[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(popular.id, 1, 1)) }]] </span>
-								<span th:unless="${popular.type.movie_type_name == 'TV-Series'}">Full</span> 
+								<span th:if="${popular.type.movie_type_name == 'TV-Series'}"
+									class="topFilms__items-details-descriptionItem"> Ep [[${
+									#lists.size(movie_eps.findByMovieAndSeasonAndServer(popular.id, 1, 1)) }]] </span>
+								<span th:unless="${popular.type.movie_type_name == 'TV-Series'}">Full</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span class="topFilms__items-details-descriptionDuration">[[${popular.duration_min}]]</span>
+								<span
+									class="topFilms__items-details-descriptionDuration">[[${popular.duration_min}]]</span>
 							</div>
 						</div>
 					</div>
@@ -343,28 +359,34 @@
 					<div class="topFilms__items-title">
 						<h3 class="topFilms__items-title-airing">Most Favorite</h3>
 					</div>
-						
+
 					<!-- Details 1 -->
-					<div class="topFilms__items-details"  th:each="favorite: ${favorites}">
-						<div class="topFilms__items-details-img">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${favorite.slug}, season=1) }" rel="noopener noreferrer">
-								<img th:src="${favorite.poster}"
-									th:alt="${favorite.title}" class="topFilms__items-details-img-logo">
+					<div class="topFilms__items-details" th:each="favorite: ${favorites}">
+						<div class="topFilms__items-details-img qtip-movie" th:attr="data-id=${favorite.id}">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${favorite.slug}, season=1) }"
+								rel="noopener noreferrer">
+								<img th:src="${favorite.poster}" th:alt="${favorite.title}"
+									class="topFilms__items-details-img-logo">
 							</a>
 						</div>
 						<div class="topFilms__items-details-title">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${favorite.slug}, season=1) }" class="topFilms__items-details-title-link">[[${favorite.title}]]</a>
+							<a th:href="@{ /movie/{slug}/{season} (slug=${favorite.slug}, season=1) }"
+								class="topFilms__items-details-title-link">[[${favorite.title}]]</a>
 							<div class="topFilms__items-details-description">
-								<span class="topFilms__items-details-descriptionTV">[[${favorite.type.movie_type_name}]]</span>
+								<span
+									class="topFilms__items-details-descriptionTV">[[${favorite.type.movie_type_name}]]</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span th:if="${favorite.type.movie_type_name == 'TV-Series'}" class="topFilms__items-details-descriptionItem"> Ep [[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(favorite.id, 1, 1)) }]] </span>
-								<span th:unless="${favorite.type.movie_type_name == 'TV-Series'}">Full</span> 
+								<span th:if="${favorite.type.movie_type_name == 'TV-Series'}"
+									class="topFilms__items-details-descriptionItem"> Ep [[${
+									#lists.size(movie_eps.findByMovieAndSeasonAndServer(favorite.id, 1, 1)) }]] </span>
+								<span th:unless="${favorite.type.movie_type_name == 'TV-Series'}">Full</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span class="topFilms__items-details-descriptionDuration">[[${favorite.duration_min}]]</span>
+								<span
+									class="topFilms__items-details-descriptionDuration">[[${favorite.duration_min}]]</span>
 							</div>
 						</div>
 					</div>
-						
+
 					<div class="topFilms__items-views">
 						<a href="" class="topFilms__items-views-link">
 							View more
@@ -378,24 +400,30 @@
 					<div class="topFilms__items-title">
 						<h3 class="topFilms__items-title-airing">Completed</h3>
 					</div>
-					
+
 					<!-- Details 1 -->
 					<div class="topFilms__items-details" th:each="complete: ${completes}">
-						<div class="topFilms__items-details-img">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${complete.slug}, season=1) }" rel="noopener noreferrer">
-								<img th:src="${complete.poster}"
-									th:alt="${complete.title}" class="topFilms__items-details-img-logo">
+						<div class="topFilms__items-details-img qtip-movie" th:attr="data-id=${complete.id}">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${complete.slug}, season=1) }"
+								rel="noopener noreferrer">
+								<img th:src="${complete.poster}" th:alt="${complete.title}"
+									class="topFilms__items-details-img-logo">
 							</a>
 						</div>
 						<div class="topFilms__items-details-title">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${complete.slug}, season=1) }" class="topFilms__items-details-title-link">[[${complete.title}]]</a>
+							<a th:href="@{ /movie/{slug}/{season} (slug=${complete.slug}, season=1) }"
+								class="topFilms__items-details-title-link">[[${complete.title}]]</a>
 							<div class="topFilms__items-details-description">
-								<span class="topFilms__items-details-descriptionTV">[[${complete.type.movie_type_name}]]</span>
+								<span
+									class="topFilms__items-details-descriptionTV">[[${complete.type.movie_type_name}]]</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span th:if="${complete.type.movie_type_name == 'TV-Series'}" class="topFilms__items-details-descriptionItem"> Ep [[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(complete.id, 1, 1)) }]] </span>
-								<span th:unless="${complete.type.movie_type_name == 'TV-Series'}">Full</span> 
+								<span th:if="${complete.type.movie_type_name == 'TV-Series'}"
+									class="topFilms__items-details-descriptionItem"> Ep [[${
+									#lists.size(movie_eps.findByMovieAndSeasonAndServer(complete.id, 1, 1)) }]] </span>
+								<span th:unless="${complete.type.movie_type_name == 'TV-Series'}">Full</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span class="topFilms__items-details-descriptionDuration">[[${complete.duration_min}]]</span>
+								<span
+									class="topFilms__items-details-descriptionDuration">[[${complete.duration_min}]]</span>
 							</div>
 						</div>
 					</div>
@@ -429,24 +457,28 @@
 					<div class="flex-movies">
 						<!-- Movies -->
 						<div class="watchContent__main-movies-films" th:each="l: ${latestEps}">
-							<div class="box-img">
-								<a th:href="@{ /movie/{slug}/{season} (slug=${l.slug}, season=1) }" class="watchContent__main-movies-films-img"><img
-										th:src="${l.poster}"
+							<div class="box-img qtip-movie" th:attr="data-id=${l.id}">
+								<a th:href="@{ /movie/{slug}/{season} (slug=${l.slug}, season=1) }"
+									class="watchContent__main-movies-films-img"><img th:src="${l.poster}"
 										th:alt="${l.title}" class="watchContent__main-movies-films-img-logo">
 									<div th:if="${l.vip}" class="items-vip">VIP</div>
 									<div class="items-sub">SUB</div>
-									<div th:if="${l.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep [[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(l.id, 1, 1)) }]]</div>
-									<div th:unless="${l.type.movie_type_name == 'TV-Series'}" class="items-parts">Full</div> 
+									<div th:if="${l.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep [[${
+										#lists.size(movie_eps.findByMovieAndSeasonAndServer(l.id, 1, 1)) }]]</div>
+									<div th:unless="${l.type.movie_type_name == 'TV-Series'}" class="items-parts">Full
+									</div>
 									<i class="fa-solid fa-caret-right item-plays"></i>
 								</a>
 							</div>
 							<div class="watchContent__main-movies-films-content">
-								<a th:href="@{ /movie/{slug}/{season} (slug=${l.slug}, season=1) }" rel="noopener noreferrer">
+								<a th:href="@{ /movie/{slug}/{season} (slug=${l.slug}, season=1) }"
+									rel="noopener noreferrer">
 									<h4 class="watchContent__main-movies-films-title">
 										[[${l.title}]]</h4>
 								</a>
 								<span class="watchContent__main-movies-films-desc">
-									[[${l.type.movie_type_name}]] <span class="topFilms__items-details-descriptionDot"></span> [[${l.duration_min}]]
+									[[${l.type.movie_type_name}]] <span
+										class="topFilms__items-details-descriptionDot"></span> [[${l.duration_min}]]
 								</span>
 								<div class="watchContent__main-movies-films-items">
 								</div>
@@ -482,34 +514,40 @@
 						</a>
 					</div>
 
-						<!-- Movies 12 -->
+					<!-- Movies 12 -->
 					<div class="flex-movies">
 						<div class="watchContent__main-movies-films" th:each="newMovie: ${newMovies}">
-							<div class="box-img">
-								<a th:href="@{ /movie/{slug}/{season} (slug=${newMovie.slug}, season=1) }" class="watchContent__main-movies-films-img"><img
-										th:src="${newMovie.poster}"
+							<div class="box-img qtip-movie" th:attr="data-id=${newMovie.id}">
+								<a th:href="@{ /movie/{slug}/{season} (slug=${newMovie.slug}, season=1) }"
+									class="watchContent__main-movies-films-img"><img th:src="${newMovie.poster}"
 										th:alt="${newMovie.title}" class="watchContent__main-movies-films-img-logo">
 									<div th:if="${newMovie.vip}" class="items-vip">VIP</div>
 									<div class="items-sub">SUB</div>
-									<div th:if="${newMovie.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep [[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(newMovie.id, 1, 1)) }]]</div>
-									<div th:unless="${newMovie.type.movie_type_name == 'TV-Series'}" class="items-parts">Full</div> 
+									<div th:if="${newMovie.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep
+										[[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(newMovie.id, 1, 1)) }]]
+									</div>
+									<div th:unless="${newMovie.type.movie_type_name == 'TV-Series'}"
+										class="items-parts">Full</div>
 									<i class="fa-solid fa-caret-right item-plays"></i>
 								</a>
 							</div>
 							<div class="watchContent__main-movies-films-content">
-								<a th:href="@{ /movie/{slug}/{season} (slug=${newMovie.slug}, season=1) }" rel="noopener noreferrer">
+								<a th:href="@{ /movie/{slug}/{season} (slug=${newMovie.slug}, season=1) }"
+									rel="noopener noreferrer">
 									<h4 class="watchContent__main-movies-films-title">
 										[[${newMovie.title}]]</h4>
 								</a>
 								<span class="watchContent__main-movies-films-desc">
-									[[${newMovie.type.movie_type_name}]] <span class="topFilms__items-details-descriptionDot"></span> [[${newMovie.duration_min}]]
+									[[${newMovie.type.movie_type_name}]] <span
+										class="topFilms__items-details-descriptionDot"></span>
+									[[${newMovie.duration_min}]]
 								</span>
 								<div class="watchContent__main-movies-films-items">
 								</div>
 							</div>
 						</div>
 					</div>
-				
+
 					<!-- Movies Content 2 -->
 					<div class="watchContent__main-movies-title">
 						<span class="watchContent__main-movies-title-heading">
@@ -835,13 +873,16 @@
 
 						<!-- Movies Top -->
 						<div class="watchContent__main-sidebar-mostView-content" th:each="mostView, iter: ${mostViews}">
-							<h2 class="watchContent__main-sidebar-mostView-content-top" th:with="num=${iter.index}">[[${#numbers.formatInteger(#strings.toString(num + 1), 2)}]]</h2>
-							<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }" class="watchContent__main-sidebar-mostView-content-img"><img
-									th:src="${mostView.poster}"
-									th:alt="${mostView.title}" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+							<h2 class="watchContent__main-sidebar-mostView-content-top" th:with="num=${iter.index}">
+								[[${#numbers.formatInteger(#strings.toString(num + 1), 2)}]]</h2>
+							<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }"
+								class="watchContent__main-sidebar-mostView-content-img"><img th:src="${mostView.poster}"
+									th:alt="${mostView.title}"
+									class="watchContent__main-sidebar-mostView-content-img-logo"></a>
 							<div class="watchContent__main-sidebar-mostView-content-desc">
 								<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }">
-									<h3 class="watchContent__main-sidebar-mostView-content-descTitle">[[${mostView.title}]]</h3>
+									<h3 class="watchContent__main-sidebar-mostView-content-descTitle">
+										[[${mostView.title}]]</h3>
 								</a>
 								<div>
 									<span class="watchContent__main-sidebar-mostView-content-descViews">
@@ -854,6 +895,7 @@
 									</span>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>

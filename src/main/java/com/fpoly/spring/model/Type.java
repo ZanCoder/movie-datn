@@ -22,6 +22,7 @@ public class Type {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	String movie_type_name;
+	String type_slug;
 	@OneToMany(mappedBy="type")
 	private List<Movie> movies;
 }

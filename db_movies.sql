@@ -22,11 +22,11 @@ create table [account](
 	[id] bigint primary key identity(1, 1), -- id tài khoản
 	[username] nvarchar(64), -- tên tài khoản
 	[email] nvarchar(120), -- email
-	[avatar] varchar(200) default 'https://i.ibb.co/4NtRntn/Avatar-Profile-Vector-PNG-File.png', -- hình đại diện
+	[avatar] varchar(200) default 'https://iili.io/yRmaGp.png', -- hình đại diện
 	[password_hash] nvarchar(128), -- mật khẩu
 	[budget] float default 0, -- số dư trong tài khoản
 	[joined_date] DATETIME DEFAULT CURRENT_TIMESTAMP, -- ngày tham gia
-	[role] bigint foreign key references [account_role]([id]), -- vai trò
+	[role] bigint foreign key references [account_role]([id]) default 3, -- vai trò
 	[status] bit default 1, -- trạng thái (online hay offline)
 )
 go
@@ -36,28 +36,31 @@ create table [coin_transaction_history](
 	[id] bigint primary key identity(1, 1), -- id
 	[coin_value] float, -- giá trị xu
 	[account] bigint foreign key references [account]([id]), -- tài khoản mua xu
-	[timestamp] datetime -- thời gian mua xu
+	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP -- thời gian mua xu
 )
 go
 
 -- Bảng thể loại
 create table [genre](
 	[id] bigint primary key identity(1, 1), -- id thể loại
-	[genre_name] nvarchar(50) -- tên thể loại
+	[genre_name] nvarchar(50), -- tên thể loại
+	[genre_slug] nvarchar(100), -- slug
 )
 go
 
 -- Bảng loại phim (phim lẻ, phim bộ...)
 create table [type](
 	[id] bigint primary key identity(1, 1), -- id loại
-	[movie_type_name] nvarchar(50) -- tên loại
+	[movie_type_name] nvarchar(50), -- tên loại
+	[type_slug] nvarchar(100), -- slug
 )
 go
 
 -- Bảng quốc gia
 create table [country](
 	[id] bigint primary key identity(1, 1), -- id quốc gia
-	[country_name] nvarchar(50) -- tên quốc gia
+	[country_name] nvarchar(50), -- tên quốc gia
+	[country_slug] nvarchar(100), -- slug
 )
 go
 
@@ -72,6 +75,13 @@ go
 create table [quality](
 	[id] bigint primary key identity(1, 1), -- id quantity
 	[quality_name] nvarchar(50) -- name quantity
+)
+go
+
+-- Bảng trạng thái phim
+create table [status](
+	[id] bigint primary key identity(1, 1), -- id status
+	[status_name] nvarchar(50) -- name status
 )
 go
 
@@ -97,6 +107,16 @@ create table [movie](
 	[rates_count] int default 0, -- số lượt đánh giá
 	[trailer] nvarchar(200), -- link trailer
 	[type] bigint foreign key references [type]([id]), -- loại phim
+	[status] bigint foreign key references [status]([id]) -- trạng thái phim
+)
+go
+
+-- Bảng lịch sử mua phim
+create table [movie_purchase_history](
+	[id] bigint primary key identity(1, 1), -- id
+	[account] bigint foreign key references [account]([id]), -- tài khoản mua xu
+	[movie] bigint foreign key references [movie]([id]), -- phim đã mua
+	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP -- thời gian mua xu
 )
 go
 
@@ -259,6 +279,36 @@ BEGIN
 	update [movie]
 	set slug = LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TRIM(concat([movie].title, '-', [movie].id)), char(145), ''), char(146), ''), '"', ''), ':', ''), ')', ''), '(', ''), ',', ''), '\\', ''), '\/', ''), '\"', ''), '?', ''), '\', ''), '&', ''), '!', ''), '.', ''), ' ', '-'), '--', '-'), '--', '-'))
 	from [movie] join inserted on [movie].id = inserted.id
+END
+go
+
+CREATE TRIGGER generate_slug_country ON [country]
+FOR INSERT
+AS 
+BEGIN
+	update [country]
+	set country_slug = LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TRIM([country].country_name), char(145), ''), char(146), ''), '"', ''), ':', ''), ')', ''), '(', ''), ',', ''), '\\', ''), '\/', ''), '\"', ''), '?', ''), '\', ''), '&', ''), '!', ''), '.', ''), ' ', '-'), '--', '-'), '--', '-'))
+	from [country] join inserted on [country].id = inserted.id
+END
+go
+
+CREATE TRIGGER generate_slug_genre ON [genre]
+FOR INSERT
+AS 
+BEGIN
+	update [genre]
+	set genre_slug = LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TRIM([genre].genre_name), char(145), ''), char(146), ''), '"', ''), ':', ''), ')', ''), '(', ''), ',', ''), '\\', ''), '\/', ''), '\"', ''), '?', ''), '\', ''), '&', ''), '!', ''), '.', ''), ' ', '-'), '--', '-'), '--', '-'))
+	from [genre] join inserted on [genre].id = inserted.id
+END
+go
+
+CREATE TRIGGER generate_slug_type ON [type]
+FOR INSERT
+AS 
+BEGIN
+	update [type]
+	set type_slug = LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(TRIM([type].movie_type_name), char(145), ''), char(146), ''), '"', ''), ':', ''), ')', ''), '(', ''), ',', ''), '\\', ''), '\/', ''), '\"', ''), '?', ''), '\', ''), '&', ''), '!', ''), '.', ''), ' ', '-'), '--', '-'), '--', '-'))
+	from [type] join inserted on [type].id = inserted.id
 END
 go
 

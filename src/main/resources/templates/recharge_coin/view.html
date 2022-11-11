@@ -1,0 +1,76 @@
+<div class="modal fade premodal premodal-login" id="modalrecharge" role="dialog" aria-labelledby="modallogintitle"
+	aria-hidden="true" style="font-size:14px">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="tab-content">
+				<div id="modal-tab-rechare" class="tab-pane active">
+					<div class="modal-header">
+						<h1 class="modal-title" id="modalrecharetitle">Recharge Coin</h1>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="alert alert-danger mb-3 animated bounceIn" id="recharge-error"
+							style="display: none;"></div>
+						<div class="alert alert-success mb-3 animated bounceIn" id="recharge-success"
+							style="display: none;"></div>
+						<form class="preform" id="recharge-form" method="POST">
+							<div class="recharge-info">
+								<div sec:authorize="isAuthenticated()">
+									<span><i class="fa-solid fa-user"></i> [[${ account.username }]] </span>
+									<span><i class="fa-solid fa-envelope"></i> [[${ account.email }]] </span>
+									<span><i class="fa-solid fa-coins"></i> <strong style="color: yellow">[[${ account.budget }]]</strong> coin </span>
+								</div>
+								<div sec:authorize="isAnonymous()">
+									<span><i class="fa-solid fa-user"></i> Username</span>
+									<span><i class="fa-solid fa-envelope"></i> Email </span>
+									<span><i class="fa-solid fa-coins"></i> Coins </span>
+								</div>
+							</div>
+							<h2 class="coin-title">Deposit coins into your account</h2>
+							<div class="coins">
+								<div class="info-coin">
+									<h3 class="pay-title">Deposit amount <br><span>(10 coin = 1.00$)</span></h3><br>
+									<ul>
+										<li style="list-style: none; margin-bottom: 10px;"><input class="btn-radio" type="radio" name="money" value="2"> 2.00$ <span>(20
+												coin)</span></li>
+										<li style="list-style: none; margin-bottom: 10px;"><input class="btn-radio" type="radio" name="money" value="5"> 5.00$ <span>(55
+												coin)</span></li>
+										<li style="list-style: none; margin-bottom: 10px;"><input class="btn-radio" type="radio" name="money" value="10"> 10.00$ <span>(120
+												coin)</span></li>
+										<li style="list-style: none; margin-bottom: 10px;"><input class="btn-radio" type="radio" name="money" value="50"> 50.00$ <span>(600
+												coin)</span></li>
+									</ul>
+								</div>
+								<div class="pay-coin">
+									<h3 class="pay-title">Payment Methods</h3>
+									<div class="pay-cash d-flex flex-column" style="gap: 15px">
+										<div class="form-section">
+											<select id="recharge-bank">
+												<option value="VISA">VISA</option>
+												<option value="MASTERCARD">MASTERCARD</option>
+												<option value="AMERICAN EXPRESS">AMERICAN_EXPRESS</option>
+												<option value="DISCOVER">DISCOVER</option>
+												<option value="JCB">JCB</option>
+											</select>
+										</div>
+										<input id="recharge-account" type="text" placeholder="Enter account number">
+										
+										<div class="mb-3 mt-3" id="recharge-recaptcha"><div style="width: 304px; height: 78px; z-index:1000;">
+			                            	<div data-theme="dark" class="g-recaptcha" th:attr="data-sitekey=${@captchaSettings.getSite()}" name="recaptcha"></div>             	
+			                            </div></div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group login-btn mb-0">
+                                <button id="btn-recharge" class="btn btn-primary btn-block" type="submit">Submit</button>
+                                <div th:replace="/utilities/loading-popup::.loading-relative(content='recharge-loading')"></div>
+                            </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

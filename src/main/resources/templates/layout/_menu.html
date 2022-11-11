@@ -1,14 +1,21 @@
 <!-- Header -->
 <header id="header">
 	<div class="header__menu">
-		<a href=""><i class="fa-solid fa-bars header__menu-icon"></i></a>
+		<button onclick="openBtn()"><i class="fa-solid fa-bars header__menu-icon"></i></button>
 	</div>
 	<div class="header__logo">
-		<a href="/home"><img src="/img/logo.png" alt="img-logo" class="header_logo-img"></a>
+		<a href="/"><img src="/img/logo.png" alt="img-logo" class="header_logo-img"></a>
 	</div>
 	<div class="header__search">
 		<input type="text" placeholder="Search movie..." class="header__search-input">
 		<a href="" class="header__search-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
+
+		<!-- Search Result -->
+		<div class="header__search-result">
+			<div th:replace="/utilities/loading-popup::.loading-relative(content='search-loading')"></div>
+
+			<div class="result" style="display: none"></div>
+		</div>
 	</div>
 	<div class="header__contacts">
 		<div class="header__contacts-background-discord">
@@ -50,11 +57,124 @@
 			</div>
 		</a>
 		<div class="header__functions-btn">
-			<button class="header__functions-donate-btn">Donate</button>
+			<div sec:authorize="isAnonymous()">
+				<button class="header__functions-donate-btn" data-toggle="modal" data-target="#modallogin">Recharge</button>
+			</div>
+			<div sec:authorize="isAuthenticated()">
+				<button class="header__functions-donate-btn" data-toggle="modal" data-target="#modalrecharge">Recharge</button>
+			</div>
 		</div>
 	</div>
 	<div class="header__search-rps"><a href=""><i class="fa-solid fa-magnifying-glass"></i></a></div>
 	<div class="header__login">
-		<button class="header__login-btn">Login</button>
-	</div>
+		<div sec:authorize="isAnonymous()">
+			<button class="header__login-btn" data-toggle="modal" data-target="#modallogin">Login</button>
+		</div>
+		<div sec:authorize="isAuthenticated()">
+
+			<div id="header_right">
+				<div class="hr-notifications">
+					<div class="hrn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+							class="fas fa-bell" style="color: white;font-size:15px;"></i></div>
+					<div class="dropdown-menu dropdown-menu-noti new-noti-list" aria-labelledby="noti-list">
+						<div class="nnl-mark">
+							<a class="btn btn-xs btn-noti-maar" data-position="dropdown"><i
+									class="fas fa-check mr-2"></i> Mark all as read</a>
+						</div>
+						<div style="display: block; padding: 25px 15px; text-align: center; font-size: 14px;">
+							<div class="block mb-2"><i class="fas fa-box-open" style="font-size: 20px;"></i></div>
+							No Notifications
+						</div>
+					</div>
+				</div>
+
+				<div id="user-slot">
+					<div class="header_right-user logged">
+						<div class="dropdown">
+							<div class="btn-user-avatar" data-toggle="dropdown" aria-expanded="false"
+								aria-controls="user_menu">
+								<div class="profile-avatar">
+									<img width="0" th:src="${account.avatar}" th:alt="${account.username}">
+								</div>
+							</div>
+							<div id="user_menu" class="dropdown-menu dropdown-menu-right">
+								<div class="dropdown-item dropdown-item-user">
+									<div class="user-detail">
+										<div class="name"><strong>[[${ account.username
+												}]]</strong></div>
+										<div class="mail">[[${ account.email }]]</div>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="grid-menu">
+									<a class="dropdown-item" href="{{ url_for('user', link='profile') }}"><i
+											class="fas fa-user mr-2"></i>Profile</a>
+									<a class="dropdown-item" href="/user/continue-watching"><i
+											class="fas fa-history mr-2"></i>Continue
+										Watching</a>
+									<a class="dropdown-item" href="/user/watch-list"><i
+											class="fas fa-heart mr-2"></i>Watch
+										List</a>
+									<a class="dropdown-item" href="/user/notification"><i
+											class="fas fa-bell mr-2"></i>Notification</a>
+									<a class="dropdown-item" href="/user/mal"><i class="fas fa-coins mr-2"></i>Purchase History
+									</a>
+								</div>
+								<a class="dropdown-item text-right text-white btn-logout" href="/logout">Logout<i
+										class="fas fa-arrow-right ml-2 mr-1"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Modal Collapsed Sidebar -->
+		<div id="close-bg" class="js-closeMenu">
+			<div id="close" class="js-closeMenu-container">
+				<button class="close-btn" onclick="closeBtn()"><i class="fa-solid fa-chevron-left"></i> Close
+					menu</button>
+				<div class="donate-btn">
+					<button>Donate</button>
+				</div>
+				<div class="community-btn">
+					<button><i class="fa-solid fa-comment"></i> Community</button>
+				</div>
+				<div class="siderbar-lists">
+					<ul>
+						<li><a href="/home" class="nav-link">Home</a></li>
+						<li><a href="" class="nav-link">Most Popular</a></li>
+						<li><a th:href="@{/movies}" class="nav-link">Movies</a></li>
+						<li><a th:href="@{/tv-series}" class="nav-link">TV Series</a></li>
+						<li>
+							<div class="nav-link">
+								Genre
+							</div>
+							<ul class="list-genre">
+								<li th:each="genre: ${genres_short}"><a
+										th:href="@{/genre/{slug}(slug=${genre.genre_slug})}"
+										class="nav-link">[[${genre.genre_name}]]</a></li>
+								<li class="nav-item nav-more-genre">
+									<a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<div class="nav-link">
+								Country
+							</div>
+							<ul class="list-country">
+								<li th:each="country: ${countries_short}"><a
+										th:href="@{/country/{slug}(slug=${country.country_slug})}"
+										class="nav-link">[[${country.country_name}]]</a></li>
+								<li class="nav-item nav-more-country">
+									<a class="nav-link"><i class="fas fa-plus mr-2"></i>More</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 </header>

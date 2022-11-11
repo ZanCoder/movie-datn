@@ -2,6 +2,8 @@ package com.fpoly.spring.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -48,5 +50,27 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 			+ "and (genre.id in (select movie_genre.genre from [movie_genre] where movie_genre.movie = ?1) "
 			+ "or country.id in (select movie_country.country from movie_country where movie_country.movie = ?1)) "
 			+ "group by movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type ", nativeQuery=true)
-	List<Object[]> getRecommends(int id);
+	List<Object[]> getRecommends(long id);
+	
+	@Query(value="SELECT o FROM Movie o WHERE o.title like ?1")
+	Page<Movie> findByTitleLike(String title, Pageable pageable);
+	
+	@Query(value="SELECT o FROM Movie o WHERE o.title like ?1")
+	List<Movie> findByTitleLike(String title);
+	
+	@Query(value="select movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.release_date, movie.status, movie.trailer, movie.add_date, movie.budget, movie.casts, movie.productions, movie.cover, movie.description, movie.imdb_rate, movie.quality, movie.rate, movie.rates_count, movie.views_count from movie movie "
+			+ " join [movie_genre] on movie.id = movie_genre.movie "
+			+ " join [genre] on movie_genre.genre = genre.id "
+			+ " where genre.genre_slug = ?1 ", nativeQuery=true)
+	Page<Object[]> getByGenre(String slug, Pageable pageable);
+	
+	@Query(value="select movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.release_date, movie.status, movie.trailer, movie.add_date, movie.budget, movie.casts, movie.productions, movie.cover, movie.description, movie.imdb_rate, movie.quality, movie.rate, movie.rates_count, movie.views_count "
+			+ " from [movie] movie "
+			+ " join [movie_country] movie_country on movie.id = movie_country.movie "
+			+ " join [country] country on movie_country.country = country.id "
+			+ " where country.country_slug = ?1 ", nativeQuery=true)
+	Page<Object[]> getByCountry(String slug, Pageable pageable);
+	
+	@Query(value="SELECT o FROM Movie o WHERE o.type.id = ?1")
+	Page<Movie> findByType(Integer id, Pageable pageable);
 }

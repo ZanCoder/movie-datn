@@ -48,6 +48,10 @@
 		<div th:replace="${main}"></div>
 		<div th:replace="/layout/_footer.html"></div>
 	</div>
+	
+	<div th:replace="/login/login::.modal"></div>
+	<div th:replace="/recharge_coin/view::.modal"></div>
+	<div th:replace="/movie/confirm-popup::.modal"></div>
 
 	<!-- JQuery -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -59,9 +63,25 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
+	<!--  Popup animation  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js"></script>
+	<!-- Captcha V2 -->
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 		
 	<script type="text/javascript" th:src="@{/js/change-server.js}"></script>
 	<script type="text/javascript" th:src="@{/js/slider.js}"></script>
+	<script type="text/javascript" th:src="@{/js/navbar-menu.js}"></script>
+	<script type="text/javascript" th:src="@{/js/genre-more.js}"></script>
+	<script type="text/javascript" th:src="@{/js/country-more.js}"></script>
+	<script type="text/javascript" th:src="@{/js/search-movie.js}"></script>
+	<script type="text/javascript" th:src="@{/js/qtip.js}"></script>
+	<script type="text/javascript" th:src="@{/js/login-ajax.js}"></script>
+	<script type="text/javascript" th:src="@{/js/register-ajax.js}"></script>
+	<script type="text/javascript" th:src="@{/js/forgot-ajax.js}"></script>
+	<script type="text/javascript" th:src="@{/js/change-tab-login.js}"></script>
+	<script type="text/javascript" th:src="@{/js/recharge-ajax.js}"></script>
+	<script type="text/javascript" th:src="@{/js/confirm-purchase.js}"></script>
 	
 	<script>
 		document.addEventListener("scroll", function(){
