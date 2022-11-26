@@ -1,0 +1,121 @@
+<div class="cw_l-line" th:attr="id='cm-' + ${ c.id }, data-id=${c.id}">
+	<div class="cmt-user-avatar">
+		<img class="cmt-user-avatar-img" th:src="${c.getAccountAvatar()}" th:alt="${c.getAccountUsername()}">
+	</div>
+	<div class="info">
+		<div class="ihead">
+			<div class="user-name">[[${ c.getAccountUsername() }]]</div>
+			<div class="time" th:id="'cm-time-' + ${c.id}" th:attr="data-date=${c.timestamp}"></div>
+		</div>
+		<div class="ibody" th:classappend="${c.spoil} ? 'is-spoil' : ''">
+			<p style="white-space: pre-line">[[${ c.text }]]</p>
+
+			<div th:if="${c.spoil}" class="show-spoil my-2"><button type="button"
+					class="btn btn-sm btn-white text-capitalize py-1 px-2">Show spoil</button></div>
+
+		</div>
+		<div class="ibottom text-white">
+			<div sec:authorize="isAnonymous()" class="ib-li ib-reply" data-toggle="modal" data-target="#modallogin">
+				<a class="btn text-capitalize" style="box-shadow:none;"><i class="fas fa-reply mr-2"></i>Reply</a>
+			</div>
+			<div sec:authorize="isAuthenticated()" class="ib-li ib-reply" th:attr="data-id=${ c.id }"><a
+					class="btn text-capitalize" style="box-shadow:none;"><i class="fas fa-reply mr-2"></i>Reply</a>
+			</div>
+			<div class="ib-li ib-like">
+				<a class="btn cm-btn-vote text-capitalize" th:attr="data-id=${ c.id }" data-type="1"
+					style="box-shadow:none;">
+					<i class="far fa-thumbs-up mr-1"></i>
+					<span class="value" th:if="${c.getCommentMovieLike()} == 0"></span>
+					<span class="value" th:if="${c.getCommentMovieLike()} != 0">[[${c.getCommentMovieLike()}]]</span>
+				</a>
+			</div>
+			<div class="ib-li ib-dislike">
+				<a class="btn cm-btn-vote text-capitalize" th:attr="data-id=${ c.id }" data-type="0"
+					style="box-shadow:none;">
+					<i class="far fa-thumbs-down mr-1"></i>
+					<span class="value" th:if="${c.getCommentMovieDislike()} == 0"></span>
+					<span class="value"
+						th:if="${c.getCommentMovieDislike()} != 0">[[${c.getCommentMovieDislike()}]]</span>
+				</a>
+			</div>
+			<div class="ib-li">
+				<a class="btn text-capitalize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					style="box-shadow:none;"><i class="fas fa-ellipsis-h mr-2"></i>More</a>
+				<div class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list">
+					<a class="dropdown-item cm-report" href="javascript:;" data-type="1"
+						th:attr="data-id=${c.id}">Report Spam</a>
+					<a class="dropdown-item cm-report" href="javascript:;" data-type="2"
+						th:attr="data-id=${c.id}">Report Spoil</a>
+				</div>
+			</div>
+		</div>
+
+		<div sec:authorize="isAuthenticated()" th:id="'reply-' + ${c.id}"
+			class="comment-input is-reply reply-block animated fadeIn" style="display: none;"
+			th:attr="data-parentId=${c.id}">
+			<div class="cmt-user-avatar">
+				<img class="cmt-user-avatar-img" th:src="${account.avatar}" th:alt="${account.username}">
+			</div>
+			<div class="ci-form">
+				<form class="preform preform-dark comment-movie-reply-form"
+					th:attr="data-id=${c.id}, data-tagName=${c.getAccountUsername()}, data-movieEpId=${c.getMovieEpId()}">
+					<div class="loading-absolute bg-white" style="display: none">
+						<div class="loading">
+							<div class="span1"></div>
+							<div class="span2"></div>
+							<div class="span3"></div>
+						</div>
+					</div>
+					<textarea class="form-control form-control-textarea comment-subject-reply emo-on"
+						th:classappend="'cm-input-' + ${c.id}" name="content" maxlength="3000" placeholder="Add a reply"
+						required=""></textarea>
+					<div class="ci-emo">
+						<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="cb-icon"><i
+								class="fas fa-laugh"></i></div>
+						<div
+							class="dropdown-menu dropdown-menu-model dropdown-menu-normal dr-bottom-right dropdown-menu-emo">
+							<emoji-picker class="dark" th:attr="data-input='cm-input-' + ${c.id}"></emoji-picker>
+						</div>
+					</div>
+					<div class="ci-buttons">
+						<div class="ci-b-left">
+							<div class="cb-li"><a class="btn btn-sm text-capitalize btn-spoil btn-spoil-reply"
+									th:attr="data-id=${c.id}"><i class="fas fa-check mr-2"></i>Spoil?</a>
+							</div>
+						</div>
+						<div class="ci-b-right">
+							<div class="cb-li">
+								<a class="btn btn-sm btn-secondary text-capitalize btn-close-reply"
+									th:attr="data-id=${c.id}">Close</a>
+							</div>
+							<div class="cb-li">
+								<button
+									class="btn btn-sm btn-primary text-capitalize cm-send cm-send-reply ml-2"
+									th:attr="data-id=${c.id}, data-tagName=${c.getAccountUsername()}, data-movieEpId=${c.getMovieEpId()}">Reply</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="replies" th:id="'block-reply-' + ${c.id}" th:attr="data-parentId=${c.id}"
+		th:style="${#lists.size(replies) == 0 ? 'display:none' : 'display:block'}">
+		<div class="rep-more rep-in" style="clear: both;">
+			<button type="button" class="btn btn-sm cm-btn-show-rep text-capitalize" th:attr="data-id=${c.id}">
+				<i class="fas fa-caret-down mr-2" style="transition: 0.3s;"></i><span>View
+					[[${#lists.size(replies)}]] replies</span>
+			</button>
+		</div>
+
+		<div class="replies-wrap animated fadeIn" th:id="'replies-' + ${ c.id }" th:attr="data-id=${c.id}"
+			style="display: none;">
+			<th:block th:each="reply: ${replies}">
+				<div th:replace="/movie/comment-movie-reply-box::.cw_l-line(c=${c},reply=${reply})"></div>
+			</th:block>
+		</div>
+
+	</div>
+</div>

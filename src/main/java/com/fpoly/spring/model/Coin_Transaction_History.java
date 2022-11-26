@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Coin_Transaction_History {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
+	String card;
 	double coin_value;
 	@ManyToOne 
 	@JsonIgnore

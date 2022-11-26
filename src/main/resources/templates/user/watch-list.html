@@ -1,0 +1,156 @@
+<div class="wl-content pb-5 pt-2 user-content">
+	<div class="container">
+		<div class="profile-box profile-list profile-list-fav">
+			<div class="d-flex justify-content-between align-items-center mb-4">
+				<h2 class="h2-heading my-4"><i class="fas fa-heart mr-3"></i>Watch List</h2>
+				<div data-option="public_watch_list" class="wl-dub-toggle quick-settings-toggle mt-0"
+					th:classappend="${account.public_wl} ? 'active' : ''">
+					<span class="dt-dub">Public</span>
+					<span class="dt-status"></span>
+				</div>
+			</div>
+			<div class="wl-fav-tabs mb-4">
+				<ul class="nav nav-tabs pre-tabs pre-tabs-min pre-tabs-watchlist">
+					<li class="nav-item"><a href="/user/watch-list" class="nav-link"
+							th:classappend="${type} == '%' ? 'active' : ''">All</a></li>
+
+					<li class="nav-item"><a th:href="@{/user/watch-list(type='1', sort=${sort})}" class="nav-link"
+							th:classappend="${type} == '1' ? 'active' : ''">Watching</a>
+					</li>
+
+					<li class="nav-item"><a th:href="@{/user/watch-list(type='2', sort=${sort})}" class="nav-link"
+							th:classappend="${type} == '2' ? 'active' : ''">On-Hold</a>
+					</li>
+
+					<li class="nav-item"><a th:href="@{/user/watch-list(type='3', sort=${sort})}" class="nav-link"
+							th:classappend="${type} == '3' ? 'active' : ''">Plan to watch</a>
+					</li>
+
+					<li class="nav-item"><a th:href="@{/user/watch-list(type='4', sort=${sort})}" class="nav-link"
+							th:classappend="${type} == '4' ? 'active' : ''">Dropped</a>
+					</li>
+
+					<li class="nav-item"><a th:href="@{/user/watch-list(type='5', sort=${sort})}" class="nav-link"
+							th:classappend="${type} == '5' ? 'active' : ''">Completed</a>
+					</li>
+
+				</ul>
+				<div class="item-order">
+					<div class="bhs-item">
+						<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="bhsi-name">
+							<span>Sort by: </span>
+							<strong>Default</strong>
+							<i class="fas fa-angle-down m-0 pl-2"></i>
+						</div>
+						<div class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list">
+							<a class="dropdown-item" th:classappend="${sort} == '' ? added : ''"
+								th:href="@{/user/watch-list(type=${type}, sort='')}">Default <i th:if="${sort} == ''"
+									class="fas fa-check m-0 pl-2"></i> </a>
+
+							<a class="dropdown-item" th:classappend="${sort} == 'recently-added' ? added : ''"
+								th:href="@{/user/watch-list(type=${type}, sort='recently-added')}">Recently Added <i
+									th:if="${sort} == 'recently-added'" class="fas fa-check m-0 pl-2"></i> </a>
+
+							<a class="dropdown-item" th:classappend="${sort} == 'score' ? added : ''"
+								th:href="@{/user/watch-list(type=${type}, sort='score')}">Score <i
+									th:if="${sort} == 'score'" class="fas fa-check m-0 pl-2"></i> </a>
+
+							<a class="dropdown-item" th:classappend="${sort} == 'a-z' ? added : ''"
+								th:href="@{/user/watch-list(type=${type}, sort='a-z')}">Name A-Z <i
+									th:if="${sort} == 'a-z'" class="fas fa-check m-0 pl-2"></i> </a>
+
+							<a class="dropdown-item" th:classappend="${sort} == 'released-date' ? added : ''"
+								th:href="@{/user/watch-list(type=${type }, sort='released-date')}">Released Date <i
+									th:if="${sort} == 'released-date'" class="fas fa-check m-0 pl-2"></i> </a>
+
+							<a class="dropdown-item" th:classappend="${sort} == 'most-watched' ? added : ''"
+								th:href="@{/user/watch-list(type=${type}, sort='most-watched')}">Most Watched <i
+									th:if="${sort} == 'most-watched'" class="fas fa-check m-0 pl-2"></i> </a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="flex-movies">
+				<!-- Movies -->
+				<div class="watchContent__main-movies-films" th:each="wl: ${wls}">
+					<div class="box-img qtip-movie" th:attr="data-id=${wl.getMovieId()}">
+						<a th:href="@{ /movie/{slug}/{season} (slug=${wl.getMovieSlug()}, season=1) }"
+							class="watchContent__main-movies-films-img"><img th:src="${wl.getMoviePoster()}"
+								th:alt="${wl.getMovieTitle()}" class="watchContent__main-movies-films-img-logo">
+							<div th:if="${wl.isVip()}" class="items-vip">VIP</div>
+							<div class="items-sub-res">
+								<div class="items-sub">SUB</div>
+								<div class="items-resolution">[[${wl.getQuality()}]]</div>
+							</div>
+							<i class="fa-solid fa-caret-right item-plays"></i>
+						</a>
+
+						<div class="dr-fav">
+							<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								class="btn btn-circle btn-light btn-fav">
+								<i class="fas fa-ellipsis-v p-0 m-0" style="font-size: 12px"></i></a>
+							<div class="dropdown-menu dropdown-menu-model dropdown-menu-normal"
+								aria-labelledby="ssc-list">
+								<a class="wl-item dropdown-item" th:classappend="${wl.status} == '1' ? 'added' : ''" data-type="1"
+									th:style="${wl.status == '1' ? 'pointer-events: none' : 'pointer-events: visible'}"
+									th:attr="data-movieId=${wl.getMovieId()}" data-page="watch-list" href="javascript:;">
+										Watching  <i th:if="${wl.status} == '1'" class="fas fa-check m-0 pl-2"></i>
+								</a>
+
+								<a class="wl-item dropdown-item" th:classappend="${wl.status} == '2' ? 'added' : ''" data-type="2"
+									th:style="${wl.status == '2' ? 'pointer-events: none' : 'pointer-events: visible'}"
+									th:attr="data-movieId=${wl.getMovieId()}" data-page="watch-list" href="javascript:;">
+										On-hold <i th:if="${wl.status} == '2'" class="fas fa-check m-0 pl-2"></i>
+								</a>
+
+								<a class="wl-item dropdown-item" th:classappend="${wl.status} == '3' ? 'added' : ''" data-type="3"
+									th:style="${wl.status == '3' ? 'pointer-events: none' : 'pointer-events: visible'}"
+									th:attr="data-movieId=${wl.getMovieId()}" data-page="watch-list" href="javascript:;">
+										Plan to watch <i th:if="${wl.status} == '3'" class="fas fa-check m-0 pl-2"></i> 
+								</a>
+
+								<a class="wl-item dropdown-item" th:classappend="${wl.status} == '4' ? 'added' : ''" data-type="4"
+									th:style="${wl.status == '4' ? 'pointer-events: none' : 'pointer-events: visible'}"
+									th:attr="data-movieId=${wl.getMovieId()}" data-page="watch-list" href="javascript:;"> 
+										Dropped <i th:if="${wl.status} == '4'" class="fas fa-check m-0 pl-2"></i> 
+								</a>
+
+								<a class="wl-item dropdown-item" th:classappend="${wl.status} == '5' ? 'added' : ''" data-type="5"
+									th:style="${wl.status == '5' ? 'pointer-events: none' : 'pointer-events: visible'}"
+									th:attr="data-movieId=${wl.getMovieId()}" data-page="watch-list" href="javascript:;">
+										Completed <i th:if="${wl.status} == '5'" class="fas fa-check m-0 pl-2"></i>
+								</a>
+								<a class="wl-item dropdown-item text-danger" href="javascript:;"
+									th:attr="data-movieId=${wl.getMovieId()}" data-page="watch-list" data-type="0">Remove</a>
+							</div>
+						</div>
+
+					</div>
+					<div class="watchContent__main-movies-films-content">
+						<a th:href="@{ /movie/{slug}/{season} (slug=${wl.getMovieSlug()}, season=1) }"
+							rel="noopener noreferrer">
+							<h4 class="watchContent__main-movies-films-title">
+								[[${wl.getMovieTitle()}]]</h4>
+						</a>
+						<span class="watchContent__main-movies-films-desc">
+							[[${wl.getMovieType()}]]
+							<span class="topFilms__items-details-descriptionDot"></span>
+							[[${wl.getDurationMin()}]]
+						</span>
+						<div class="watchContent__main-movies-films-items">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Paging -->
+			<div th:replace="/utilities/paginate::.paginate"></div>
+			<!--End: Section film list-->
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>

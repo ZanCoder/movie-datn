@@ -1,6 +1,14 @@
 package com.fpoly.spring.utils;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
@@ -22,7 +30,7 @@ public class WebUtils {
         return encoder.encode(password);
     }
 	
-	public static void main(String[] arg) {
+	public static void main(String[] arg) throws ParseException {
 		String password = "admin123";
         String encrytedPassword = encrytePassword(password);
 

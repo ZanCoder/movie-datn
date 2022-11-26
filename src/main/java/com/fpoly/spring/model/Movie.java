@@ -45,12 +45,9 @@ public class Movie {
 	@Temporal(TemporalType.TIMESTAMP)
 	Date add_date = new java.sql.Date(System.currentTimeMillis());
 	String productions;
-	String casts;
 	float budget;
 	boolean vip;
 	Double imdb_rate = 0.0;
-	int views_count = 0;
-	int rates_count = 0;
 	String trailer;
 	@ManyToOne 
 	@JsonIgnore
@@ -69,6 +66,15 @@ public class Movie {
 	@OneToMany(mappedBy="movie")
 	@JsonIgnore
 	private List<Movie_Purchase_History> movie_purchase_histories;
+	@OneToMany(mappedBy="movie")
+	@JsonIgnore
+	private List<Movie_Rate> movie_rates;
+	@OneToMany(mappedBy="movie")
+	@JsonIgnore
+	private List<Movie_View> movie_views;
+	@OneToMany(mappedBy="movie")
+	@JsonIgnore
+	private List<Watch_List> watch_lists;
 	
 	@JsonProperty("type")
 	public String getTypeName() {

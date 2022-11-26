@@ -5,6 +5,7 @@ import java.util.Map;
 public class ValidateResponse {
     private boolean validated;
     private Map<String, String> errorMessages;
+    private Map<String, String> messages;
  
     public boolean isValidated() {
         return validated;
@@ -21,4 +22,12 @@ public class ValidateResponse {
     public Map<String, String> getErrorMessages() {
         return errorMessages;
     }
+
+	public Map<String, String> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Map<String, String> messages) {
+		this.messages = messages;
+	}
 }

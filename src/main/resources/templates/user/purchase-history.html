@@ -1,0 +1,79 @@
+<div class="notification-content pb-5 pt-2 user-content">
+	<div class="container">
+		<div class="inbox-list">
+			<h2 class="h2-heading my-4"><i class="fas fa-coins mr-3"></i>Purchase History</h2>
+			<div class="inbox-tabs mb-2">
+				<div class="float-left fav-tabs">
+					<ul class="nav nav-tabs pre-tabs pre-tabs-min mb-3">
+						<li class="nav-item">
+							<a href="?type=1" data-type="1" class="nav-link notify-type" th:classappend="${type} == '1' ? 'active' : ''">Movies Purchased</a>
+						</li>
+						<li class="nav-item">
+							<a href="?type=2" data-type="2" class="nav-link notify-type" th:classappend="${type} == '2' ? 'active' : ''">Coins Deposited</a>
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="inbox-item-list">
+
+				<th:block th:each="mph: ${mphs}" th:if="${type} == '1'">
+					<div class="inbox-item with-poster new">
+						<a th:href="@{ /movie/{slug}/{season} (slug=${mph.getMovieSlug()}, season=1) }"
+							class="film-poster ii-mark">
+							<img th:src="${mph.getMoviePoster()}" class="film-poster-img" alt="">
+						</a>
+
+						<div class="d-flex align-items-center justify-content-between">
+							<div>
+								<div class="small ii-time mb-1 text-white" style="font-size: 11px;"
+									th:attr="data-date=${mph.timestamp}">
+								</div>
+								<div class="ii-title ii-mark">
+									<span style="color: #fff">
+										<a th:href="@{ /movie/{slug}/{season} (slug=${mph.getMovieSlug()}, season=1) }"
+											class="highlight-text text-white">
+											[[${ mph.getMovieTitle() }]]</a> - Bought at [[${#dates.format(mph.timestamp, 'dd-MM-yyyy hh:mm:ss')}]]
+									</span>
+								</div>
+								<div class="ii-content ii-mark"> <i style="color: yellow"
+										class="fas fa-coins mr-1"></i>[[${mph.getMovieBudget()}]] </div>
+							</div>
+						</div>
+
+						<div class="clearfix"></div>
+					</div>
+				</th:block>
+				
+				<div class="table-responsive" th:if="${type} == '2'">
+					<table class="table text-white table-condensed">
+						<thead class="table-dark">
+							<th></th>
+							<th>Card</th>
+							<th>Coin</th>
+							<th>Date</th>
+						</thead>
+						<tbody>
+							<tr th:each="cth: ${cths}">
+								<td th:if="${cth.card} == 'VISA'"><img th:src="@{/img/visa-img.jpg}"></td>
+								<td th:if="${cth.card} == 'MASTERCARD'"><img th:src="@{/img/mastercard-img.png}"></td>
+								<td th:if="${cth.card} == 'AMERICAN_EXPRESS'"><img th:src="@{/img/american_express-img.jpg}"></td>
+								<td th:if="${cth.card} == 'DISCOVER'"><img th:src="@{/img/discover-img.png}"></td>
+								<td th:if="${cth.card} == 'JCB'"><img th:src="@{/img/jcb-img.png}"></td>
+								<td>[[${cth.card}]]</td>
+								<td>[[${cth.coin_value}]]</td>
+								<td>[[${#dates.format(cth.timestamp, 'dd-MM-yyyy')}]]</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+			<!-- Paging -->
+			<div th:replace="/utilities/paginate::.paginate"></div>
+
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>

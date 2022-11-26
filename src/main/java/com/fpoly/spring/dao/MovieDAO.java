@@ -15,41 +15,85 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	@Query(value="SELECT o FROM Movie o WHERE o.slug like ?1")
 	Movie findBySlugLike(String slug);
 	
-	@Query(value="select * from movie where id=1 or id=8 or id=17 or id=18 or id=20", nativeQuery=true)
+	@Query(value="select * from movie where id=22 or id=30 or id=17 or id=18 or id=20", nativeQuery=true)
 	List<Movie> getSpotlights();
 	
 	@Query(value="select * from movie where id=2 or id=3 or id=4 or id=5 or id=8 or id=9", nativeQuery=true)
 	List<Movie> getTrends();
 	
-	@Query(value="select * from movie where id=1 or id=2 or id=3 or id=4 or id=5", nativeQuery=true)
-	List<Movie> getAirings();
+	@Query(value="select top 5 * from [movie] order by dbo.get_movie_viewed(movie.id) desc", nativeQuery=true)
+	List<Movie> getTop5Populars();
 	
-	@Query(value="select * from movie where id=6 or id=7 or id=8 or id=9 or id=10", nativeQuery=true)
-	List<Movie> getPopulars();
+	@Query(value="select * from [movie] order by dbo.get_movie_viewed(movie.id) desc", nativeQuery=true)
+	Page<Movie> getPopulars(Pageable pageable);
 	
-	@Query(value="select * from movie where id=11 or id=12 or id=13 or id=14 or id=15", nativeQuery=true)
-	List<Movie> getFavorites();
+	@Query(value="select top 5 * from [movie] order by dbo.get_movie_rated(movie.id) desc", nativeQuery=true)
+	List<Movie> getTop5Favorites();
 	
-	@Query(value="select * from movie where id=16 or id=17 or id=18 or id=19 or id=20", nativeQuery=true)
-	List<Movie> getCompletes();
+	@Query(value="select * from [movie] order by dbo.get_movie_rated(movie.id) desc", nativeQuery=true)
+	Page<Movie> getFavorites(Pageable pageable);
 	
-	@Query(value="select top 12 * from [movie] order by id DESC", nativeQuery=true)
-	List<Movie> getLatestEp();
+	@Query(value="select top 5 * from [movie] where movie.status = 2 order by movie.add_date desc", nativeQuery=true)
+	List<Movie> getTop5Completes();
 	
-	@Query(value="select top 12 * from [movie]", nativeQuery=true)
-	List<Movie> getNewMovies();
+	@Query(value="select * from [movie] where movie.status = 2 order by movie.add_date desc", nativeQuery=true)
+	Page<Movie> getCompletes(Pageable pageable);
 	
-	@Query(value="select top 10 * from [movie]", nativeQuery=true)
-	List<Movie> getMostViews();
+	@Query(value="select top 12 * from [movie] where movie.type = 2 and movie.status <> 3 order by add_date DESC", nativeQuery=true)
+	List<Movie> getTop12LatestEps();
 	
-	@Query(value="select movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type from [movie] join movie_genre on movie.id = movie_genre.movie "
+	@Query(value="select top 12 * from [movie] where movie.type = 1 and movie.status <> 3 order by add_date desc", nativeQuery=true)
+	List<Movie> getTop12NewMovies();
+	
+	@Query(value="select top 12 * from [movie] where movie.status = 3 order by add_date desc", nativeQuery=true)
+	List<Movie> getTop12Upcomings();
+	
+	@Query(value="select * from [movie] where movie.status = 3 order by add_date desc", nativeQuery=true)
+	Page<Movie> getUpcomings(Pageable pageable);
+	
+	@Query(value="select top 5 * from [movie] order by movie.imdb_rate desc", nativeQuery=true)
+	List<Movie> getTop5TopIMDB();
+	
+	@Query(value="select * from [movie] order by movie.imdb_rate desc", nativeQuery=true)
+	Page<Movie> getTopIMDB(Pageable pageable);
+	
+	@Query(value="select top 10 * from [movie] "
+			+ " order by "
+			+ " (select count(*) from [movie_view] "
+			+ " where movie_view.movie = movie.id and cast(movie_view.view_date as date) = cast(getdate() as date)) desc", nativeQuery=true)
+	List<Movie> getTop10MostViewsByToday();
+	
+	@Query(value="select count(*) from [movie_view] "
+			+ " where movie_view.movie = ?1 and cast(movie_view.view_date as date) = cast(getdate() as date)", nativeQuery=true)
+	int getMovieMostViewByTodayCount(int movie);
+	
+	@Query(value="select top 10 * from [movie] "
+			+ " order by "
+			+ " (select count(*) from [movie_view] "
+			+ " where movie_view.movie = movie.id and DATEDIFF(week, getdate(), movie_view.view_date) = 0) desc", nativeQuery=true)
+	List<Movie> getTop10MostViewsByWeek();
+	
+	@Query(value="select count(*) from [movie_view] "
+			+ " where movie_view.movie = ?1 and DATEDIFF(week, getdate(), movie_view.view_date) = 0", nativeQuery=true)
+	int getMovieMostViewByWeekCount(int movie);
+	
+	@Query(value="select top 10 * from [movie] "
+			+ " order by "
+			+ " (select count(*) from [movie_view] "
+			+ " where movie_view.movie = movie.id and DATEDIFF(month, getdate(), movie_view.view_date) = 0) desc", nativeQuery=true)
+	List<Movie> getTop10MostViewsByMonth();
+	
+	@Query(value="select count(*) from [movie_view] "
+			+ " where movie_view.movie = ?1 and DATEDIFF(month, getdate(), movie_view.view_date) = 0", nativeQuery=true)
+	int getMovieMostViewByMonthCount(int movie);
+	
+	@Query(value="select top 16 movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.quality from [movie] join movie_genre on movie.id = movie_genre.movie "
 			+ "join movie_country on movie.id = movie_country.movie "
 			+ "join genre on genre.id = movie_genre.genre "
 			+ "join country on country.id = movie_country.country "
 			+ "where movie.id <> ?1 "
-			+ "and (genre.id in (select movie_genre.genre from [movie_genre] where movie_genre.movie = ?1) "
-			+ "or country.id in (select movie_country.country from movie_country where movie_country.movie = ?1)) "
-			+ "group by movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type ", nativeQuery=true)
+			+ "group by movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.quality "
+			+ "ORDER BY NEWID()", nativeQuery=true)
 	List<Object[]> getRecommends(long id);
 	
 	@Query(value="SELECT o FROM Movie o WHERE o.title like ?1")
@@ -58,19 +102,23 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	@Query(value="SELECT o FROM Movie o WHERE o.title like ?1")
 	List<Movie> findByTitleLike(String title);
 	
-	@Query(value="select movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.release_date, movie.status, movie.trailer, movie.add_date, movie.budget, movie.casts, movie.productions, movie.cover, movie.description, movie.imdb_rate, movie.quality, movie.rate, movie.rates_count, movie.views_count from movie movie "
+	@Query(value="select movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.quality"
+			+ " from [movie] movie "
 			+ " join [movie_genre] on movie.id = movie_genre.movie "
 			+ " join [genre] on movie_genre.genre = genre.id "
 			+ " where genre.genre_slug = ?1 ", nativeQuery=true)
 	Page<Object[]> getByGenre(String slug, Pageable pageable);
 	
-	@Query(value="select movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.release_date, movie.status, movie.trailer, movie.add_date, movie.budget, movie.casts, movie.productions, movie.cover, movie.description, movie.imdb_rate, movie.quality, movie.rate, movie.rates_count, movie.views_count "
+	@Query(value="select movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.quality"
 			+ " from [movie] movie "
 			+ " join [movie_country] movie_country on movie.id = movie_country.movie "
 			+ " join [country] country on movie_country.country = country.id "
 			+ " where country.country_slug = ?1 ", nativeQuery=true)
 	Page<Object[]> getByCountry(String slug, Pageable pageable);
 	
-	@Query(value="SELECT o FROM Movie o WHERE o.type.id = ?1")
-	Page<Movie> findByType(Integer id, Pageable pageable);
+	@Query(value="SELECT o FROM Movie o WHERE o.type.id = ?1 ORDER BY o.add_date DESC")
+	Page<Movie> findByTypeOrderByAddDateDesc(Integer id, Pageable pageable);
+	
+	@Query(value="select count(*) from movie", nativeQuery=true)
+	Integer getCountAll();
 }

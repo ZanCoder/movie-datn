@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,4 +38,24 @@ public class Movie_Purchase_History {
 	@Column(name="timestamp", columnDefinition="date DEFAULT GETDATE()")
 	@Temporal(TemporalType.TIMESTAMP)
 	Date timestamp = new java.sql.Date(System.currentTimeMillis());
+	
+	@JsonProperty("movie_title")
+	public String getMovieTitle() {
+		return this.movie.getTitle();
+	}
+	
+	@JsonProperty("movie_poster")
+	public String getMoviePoster() {
+		return this.movie.getPoster();
+	}
+	
+	@JsonProperty("movie_budget")
+	public float getMovieBudget() {
+		return this.movie.getBudget();
+	}
+	
+	@JsonProperty("movie_slug")
+	public String getMovieSlug() {
+		return this.movie.getSlug();
+	}
 }

@@ -1,0 +1,105 @@
+<div class="block_area block_area-comment" id="comment-block">
+	<div class="block_area-header block_area-header-tabs">
+		<div class="float-left bah-heading mr-4">
+			<h2 class="cat-heading">Comments</h2>
+		</div>
+	</div>
+	<div class="shows-comments">
+		<div id="content-comments" class="comments-wrap">
+			<div class="sc-header text-white">
+				<div class="sc-h-from">
+                    <a class="btn btn-sm text-capitalize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow:none;">Episode [[${ movie_ep.ep }]]<i class="fas fa-angle-down ml-2"></i></a>
+                    <div class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list">
+                        <a class="dropdown-item cm-by active" data-value="episode" href="javascript:;">Episode [[${ movie_ep.ep }]]
+                            <i class="fas fa-check ml-2"></i></a>
+                        <a class="dropdown-item cm-by " data-value="all" href="javascript:;">All
+                            Episode </a>
+                    </div>
+                </div>
+                
+                <div class="sc-h-title"><i class="far fa-comment-alt mr-2"></i>[[${#lists.size(comment_movies)}]]<span> Comments</span>
+				</div>
+				<div class="sc-h-sort">
+					<a class="btn btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+						style="box-shadow:none;">Sort by<i class="fas fa-sort ml-2"></i></a>
+					<div class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list">
+						<a class="dropdown-item cm-sort " data-value="top" href="javascript:;">Top </a>
+						<a class="dropdown-item cm-sort active" data-value="newest" href="javascript:;">Newest <i
+								class="fas fa-check ml-2"></i></a>
+						<a class="dropdown-item cm-sort " data-value="oldest" href="javascript:;">Oldest </a>
+					</div>
+				</div>
+			</div>
+			<div class="comment-input">
+				<div class="cmt-user-avatar">
+					
+					<img sec:authorize="isAnonymous()" class="cmt-user-avatar-img" th:src="@{/img/no-avatar.jpeg}">
+					
+					<img sec:authorize="isAuthenticated()" class="cmt-user-avatar-img" th:src="${account.avatar}">
+					
+				</div>
+				<div class="ci-form">
+					<div class="user-name text-white">
+						<span sec:authorize="isAnonymous()">
+						You must be <a class="link-highlight" href="javascript:;" data-toggle="modal"
+							data-target="#modallogin">login</a> to post a comment
+						</span>
+						<span sec:authorize="isAuthenticated()">
+							Comment as <a class="link-highlight" href="javascript:;">[[${account.username}]]</a>
+						</span>
+					</div>
+					<form class="preform preform-dark comment-movie-form">
+						<input type="hidden" class="cmt-movieEp-id" th:value="${movieEpId}">
+						<div th:replace="/utilities/loading-popup::.loading-relative(content='comment-movie')"></div>
+						<div sec:authorize="isAnonymous()">
+							<textarea class="form-control form-control-textarea emo-on cm-input-base" data-toggle="modal" data-target="#modallogin"
+								id="df-cm-content" name="content" maxlength="3000" placeholder="Leave a comment" required=""></textarea>
+						</div>
+						<div sec:authorize="isAuthenticated()">
+							<textarea class="form-control form-control-textarea comment-subject emo-on cm-input-base"
+								id="df-cm-content" name="content" maxlength="3000" placeholder="Leave a comment" required=""></textarea>
+						</div>
+						<div class="ci-emo">
+							<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="cb-icon"><i
+									class="fas fa-laugh"></i></div>
+							<div class="dropdown-menu dropdown-menu-model dropdown-menu-normal dr-bottom-right dropdown-menu-emo animated bounceIn">
+								<emoji-picker class="dark" data-input="cm-input-base"></emoji-picker>
+							</div>
+						</div>
+						<div class="ci-buttons animated fadeInDown" id="df-cm-buttons" style="display: none;">
+							<div class="alert alert-danger cm-error mt-1 animated bounceIn" style="display: none;">
+							</div>
+							<div class="ci-b-left">
+								<div class="cb-li"><a class="btn btn-sm btn-spoil btn-spoil-base text-capitalize"><i
+											class="fas fa-check mr-2"></i>Spoil?</a></div>
+							</div>
+							<div class="ci-b-right">
+								<div class="cb-li"><a
+										class="btn btn-sm btn-secondary text-capitalize cm-close cm-close-base">Close</a>
+								</div>
+								<div class="cb-li">
+									<button
+										class="btn btn-sm btn-primary ml-2 text-capitalize cm-send cm-send-base">Comment</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="cw_list">
+				<th:block th:each="c: ${comment_movies}">
+					<div th:replace="/movie/comment-movie-box::.cw_l-line(c=${c}, replies=${c.getReplies()})"></div>
+				</th:block>
+			</div>
+			
+				<div class="rep-more mt-3">
+					<button type="button" class="btn btn-sm text-capitalize" id="cm-view-more" data-page="0">
+						<i class="fas fa-caret-down mr-2"></i><span>View more</span>
+					</button>
+				</div>
+			
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/comment-handler.js}"></script>

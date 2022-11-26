@@ -21,41 +21,80 @@
 						[[${spotlight.title}]]
 					</div>
 					<div class="slider__content-time">
-						<pan class="slider__content-time-play"><i
+						<span class="slider__content-time-play"><i
 								class="fa-solid fa-circle-play slider__content-time-icon"></i>
-							[[${spotlight.type.movie_type_name}]]</pan>
-						<pan class="slider__content-time-oclock"><i
+							[[${spotlight.type.movie_type_name}]]</span>
+						<span class="slider__content-time-oclock"><i
 								class="fa-solid fa-clock slider__content-time-icon"></i> [[${spotlight.duration_min}]]
-						</pan>
-						<pan class="slider__content-time-years"><i
+						</span>
+						<span class="slider__content-time-years"><i
 								class="fa-solid fa-calendar-days slider__content-time-icon"></i> [[${
-							#dates.format(spotlight.release_date, 'dd-MM-yyyy') }]]</pan>
+							#dates.format(spotlight.release_date, 'dd-MM-yyyy') }]]</span>
 						<div class="slider-background-hd">
-							<pan class="slider__content-time-hd">[[${spotlight.quality.quality_name}]]</pan>
+							<span class="slider__content-time-hd">[[${spotlight.quality.quality_name}]]</span>
 						</div>
 						<div class="slider-background-sub">
-							<pan class="slider__content-time-sub">SUB</pan>
+							<span class="slider__content-time-sub">SUB</span>
 						</div>
 					</div>
 					<div class="slider__content-description">
 						[[${spotlight.description}]]
 					</div>
-				</div>
-				<div class="slider__content-btn-play">
-					<div class="slider__content-playBtn">
-						<div class="slider__content-playBtn-watch">
-							<a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${spotlight.slug}, se_ep='1-1')}"
-								class="slider__content-playBtn-watch-btn">
-								<i class="fa-solid fa-circle-play"></i>
-								Watch Now
-							</a>
-						</div>
-						<div class="slider__content-playBtn-detail">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${spotlight.slug}, season=1) }"
-								class="slider__content-playBtn-detail-btn">
-								Detail
-								<i class="fa-solid fa-chevron-right"></i>
-							</a>
+
+					<div class="slider__content-btn-play">
+						<div class="slider__content-playBtn">
+						
+							<span sec:authorize="isAuthenticated()">
+								<div th:if="${spotlight.vip} == false and ${spotlight.status.id} != 3" class="slider__content-playBtn-watch">
+									<a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${spotlight.slug}, se_ep='1-1')}"
+										class="slider__content-playBtn-watch-btn">
+										<i class="fa-solid fa-circle-play"></i>
+										Watch Now
+									</a>
+								</div>
+								
+								<div th:if="${spotlight.vip} == true and ${spotlight.status.id} != 3 and ${movie_purchaseDao.checkPurchased(account.id, spotlight.id)} == 0" class="slider__content-playBtn-watch">
+									<a th:href="@{ /movie/{slug}/{season} (slug=${spotlight.slug}, season=1) }"
+										class="slider__content-playBtn-watch-btn">
+										<i class="fa-solid fa-circle-play"></i>
+										Buy now
+									</a>
+								</div>
+								
+								<div th:if="${spotlight.vip} == true and ${spotlight.status.id} != 3 and ${movie_purchaseDao.checkPurchased(account.id, spotlight.id)} != 0" class="slider__content-playBtn-watch">
+									<a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${spotlight.slug}, se_ep='1-1')}"
+										class="slider__content-playBtn-watch-btn">
+										<i class="fa-solid fa-circle-play"></i>
+										Watch now
+									</a>
+								</div>
+							</span>
+							
+							<span sec:authorize="isAnonymous()">
+								<div th:if="${spotlight.vip} == false and ${spotlight.status.id} != 3" class="slider__content-playBtn-watch">
+									<a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${spotlight.slug}, se_ep='1-1')}"
+										class="slider__content-playBtn-watch-btn">
+										<i class="fa-solid fa-circle-play"></i>
+										Watch now
+									</a>
+								</div>
+								
+								<div th:if="${spotlight.vip} == true and ${spotlight.status.id} != 3" class="slider__content-playBtn-watch">
+									<a th:href="@{ /movie/{slug}/{season} (slug=${spotlight.slug}, season=1) }"
+										class="slider__content-playBtn-watch-btn">
+										<i class="fa-solid fa-circle-play"></i>
+										Buy now
+									</a>
+								</div>
+							</span>
+							
+							<div class="slider__content-playBtn-detail">
+								<a th:href="@{ /movie/{slug}/{season} (slug=${spotlight.slug}, season=1) }"
+									class="slider__content-playBtn-detail-btn">
+									Detail
+									<i class="fa-solid fa-chevron-right"></i>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -276,38 +315,38 @@
 				<!-- Box Films 1 -->
 				<div class="topFilms__items">
 					<div class="topFilms__items-title">
-						<h3 class="topFilms__items-title-airing">Top Airing</h3>
+						<h3 class="topFilms__items-title-airing">Top IMDB</h3>
 					</div>
 
 					<!-- Details 1 -->
-					<div class="topFilms__items-details" th:each="airing: ${airings}">
-						<div class="topFilms__items-details-img qtip-movie" th:attr="data-id=${airing.id}">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${airing.slug}, season=1) }"
+					<div class="topFilms__items-details" th:each="topIMDB: ${topIMDBs}">
+						<div class="topFilms__items-details-img qtip-movie" th:attr="data-id=${topIMDB.id}">
+							<a th:href="@{ /movie/{slug}/{season} (slug=${topIMDB.slug}, season=1) }"
 								rel="noopener noreferrer">
-								<img th:src="${airing.poster}" th:alt="${airing.title}"
+								<img th:src="${topIMDB.poster}" th:alt="${topIMDB.title}"
 									class="topFilms__items-details-img-logo">
 							</a>
 						</div>
 						<div class="topFilms__items-details-title">
-							<a th:href="@{ /movie/{slug}/{season} (slug=${airing.slug}, season=1) }"
-								class="topFilms__items-details-title-link">[[${airing.title}]]</a>
+							<a th:href="@{ /movie/{slug}/{season} (slug=${topIMDB.slug}, season=1) }"
+								class="topFilms__items-details-title-link">[[${topIMDB.title}]]</a>
 							<div class="topFilms__items-details-description">
 								<span
-									class="topFilms__items-details-descriptionTV">[[${airing.type.movie_type_name}]]</span>
+									class="topFilms__items-details-descriptionTV">[[${topIMDB.type.movie_type_name}]]</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
-								<span th:if="${airing.type.movie_type_name == 'TV-Series'}"
+								<span th:if="${topIMDB.type.movie_type_name == 'TV-Series'}"
 									class="topFilms__items-details-descriptionItem"> Ep [[${
-									#lists.size(movie_eps.findByMovieAndSeasonAndServer(airing.id, 1, 1)) }]] </span>
-								<span th:unless="${airing.type.movie_type_name == 'TV-Series'}">Full</span>
+									#lists.size(movie_eps.findByMovieAndSeasonAndServer(topIMDB.id, 1, 1)) }]] </span>
+								<span th:unless="${topIMDB.type.movie_type_name == 'TV-Series'}">Full</span>
 								<span class="topFilms__items-details-descriptionDot"></span>
 								<span
-									class="topFilms__items-details-descriptionDuration">[[${airing.duration_min}]]</span>
+									class="topFilms__items-details-descriptionDuration">[[${topIMDB.duration_min}]]</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="topFilms__items-views">
-						<a href="" class="topFilms__items-views-link">
+						<a href="/top-imdb" class="topFilms__items-views-link">
 							View more
 							<i class="fa-solid fa-chevron-right"></i>
 						</a>
@@ -347,7 +386,7 @@
 						</div>
 					</div>
 					<div class="topFilms__items-views">
-						<a href="" class="topFilms__items-views-link">
+						<a href="/most-popular" class="topFilms__items-views-link">
 							View more
 							<i class="fa-solid fa-chevron-right"></i>
 						</a>
@@ -388,7 +427,7 @@
 					</div>
 
 					<div class="topFilms__items-views">
-						<a href="" class="topFilms__items-views-link">
+						<a href="/most-favorite" class="topFilms__items-views-link">
 							View more
 							<i class="fa-solid fa-chevron-right"></i>
 						</a>
@@ -429,7 +468,7 @@
 					</div>
 
 					<div class="topFilms__items-views">
-						<a href="" class="topFilms__items-views-link">
+						<a href="/completed" class="topFilms__items-views-link">
 							View more
 							<i class="fa-solid fa-chevron-right"></i>
 						</a>
@@ -447,7 +486,7 @@
 						<span class="watchContent__main-movies-title-heading">
 							Latest Episode
 						</span>
-						<a href="">
+						<a href="/tv-series">
 							<span class="watchContent__main-movies-title-viewmore">
 								View more <i class="fa-solid fa-chevron-right"></i>
 							</span>
@@ -462,7 +501,10 @@
 									class="watchContent__main-movies-films-img"><img th:src="${l.poster}"
 										th:alt="${l.title}" class="watchContent__main-movies-films-img-logo">
 									<div th:if="${l.vip}" class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
+									<div class="items-sub-res">
+										<div class="items-sub">SUB</div>
+										<div class="items-resolution">[[${l.quality.quality_name}]]</div>
+									</div>
 									<div th:if="${l.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep [[${
 										#lists.size(movie_eps.findByMovieAndSeasonAndServer(l.id, 1, 1)) }]]</div>
 									<div th:unless="${l.type.movie_type_name == 'TV-Series'}" class="items-parts">Full
@@ -492,7 +534,9 @@
 					<div class="watchContent__main-sidebar-items">
 						<div class="watchContent__main-sidebar-items-key">
 							<ul class="watchContent__main-sidebar-items-keyWord">
-								<li th:each="genre: ${genres}"><a href="">[[${genre.genre_name}]]</a></li>
+								<li th:each="genre: ${genres}"><a
+										th:href="@{/genre/{slug}(slug=${genre.genre_slug})}">[[${genre.genre_name}]]</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -507,7 +551,7 @@
 						<span class="watchContent__main-movies-title-heading">
 							New Movies
 						</span>
-						<a href="">
+						<a href="/movies">
 							<span class="watchContent__main-movies-title-viewmore">
 								View more <i class="fa-solid fa-chevron-right"></i>
 							</span>
@@ -522,7 +566,10 @@
 									class="watchContent__main-movies-films-img"><img th:src="${newMovie.poster}"
 										th:alt="${newMovie.title}" class="watchContent__main-movies-films-img-logo">
 									<div th:if="${newMovie.vip}" class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
+									<div class="items-sub-res">
+										<div class="items-sub">SUB</div>
+										<div class="items-resolution">[[${newMovie.quality.quality_name}]]</div>
+									</div>
 									<div th:if="${newMovie.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep
 										[[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(newMovie.id, 1, 1)) }]]
 									</div>
@@ -553,7 +600,7 @@
 						<span class="watchContent__main-movies-title-heading">
 							Top Upcoming
 						</span>
-						<a href="">
+						<a href="/top-upcoming">
 							<span class="watchContent__main-movies-title-viewmore">
 								View more <i class="fa-solid fa-chevron-right"></i>
 							</span>
@@ -561,296 +608,34 @@
 					</div>
 
 					<div class="flex-movies">
-						<!-- Movies 1 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
-									<div class="items-dub">DUB</div>
-									<div class="items-parts">EP 4/12</div>
+						<div class="watchContent__main-movies-films" th:each="upComing: ${upComings}">
+							<div class="box-img qtip-movie" th:attr="data-id=${upComing.id}">
+								<a th:href="@{ /movie/{slug}/{season} (slug=${upComing.slug}, season=1) }"
+									class="watchContent__main-movies-films-img"><img th:src="${upComing.poster}"
+										th:alt="${upComing.title}" class="watchContent__main-movies-films-img-logo">
+									<div th:if="${upComing.vip}" class="items-vip">VIP</div>
+									<div class="items-sub-res">
+										<div class="items-sub">SUB</div>
+										<div class="items-resolution">[[${upComing.quality.quality_name}]]</div>
+									</div>
+									<div th:if="${upComing.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep
+										[[${ #lists.size(movie_eps.findByMovieAndSeasonAndServer(upComing.id, 1, 1)) }]]
+									</div>
+									<div th:unless="${upComing.type.movie_type_name == 'TV-Series'}"
+										class="items-parts">Full</div>
 									<i class="fa-solid fa-caret-right item-plays"></i>
 								</a>
 							</div>
 							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
+								<a th:href="@{ /movie/{slug}/{season} (slug=${upComing.slug}, season=1) }"
+									rel="noopener noreferrer">
 									<h4 class="watchContent__main-movies-films-title">
-										Muv-Luv Alternative 2nd Season</h4>
+										[[${upComing.title}]]</h4>
 								</a>
 								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 2 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Do It Yourself!!</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 3 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Legendary Twins</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 4 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Love Flops</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 5 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Mob Psycho 100 III</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 6 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Immoral Guild</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 7 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/97/44/974442233162cad3ed81fd9e2543ef4a/974442233162cad3ed81fd9e2543ef4a.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Do It Yourself!!</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 8 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/c8/51/c851c61b6d74b2708086fb5e124f6c06/c851c61b6d74b2708086fb5e124f6c06.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
-									<div class="items-dub">DUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Muv-Luv Alternative 2nd Season</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 9 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/8c/08/8c08b4fd12e27ac4e1dc4e72af8e9568/8c08b4fd12e27ac4e1dc4e72af8e9568.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Love Flops</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 10 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/b9/d3/b9d38b86a98c24254c9c01c864f2c60a/b9d38b86a98c24254c9c01c864f2c60a.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Legendary Twins</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 11 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/56/ca/56caeadc3e452ceafad870bbdb99dbe6/56caeadc3e452ceafad870bbdb99dbe6.jpg"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Immoral Guild</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
-								</span>
-								<div class="watchContent__main-movies-films-items">
-								</div>
-							</div>
-						</div>
-
-						<!-- Movies 12 -->
-						<div class="watchContent__main-movies-films">
-							<div class="box-img">
-								<a href="" class="watchContent__main-movies-films-img"><img
-										src="https://img.zorores.com/_r/300x400/100/e3/d2/e3d22899f42d913cf47a96b7b575aab3/e3d22899f42d913cf47a96b7b575aab3.png"
-										alt="" class="watchContent__main-movies-films-img-logo">
-									<div class="items-vip">VIP</div>
-									<div class="items-sub">SUB</div>
-									<div class="items-parts">EP 4/12</div>
-									<i class="fa-solid fa-caret-right item-plays"></i>
-								</a>
-							</div>
-							<div class="watchContent__main-movies-films-content">
-								<a href="" target="_blank" rel="noopener noreferrer">
-									<h4 class="watchContent__main-movies-films-title">
-										Mob Psycho 100 III</h4>
-								</a>
-								<span class="watchContent__main-movies-films-desc">
-									TV <span class="topFilms__items-details-descriptionDot"></span> 23m
+									[[${upComing.type.movie_type_name}]] <span
+										class="topFilms__items-details-descriptionDot"></span>
+									[[${upComing.duration_min}]]
 								</span>
 								<div class="watchContent__main-movies-films-items">
 								</div>
@@ -863,39 +648,18 @@
 					<div class="watchContent__main-sidebar-title">Most Viewed</div>
 					<div class="watchContent__main-sidebar-mostView">
 						<div class="watchContent__main-sidebar-mostView-header">
-							<a href="" class="watchContent__main-sidebar-mostView-header-today"><span
+							<a href="javascript:;" class="watchContent__main-sidebar-mostView-header-today active"><span
 									class="today">Today</span></a>
-							<a href="" class="watchContent__main-sidebar-mostView-header-week"><span
+							<a href="javascript:;" class="watchContent__main-sidebar-mostView-header-week"><span
 									class="week">Week</span></a>
-							<a href="" class="watchContent__main-sidebar-mostView-header-month"><span
+							<a href="javascript:;" class="watchContent__main-sidebar-mostView-header-month"><span
 									class="month">Month</span></a>
 						</div>
 
-						<!-- Movies Top -->
-						<div class="watchContent__main-sidebar-mostView-content" th:each="mostView, iter: ${mostViews}">
-							<h2 class="watchContent__main-sidebar-mostView-content-top" th:with="num=${iter.index}">
-								[[${#numbers.formatInteger(#strings.toString(num + 1), 2)}]]</h2>
-							<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }"
-								class="watchContent__main-sidebar-mostView-content-img"><img th:src="${mostView.poster}"
-									th:alt="${mostView.title}"
-									class="watchContent__main-sidebar-mostView-content-img-logo"></a>
-							<div class="watchContent__main-sidebar-mostView-content-desc">
-								<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }">
-									<h3 class="watchContent__main-sidebar-mostView-content-descTitle">
-										[[${mostView.title}]]</h3>
-								</a>
-								<div>
-									<span class="watchContent__main-sidebar-mostView-content-descViews">
-										<i class="fa-sharp fa-solid fa-eye"></i>
-										234,674
-									</span>
-									<span class="watchContent__main-sidebar-mostView-content-descViews">
-										<i class="fa-solid fa-heart"></i>
-										39.301
-									</span>
-								</div>
+						<div class="mostView-container">
+							<div
+								th:replace="/utilities/most_viewed-table::.watchContent__main-sidebar-mostView-content">
 							</div>
-							
 						</div>
 					</div>
 				</div>

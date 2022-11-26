@@ -1,6 +1,7 @@
 package com.fpoly.spring.config;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.fpoly.spring.handler.AuthFailureHandler;
@@ -28,6 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     AuthSuccessHandler authSuccessHandler;
+    
+    @Autowired
+	private DataSource dataSource;
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -46,25 +52,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 		
+		http.authorizeRequests().antMatchers(
+				"/user/profile", "/user/continue-watching", "/user/watch-list", "/user/notification", "/user/purchase-history"
+			).authenticated();
+		
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 		
 		http.authorizeRequests().and().formLogin()
 			.loginProcessingUrl("/j_spring_security_check")
-			.loginPage("/login")
+			.loginPage("/")
 			.failureHandler(authFailureHandler)
             .successHandler(authSuccessHandler)
 			.usernameParameter("emailAre")
 			.passwordParameter("password")
-			.and().logout().logoutUrl("/logout").logoutSuccessUrl("/home");
+			.and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
+			.logoutSuccessUrl("/home");
 		
-		http.authorizeRequests().and()
-		.rememberMe().tokenRepository(this.persistentTokenRepository())
-		.tokenValiditySeconds(1 * 24 * 60 * 60);
+		http.authorizeRequests().and() 
+		.rememberMe().key("uniqueAndSecret").tokenRepository(this.persistentTokenRepository())
+		.tokenValiditySeconds(1 * 24 * 60 * 60).rememberMeParameter("remember_me");
 	}
 	
 	@Bean
-	public PersistentTokenRepository persistentTokenRepository() {
-	    InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
-	    return memory;
-	}
+    public PersistentTokenRepository persistentTokenRepository() {
+        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl(); 
+        return memory;
+    }
+	
+	@Bean
+    public PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices() {
+        PersistentTokenBasedRememberMeServices service = new PersistentTokenBasedRememberMeServices("remember_me", userDetailsService, persistentTokenRepository());
+        service.setCookieName("remember_me");
+        service.setTokenValiditySeconds(864000);
+        return service;
+    }
 }

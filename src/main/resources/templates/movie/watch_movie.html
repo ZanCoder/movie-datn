@@ -9,25 +9,27 @@
 <body>
 	<main>
 		<style>
-		.watch::before{
-		    content: '';
-		    position: absolute;
-		    top: 0;
-		    left: 0;
-		    width: 100%;
-		    height: 100%;
-		    background-image: url([[${movie.poster}]]);
-		    background-size: cover;
-		    background-position: center center;
-		    background-repeat: no-repeat;
-		    filter: blur(20px);
-		    opacity: .35;
-		}</style>
+			.watch::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-image: url([[${movie.poster}]]);
+				background-size: cover;
+				background-position: center center;
+				background-repeat: no-repeat;
+				filter: blur(20px);
+				opacity: .35;
+			}
+		</style>
 		<div class="empty" style="padding-top: 70px;"></div>
 		<ul class="bread">
 			<li class="bread-item"><a th:href="@{/home}">Home</a></li>
 			<li class="bread-item"><i class="fas fa-circle"></i></li>
-			<li class="bread-item"><a href="#">[[${ movie.type.movie_type_name }]]</a></li>
+			<li class="bread-item"><a th:href="@{ |/${movie.type.type_slug}| }">[[${ movie.type.movie_type_name }]]</a>
+			</li>
 			<li class="bread-item"><i class="fas fa-circle"></i></li>
 			<li class="bread-item">[[${ movie.title }]]</li>
 		</ul>
@@ -43,14 +45,15 @@
 					</li>
 					<li>
 						<ul class="eps">
-							<li th:each="m, iter: ${movie_eps}" class="ep"
+							<li th:each="m, iter: ${movie_eps}" class="ep" th:attr="rel=${iter.index + 1}"
 								th:classappend="${iter.index + 1 == movie_ep.ep ? 'current' : 'none'}">
 								<a class="w-m"
 									th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-'+${m.ep})}">
-									<span class="mr-3 ml-1 font-weight-bold">[[${ iter.index + 1 }]]</span> [[${m.title}]]
+									<span class="mr-3 ml-1 font-weight-bold">[[${ iter.index + 1 }]]</span>
+									[[${m.title}]]
 									<div th:if="${iter.index + 1 == movie_ep.ep}" class="ssli-btn">
-			                            <div class="btn btn-circle"><i class="fas fa-play"></i></div>
-			                        </div>
+										<div class="btn btn-circle"><i class="fas fa-play"></i></div>
+									</div>
 								</a>
 							</li>
 						</ul>
@@ -59,11 +62,12 @@
 
 				<div class="player watch-center">
 
-					<iframe id="my_video" width="1000" height="470" 
-							th:src="${server.getId() == 1} ? 'https://short.ink/'+${movie_ep.api_key} : 'https://slwatch.co/e/'+${movie_ep.api_key}"
-							frameborder="0" scrolling="0" allowfullscreen></iframe>
+					<iframe id="my_video" width="1000" height="470"
+						th:attr="data-movieId=${movie.id}, data-movieEp=${movie_ep.ep}, data-movieSeason=${movie_ep.season}"
+						th:src="${server.getId() == 1} ? 'https://short.ink/'+${movie_ep.api_key} : 'https://slwatch.co/e/'+${movie_ep.api_key}"
+						frameborder="0" scrolling="0" allowfullscreen></iframe>
 
-					<div class="loading-body">
+					<div class="loading-movie">
 						<div class="scene" style="--hue: 500; --saturation: 55; --lightness: 59;">
 							<div class="word">
 								<div class="letter_wrap" style="--index: 0;">
@@ -122,15 +126,80 @@
 					<div class="watch-setting">
 						<div class="watch-setting-top">
 							<div class="watch-setting-top-left">
+								<span class="expand-movie" style="cursor: pointer;" data-type="collapse"><i
+										class="fas fa-expand"></i>&nbsp; Expand</span>
 								<span><i class="fas fa-lightbulb"></i> Light <span class="turn turn-light"
+										data-light="on"
 										style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;">On</span></span>
-								<span>Auto Play <span class="turn turn- turn-auto-play">On</span></span>
-								<span>Auto Next <span class="turn turn- turn-auto-next">On</span></span>
+								<span sec:authorize="isAuthenticated()" class="report-movie"
+									th:attr="data-movieEpId=${movie_ep.id}, data-movieType=${movie.type.id}, data-movieEpTitle=${movie_ep.title}, data-movieTitle=${movie.title}, data-movieEp=${ep}"
+									style="cursor: pointer;" data-toggle="modal" data-target="#modalreportmovie"><i
+										class="fas fa-bug"></i>&nbsp; Report Issue</span>
+								<span sec:authorize="isAnonymous()" class="report-movie" data-toggle="modal"
+									data-target="#modallogin" style="cursor: pointer;"><i class="fas fa-bug"></i>&nbsp;
+									Report Issue</span>
+
+
 							</div>
 							<div class="watch-setting-top-right">
-								<div class="watch-prev"><a href="#"><i class="fas fa-backward"></i></a></div>
-								<div class="watch-next"><a href="#"><i class="fas fa-forward"></i></a></div>
-								<div class="watch-plus"><i class="fas fa-plus"></i></div>
+								<div class="watch-prev change-ep"
+									th:attr="data-ep=${ep}, data-slug=${movie.slug}, data-season=${movie_ep.season}, data-totalEp=${#lists.size(movie_eps)}">
+									<a href="javascript:;"><i class="fas fa-backward"></i></a>
+								</div>
+								<div class="watch-next change-ep"
+									th:attr="data-ep=${ep}, data-slug=${movie.slug}, data-season=${movie_ep.season}, data-totalEp=${#lists.size(movie_eps)}">
+									<a href="javascript:;"><i class="fas fa-forward"></i></a>
+								</div>
+
+								<div sec:authorize="isAnonymous()" class="watch-plus" data-toggle="modal"
+									data-target="#modallogin"><i class="fas fa-plus"
+										style="font-size: 20px; cursor: pointer;"></i></div>
+								<div sec:authorize="isAuthenticated()" class="watch-plus" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus"
+										style="font-size: 20px; cursor: pointer;"></i></div>
+								<div sec:authorize="isAuthenticated()" style="color: white;min-width: 150px;"
+									class="dropdown-menu dropdown-menu-model dropdown-menu-normal"
+									aria-labelledby="ssc-list"
+									th:with="status=${wlDao?.findByAccountAndMovie(account.id, movie.id)?.getStatus()}">
+									<a class="wl-item dropdown-item"
+										th:classappend="${status} == '1' ? 'added' : 'asdf'" data-type="1"
+										th:style="${status == '1' ? 'pointer-events: none' : 'pointer-events: visible'}"
+										th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+										Watching <i th:if="${status} == '1'" class="fas fa-check m-0 pl-2"></i>
+									</a>
+
+									<a class="wl-item dropdown-item" th:classappend="${status} == '2' ? 'added' : ''"
+										data-type="2"
+										th:style="${status == '2' ? 'pointer-events: none' : 'pointer-events: visible'}"
+										th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+										On-hold <i th:if="${status} == '2'" class="fas fa-check m-0 pl-2"></i>
+									</a>
+
+									<a class="wl-item dropdown-item" th:classappend="${status} == '3' ? 'added' : ''"
+										data-type="3"
+										th:style="${status == '3' ? 'pointer-events: none' : 'pointer-events: visible'}"
+										th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+										Plan to watch <i th:if="${status} == '3'" class="fas fa-check m-0 pl-2"></i>
+									</a>
+
+									<a class="wl-item dropdown-item" th:classappend="${status} == '4' ? 'added' : ''"
+										data-type="4"
+										th:style="${status == '4' ? 'pointer-events: none' : 'pointer-events: visible'}"
+										th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+										Dropped <i th:if="${status} == '4'" class="fas fa-check m-0 pl-2"></i>
+									</a>
+
+									<a class="wl-item dropdown-item" th:classappend="${status} == '5' ? 'added' : ''"
+										data-type="5"
+										th:style="${status == '5' ? 'pointer-events: none' : 'pointer-events: visible'}"
+										th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+										Completed <i th:if="${status} == '5'" class="fas fa-check m-0 pl-2"></i>
+									</a>
+									<a class="wl-item dropdown-item text-danger" href="javascript:;"
+										th:attr="data-movieId=${movie.id}" data-page="watch-list"
+										data-type="0">Remove</a>
+								</div>
+
 							</div>
 						</div>
 
@@ -138,11 +207,10 @@
 							<div class="watch-setting-bottom-left">You are watching <br /> <span
 									class="font-weight-bold">[[${ movie_ep.title }]]</span></div>
 							<div class="watch-setting-bottom-right">
-								<span><i class="fas fa-server"></i> SERVER: </span>
-								<div class="servers"><span class="btn-change-server mr-2" th:each="s: ${servers}" 
-													th:attr="data-movie=${movie.id}, data-server=${s.getId()}, data-ep=${movie_ep.ep}"
-													th:classappend="${server.getMovie_server_name() == s.movie_server_name} ? current-server : ''"
-													>[[${s.movie_server_name}]]</span>
+								<span style="font-size: 14px"><i class="fas fa-server"></i> SERVER: </span>
+								<div class="servers"><span class="btn-change-server mr-2" th:each="s: ${servers}"
+										th:attr="data-movie=${movie.id}, data-server=${s.getId()}, data-ep=${movie_ep.ep}, data-season=${movie_ep.season}"
+										th:classappend="${server.getMovie_server_name() == s.movie_server_name} ? current-server : ''">[[${s.movie_server_name}]]</span>
 								</div>
 							</div>
 						</div>
@@ -151,7 +219,7 @@
 							<p class="font-weight-bold">Watch more seasons of this movie</p>
 							<div class="seasons">
 								<a th:each="s: ${#numbers.sequence(1, seasons, 1)}"
-									th:href="@{/movie/{slug}/{season} (slug=${movie.slug}, season=${season})}"
+									th:href="@{/movie/{slug}/{season} (slug=${movie.slug}, season=${s})}"
 									class="season-item" th:classappend="${season == s} ? 'current-season' : ''"
 									th:text="'Season ' + ${s}"></a>
 							</div>
@@ -192,24 +260,102 @@
 				<div class="watch-vote">
 					<div class="watch-vote-top">
 						<div>
-							<span>⭐ <span class="font-weight-bold">9.6</span> <span style="font-size:10px;">(234234
+							<span>⭐ <span class="font-weight-bold movie-rated">[[${getMovieRated}]]</span> <span
+									class="total-movie-rated" style="font-size:10px;">([[${getTotalMovieRated}]]
 									voted)</span></span>
 							<span class="font-weight-bold">Vote now</span>
 						</div>
 						<span style="font-size: 12px;">What do you think about movie?</span>
 					</div>
-					<div class="watch-vote-bot">
-						<a href="#"><span>🤬</span> <span style="font-size: 12px">***</span></a>
-						<a href="#"><span>🥱</span> <span style="font-size: 12px">Boring</span></a>
-						<a href="#"><span>😐</span> <span style="font-size: 12px">Normal</span></a>
-						<a href="#"><span>😀</span> <span style="font-size: 12px">Great</span></a>
-						<a href="#"><span>🤩</span> <span style="font-size: 12px">Amazing</span></a>
+					<div>
+						<div class="watch-vote-bot" sec:authorize="isAuthenticated()">
+							<a href="javascript:void(0);" class="rate-movie"
+								th:classappend="${getRate == 1} ? 'rated' : ''" data-rate="1"
+								th:attr="data-movieId=${movie.id}"><span>🤬</span> <span
+									style="font-size: 12px">***</span></a>
+							<a href="javascript:void(0);" class="rate-movie"
+								th:classappend="${getRate == 2} ? 'rated' : ''" data-rate="2"
+								th:attr="data-movieId=${movie.id}"><span>🥱</span> <span
+									style="font-size: 12px">Boring</span></a>
+							<a href="javascript:void(0);" class="rate-movie"
+								th:classappend="${getRate == 3} ? 'rated' : ''" data-rate="3"
+								th:attr="data-movieId=${movie.id}"><span>😐</span> <span
+									style="font-size: 12px">Normal</span></a>
+							<a href="javascript:void(0);" class="rate-movie"
+								th:classappend="${getRate == 4} ? 'rated' : ''" data-rate="4"
+								th:attr="data-movieId=${movie.id}"><span>😀</span> <span
+									style="font-size: 12px">Great</span></a>
+							<a href="javascript:void(0);" class="rate-movie"
+								th:classappend="${getRate == 5} ? 'rated' : ''" data-rate="5"
+								th:attr="data-movieId=${movie.id}"><span>🤩</span> <span
+									style="font-size: 12px">Amazing</span></a>
+						</div>
+
+						<div class="watch-vote-bot" sec:authorize="isAnonymous()">
+							<a href="javascript:void(0);" data-toggle="modal" data-target="#modallogin"><span>🤬</span>
+								<span style="font-size: 12px">***</span></a>
+							<a href="javascript:void(0);" data-toggle="modal" data-target="#modallogin"><span>🥱</span>
+								<span style="font-size: 12px">Boring</span></a>
+							<a href="javascript:void(0);" data-toggle="modal" data-target="#modallogin"><span>😐</span>
+								<span style="font-size: 12px">Normal</span></a>
+							<a href="javascript:void(0);" data-toggle="modal" data-target="#modallogin"><span>😀</span>
+								<span style="font-size: 12px">Great</span></a>
+							<a href="javascript:void(0);" data-toggle="modal" data-target="#modallogin"><span>🤩</span>
+								<span style="font-size: 12px">Amazing</span></a>
+						</div>
+					</div>
+					<div class="form-group login-btn mb-0">
+						<div th:replace="/utilities/loading-popup::.loading-relative(content='rate-loading')"></div>
 					</div>
 				</div>
 			</div>
+
 		</div>
+
+		<!-- Contact Content -->
+		<div id="contactList">
+			<div class="contactList__gif">
+				<img src="/img/eating-popcorn-venom.gif" alt="gif-venom" class="contactList__gif-item">
+			</div>
+			<div class="contactList__share">
+				<span class="contactList__share-title">Share movie</span>
+				<p class="contactList__share-desc">to your friends</p>
+			</div>
+			<div class="contactList__btn">
+				<div class="contactList__btn-icon">
+					<button class="contactList__btn-icon-facebooks">
+						<i class="fa-brands fa-facebook contactList__btn-icon-facebook"></i>
+						Facebook
+					</button>
+				</div>
+				<div class="contactList__btn-icon">
+					<button class="contactList__btn-icon-twitters">
+						<i class="fa-brands fa-twitter contactList__btn-icon-twitter"></i>
+						Twitter
+					</button>
+				</div>
+				<div class="contactList__btn-icon">
+					<button class="contactList__btn-icon-reddits">
+						<i class="fa-brands fa-reddit-alien contactList__btn-icon-reddit"></i>
+						Reddit
+					</button>
+				</div>
+				<div class="contactList__btn-icon">
+					<button class="contactList__btn-icon-telegrams">
+						<i class="fa-brands fa-telegram contactList__btn-icon-telegram"></i>
+						Telegram
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div style="width: 100%;">
+			<div class="load-cm-movie" th:attr="data-movieEpId=${movie_ep.id}"></div>
+		</div>
+
+
 		<script>
-			document.querySelector('.eps').setAttribute("style",`height:${document.querySelector('.watch-center').clientHeight - document.querySelector('.list-eps-top').clientHeight}px`);
+			document.querySelector('.eps').setAttribute("style", `height:${document.querySelector('.watch-center').clientHeight - document.querySelector('.list-eps-top').clientHeight}px`);
 		</script>
 	</main>
 </body>

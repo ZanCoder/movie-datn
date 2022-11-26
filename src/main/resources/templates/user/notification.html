@@ -1,0 +1,60 @@
+<div class="notification-content pb-5 pt-2 user-content">
+    <div class="container">
+        <div class="inbox-list">
+            <h2 class="h2-heading my-4"><i class="fas fa-bell mr-3"></i>Notification</h2>
+            <div class="inbox-tabs mb-2">
+                <div class="float-left fav-tabs">
+                    <ul class="nav nav-tabs pre-tabs pre-tabs-min">
+                        <li class="nav-item">
+                            <a href="?type=1" data-type="1" class="nav-link notify-type active" th:if="${noti_count} == 0">Error Movie</a>
+                        	<a href="?type=1" data-type="1" class="nav-link notify-type active" th:if="${noti_count} != 0">Error Movie ([[${noti_count}]])</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="?type=2" data-type="2" class="nav-link notify-type ">Community
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="float-right">
+                    <a href="javascript:;" data-position="page" class="btn btn-sm btn-blank mt-1 btn-noti-maar"
+                       style="font-size: 14px;"><i class="fas fa-check mr-2"></i> Mark all as read</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="inbox-item-list">
+				
+				<th:block th:each="noti: ${noti_movies}">
+	                <div class="inbox-item with-poster" th:classappend="${noti.new_noti} ? 'new' : ''" th:attr="data-notiId=${noti.id}">
+	                    <a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${noti.getMovieSlug()}, se_ep=${noti.getMovieSeason()}+'-'+${noti.getMovieEp()})}" class="film-poster ii-mark">
+	                        <img th:src="${noti.getMoviePoster()}" class="film-poster-img" th:alt="${noti.getMovieTitle()}">
+	                    </a>
+	
+	                    <div class="d-flex align-items-center justify-content-between">
+	                        <div>
+	                            <div class="small ii-time mb-1 text-white" style="font-size: 11px;" th:attr="data-date=${noti.timestamp}">
+	                            </div>
+	                            <div class="ii-title ii-mark">
+	                                <a th:href="@{/watch-movie/{slug}/{se_ep}(slug=${noti.getMovieSlug()}, se_ep=${noti.getMovieSeason()}+'-'+${noti.getMovieEp()})}"><span
+	                                        class="highlight-text text-white">
+	                                        [[${ noti.getMovieTitle() }]]</span> - [[${ noti.description }]] </a>
+	                            </div>
+	                            <div class="ii-content ii-mark">Click <a
+	                                    th:href="@{/watch-movie/{slug}/{se_ep}(slug=${noti.getMovieSlug()}, se_ep=${noti.getMovieSeason()}+'-'+${noti.getMovieEp()})}">here</a> to
+	                                watch it now.
+	                            </div>
+	                        </div>
+	                    </div>
+	
+	                    <div class="clearfix"></div>
+	                </div>
+                </th:block>
+
+            </div>
+            
+            <!-- Paging -->
+			<div th:replace="/utilities/paginate::.paginate"></div>
+ 
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

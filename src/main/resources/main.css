@@ -1986,3 +1986,376 @@ li > .nav-link {
 .payBtn:hover {
     opacity: 0.9;
 }
+
+/* Profile */
+#profile-main {
+    background-color: #29292E;
+}
+
+#text-username {
+    padding-top: 165px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.username-profile {
+    color: var(--white-color);
+    font-weight: 600;
+    font-size: 3rem;
+}
+
+#profile-tab {
+    margin-bottom: 100px;
+    padding: 15px 150px;
+}
+
+.profile-bg {
+    background-color: #29292E;
+}
+
+.profile-bg li i {
+    margin-right: 5px;
+}
+
+.profile-bg li a {
+    color: var(--white-color) !important;
+}
+
+.profile-bg li a:hover {
+    background-color: #29292E !important;
+    color: #d0e6a5 !important;
+}
+
+.profile-bg li a:active {
+    background-color: #29292E !important;
+    color: #d0e6a5 !important;
+}
+
+.profile-bg li a:focus {
+    background-color: #29292E !important;
+    color: #d0e6a5 !important;
+}
+
+.purchase-profile {
+    background-color: #29292E;
+    color: var(--white-color) !important;
+}
+
+.bg-purcharse a:hover {
+    background-color: #29292E !important;
+    color: #d0e6a5 !important;
+}
+
+.bg-purcharse a:active {
+    background-color: #29292E !important;
+    color: #d0e6a5 !important;
+}
+
+.bg-purcharse a:focus {
+    background-color: #29292E !important;
+    color: #d0e6a5 !important;
+}
+
+.movies-width {
+    width: 900px !important;
+}
+
+.box-movies {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.box-profileMovies {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #414248;
+    width: auto;
+    display: flex;
+    text-decoration: none;
+}
+
+.profileMovies-img > img {
+    width: 45px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.movies-text {
+    padding: 0 15px 0 5px;
+}
+
+.movieText-title > h3 {
+    color: var(--white-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding-top: 5px;
+}
+
+.movieText-title > h3:hover {
+    color: #cae962;
+}
+
+.movieText-price > span {
+    font-size: 1.2rem;
+    color: #ddd;
+    font-weight: 600;
+}
+
+.movieText-timeBuy > span {
+    font-size: 1.2rem;
+    color: #ddd;
+    font-weight: 600;
+}
+
+.purchase {
+    margin: 20px 20px;
+}
+
+.dateTime {
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dateTime-start {
+    flex: 4;
+}
+
+.dateTime-end {
+    flex: 4;
+}
+
+.dateTime-search {
+    flex: 1;
+}
+
+.searchDate {
+    background-color: #29292E;
+    border: none;
+    padding: 10px 15px;
+    color: var(--white-color);
+    font-weight: 600;
+    border-radius: 20px;
+}
+
+.searchDate:hover {
+    background-color: #cae962;
+    color: var(--black-color);
+}
+
+.history-purchase table {
+    font-size: 1.6rem !important;
+    color: #fff !important;
+}
+
+.box-profile {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.box-profile {
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+
+.heading-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+.content-profile {
+    padding: 30px;
+    background: #2a2c31;
+}
+
+.profile-avt {
+    text-align: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.profile-avt-inline {
+    overflow: visible;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.profile-edit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    z-index: 9;
+    background: #fff;
+    color: #111;
+}
+
+.profile-avt-inline img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    vertical-align: middle;
+    border-style: none;
+}
+
+.profile-form .input-avt {
+    overflow: visible;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.row-form {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.form-input-profile {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.form-group-profile {
+    margin-bottom: 20px;
+}
+
+.prelabel {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    opacity: .5;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.form-control-profile {
+    font-size: 1.6rem;
+    border-radius: 3px;
+    border: none;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    overflow: visible;
+}
+
+.form-group-profile a {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    opacity: .5;
+}
+
+.form-group-profile a:hover {
+    color: #cae962;
+    opacity: 1;
+}
+
+.submitProfile-btn {
+    background-color: #cae962;
+    color: var(--black-color);
+    font-size: 1.6rem;
+    border: none;
+    width: 100%;
+    padding: 15px 20px;
+}
+
+.profile-info {
+    margin: 35px 150px 0 0;
+    font-size: 1.4rem;
+    color: #fff;
+}
+
+.profile-info p:last-child {
+    transform: translateX(-18px);
+}
+
+.profile-info p i {
+    margin-right: 10px;
+    color: #cae962;
+}
+
+.edit-profile-link {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.edit-profile-link:hover {
+    color: #cae962;
+}
+
+.movies-profile {
+    margin-left: 60px;
+}
+
+.continue-time {
+    display: flex;
+    justify-content: space-between;
+}
+
+.continue-time span {
+    color: #aaa;
+    font-size: 1.2rem;
+}
+
+.time span:first-child {
+    color: #fd9c46;
+}
+
+.zr-bar {
+    width: 100%;
+    height: 3px;
+    position: relative;
+    background-color: #43474f;
+    margin: 5px 0 3px;
+}
+
+.zr-bar span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: inline-block;
+    background: #fd9c46;
+    width: 20%;
+}

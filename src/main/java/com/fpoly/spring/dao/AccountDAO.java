@@ -36,4 +36,15 @@ public interface AccountDAO extends JpaRepository<Account, Integer>{
 			+ " set budget = ?2 "
 			+ " where id = ?1 ", nativeQuery=true)
 	void rechargeCoin(int id, double budget);
+	
+	@Modifying(clearAutomatically=true)
+    @Transactional
+	@Query(value="update account "
+			+ " set username = ?2, password_hash = ?3, avatar = ?4 "
+			+ " where id = ?1 ", nativeQuery=true)
+	void updateProfile(int id, String username, String password_hash, String avatar);
+
+	@Query(value="select count(*) from account"
+			+ " where ?1 like (select username from account where id <> ?2)", nativeQuery=true)
+	Integer checkDuplicateUsername(String username, int id);
 }

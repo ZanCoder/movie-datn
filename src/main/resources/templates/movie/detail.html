@@ -33,7 +33,7 @@
 			<ul class="bread">
 				<li class="bread-item"><a th:href="@{/home}">Home</a></li>
 				<li class="bread-item"><i class="fas fa-circle"></i></li>
-				<li class="bread-item"><a href="">[[${ movie.type.movie_type_name }]]</a></li>
+				<li class="bread-item"><a th:href="@{ |/${movie.type.type_slug}| }">[[${ movie.type.movie_type_name }]]</a></li>
 				<li class="bread-item"><i class="fas fa-circle"></i></li>
 				<li class="bread-item">[[${ movie.title }]]</li>
 			</ul>
@@ -56,34 +56,74 @@
 				<li><span>[[${ movie.duration_min }]]</span></li>
 			</ul>
 			<ul class="detail-buttons">
-							
+
 				<span sec:authorize="isAuthenticated()">
-					<span th:if="${movie.vip} == false" class="detail-watch mr-2"><a class="text-dark" 
-						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
+					<span th:if="${movie.vip} == false and ${movie.status.id} != 3" class="detail-watch mr-2"><a class="text-dark"
+							th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
 								class="fas fa-play-circle mr-2"></i>Watch now</a></span>
-								
-					<span th:if="${movie.vip} == true and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} == 0" class="detail-watch mr-2"><a class="text-dark open-purchaseModal" 
-						data-toggle="modal" data-target="#modalconfirm-purchase" 
-						th:attr="data-movieId=${movie.id}, data-movieTitle=${movie.title}, data-movieBudget=${movie.budget}"
-						href="javascript:void(0);"><i class="fas fa-play-circle mr-2"></i>Buy [[${ movie.budget }]] coin</a></span>
-						
-					<span th:if="${movie.vip} == true and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} != 0" class="detail-watch mr-2"><a class="text-dark" 
-						th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i class="fas fa-play-circle mr-2"></i>Watch now</a></span>
+
+					<span
+						th:if="${movie.vip} == true and ${movie.status.id} != 3 and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} == 0"
+						class="detail-watch mr-2"><a class="text-dark open-purchaseModal" data-toggle="modal"
+							data-target="#modalconfirm-purchase"
+							th:attr="data-movieId=${movie.id}, data-movieTitle=${movie.title}, data-movieBudget=${movie.budget}"
+							href="javascript:void(0);"><i class="fas fa-play-circle mr-2"></i>Buy [[${ movie.budget }]]
+							coin</a></span>
+
+					<span
+						th:if="${movie.vip} == true and ${movie.status.id} != 3 and ${movie_purchaseDao.checkPurchased(account.id, movie.id)} != 0"
+						class="detail-watch mr-2"><a class="text-dark"
+							th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
+								class="fas fa-play-circle mr-2"></i>Watch now</a></span>
 				</span>
-				
+
 				<span sec:authorize="isAnonymous()">
-					<span th:if="${movie.vip} == false" class="detail-watch mr-2"><a class="text-dark" 
-					th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
-							class="fas fa-play-circle mr-2"></i>Watch now</a></span>
-							
-					<span th:if="${movie.vip} == true" class="detail-watch mr-2"><a class="text-dark open-purchaseModal" 
-						data-toggle="modal" data-target="#modallogin" 
-						href="javascript:void(0);"><i class="fas fa-play-circle mr-2"></i>Buy [[${ movie.budget }]] coin</a></span>
+					<span th:if="${movie.vip} == false and ${movie.status.id} != 3" class="detail-watch mr-2"><a class="text-dark"
+							th:href="@{/watch-movie/{slug}/{se_ep}(slug=${movie.slug}, se_ep=${season}+'-1')}"><i
+								class="fas fa-play-circle mr-2"></i>Watch now</a></span>
+
+					<span th:if="${movie.vip} == true and ${movie.status.id} != 3" class="detail-watch mr-2"><a class="text-dark open-purchaseModal"
+							data-toggle="modal" data-target="#modallogin" href="javascript:void(0);"><i
+								class="fas fa-play-circle mr-2"></i>Buy [[${ movie.budget }]] coin</a></span>
 				</span>
 				
-				<span class="detail-add-to-list"><a class="text-dark"><i class="fas fa-plus mr-2"></i>Add to
-						list</a></span>
-						
+				<span sec:authorize="isAnonymous()" class="detail-add-to-list"><a class="text-dark" data-toggle="modal" data-target="#modallogin"><i class="fas fa-plus mr-2"></i>Add to list</a></span>
+				<span sec:authorize="isAuthenticated()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="detail-add-to-list"><a class="text-dark"><i class="fas fa-plus mr-2"></i>Add to list</a></span>
+				<div sec:authorize="isAuthenticated()" class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list"
+					th:with="status=${wlDao?.findByAccountAndMovie(account.id, movie.id)?.getStatus()}">
+					<a class="wl-item dropdown-item" th:classappend="${status} == '1' ? 'added' : 'asdf'" data-type="1"
+						th:style="${status == '1' ? 'pointer-events: none' : 'pointer-events: visible'}"
+						th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+						Watching <i th:if="${status} == '1'" class="fas fa-check m-0 pl-2"></i>
+					</a>
+
+					<a class="wl-item dropdown-item" th:classappend="${status} == '2' ? 'added' : ''" data-type="2"
+						th:style="${status == '2' ? 'pointer-events: none' : 'pointer-events: visible'}"
+						th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+						On-hold <i th:if="${status} == '2'" class="fas fa-check m-0 pl-2"></i>
+					</a>
+
+					<a class="wl-item dropdown-item" th:classappend="${status} == '3' ? 'added' : ''" data-type="3"
+						th:style="${status == '3' ? 'pointer-events: none' : 'pointer-events: visible'}"
+						th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+						Plan to watch <i th:if="${status} == '3'" class="fas fa-check m-0 pl-2"></i>
+					</a>
+
+					<a class="wl-item dropdown-item" th:classappend="${status} == '4' ? 'added' : ''" data-type="4"
+						th:style="${status == '4' ? 'pointer-events: none' : 'pointer-events: visible'}"
+						th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+						Dropped <i th:if="${status} == '4'" class="fas fa-check m-0 pl-2"></i>
+					</a>
+
+					<a class="wl-item dropdown-item" th:classappend="${status} == '5' ? 'added' : ''" data-type="5"
+						th:style="${status == '5' ? 'pointer-events: none' : 'pointer-events: visible'}"
+						th:attr="data-movieId=${movie.id}" data-page="watch-list" href="javascript:;">
+						Completed <i th:if="${status} == '5'" class="fas fa-check m-0 pl-2"></i>
+					</a>
+					<a class="wl-item dropdown-item text-danger" href="javascript:;"
+						th:attr="data-movieId=${movie.id}" data-page="watch-list" data-type="0">Remove</a>
+				</div>
+
 			</ul>
 			<div class="detail-desc">
 				<span data-read-more="{ visible: false, useStyledContainer: true }">[[${ movie.description }]]</span>
@@ -103,6 +143,8 @@
 				</span></span><br />
 			<span class="detail-jp-name font-weight-bold">Released: &nbsp;<span class="font-weight-light"> [[${
 					#dates.format(movie.release_date, 'dd-MM-yyyy') }]] </span></span><br />
+			<span class="detail-jp-name font-weight-bold">Status: &nbsp;<span class="font-weight-light"> [[${
+					movie.status.status_name }]]</span></span><br />	
 			<span class="detail-jp-name font-weight-bold">Duration: &nbsp;<span class="font-weight-light"> [[${
 					movie.duration_min }]]</span></span><br />
 			<span class="detail-jp-name font-weight-bold">Type: &nbsp;<span class="font-weight-light"> [[${
@@ -110,16 +152,16 @@
 			<span class="detail-jp-name font-weight-bold">IMDB: &nbsp;<span class="font-weight-light"> [[${
 					movie.imdb_rate }]] </span></span><br />
 			<span class="detail-genres font-weight-bold">Genres: &nbsp;
-				<a th:each="g: ${movie.getMovie_genres() }" href="{{ url_for('genres', name=g.name) }}"
+				<a th:each="g: ${movie.getMovie_genres() }" th:href="@{/genre/{slug}(slug=${g.genre.genre_slug})}"
 					class="badge border border-light font-weight-light text-white mr-2"> [[${ g.genre.genre_name }]]
 				</a> </span><br />
 			<span class="detail-countries font-weight-bold">Countries: &nbsp;
-				<a th:each="c: ${ movie.getMovie_countries() }" href="{{ url_for('genres', name=g.name) }}"
+				<a th:each="c: ${ movie.getMovie_countries() }" th:href="@{/country/{slug}(slug=${c.country.country_slug})}"
 					class="badge border border-light font-weight-light text-white mr-2"> [[${ c.country.country_name }]]
 				</a> </span><br />
 			<span class="detail-producers font-weight-bold">Productions: &nbsp;
-				<a th:each="p: ${productions}" href="#"
-					class="badge border border-light font-weight-light text-white mr-2"> [[${ p }]] </a></span>
+				<span th:each="p: ${productions}"
+					class="badge badge-pill badge-dark font-weight-light text-white mr-2"> [[${ p }]] </span></span>
 		</div>
 	</div>
 
@@ -130,6 +172,20 @@
 				th:href="@{/movie/{slug}/{season} (slug=${movie.slug}, season=${s})}" class="season-item"
 				th:classappend="${season == s} ? current-season : ''" th:text="'Season ' + ${s}"></a>
 		</div>
+	</div>
+	
+	<div class="detail-promotion">
+		<h1>Promotion Videos</h1>
+		<div class="item" data-toggle="modal" data-target="#modalpromotion" th:attr="data-src='https://www.youtube.com/embed/' + ${movie.trailer}">
+            <a class="screen-item-thumbnail">
+                <span class="icon-play"><i class="fas fa-play"></i></span>
+                <img th:src="'https://i.ytimg.com/vi/' + ${movie.trailer} + '/hqdefault.jpg'" class="sit-img">
+            </a>
+            <div class="screen-item-info">
+                <h3 class="sii-title">Trailer</h3>
+            </div>
+            <div class="clearfix"></div>
+        </div>
 	</div>
 
 	<!-- Watching Content -->
@@ -146,15 +202,19 @@
 				<div class="flex-movies">
 					<!-- Movies -->
 					<div class="watchContent__main-movies-films" th:each="rm: ${recommend_movies}">
-						<div class="box-img">
+						<div class="box-img qtip-movie" th:attr="data-id=${rm.id}">
 							<a th:href="@{ /movie/{slug}/{season} (slug=${rm.slug}, season=1) }"
 								class="watchContent__main-movies-films-img"><img th:src="${rm.poster}"
 									th:alt="${rm.title}" class="watchContent__main-movies-films-img-logo">
 								<div th:if="${rm.vip}" class="items-vip">VIP</div>
-								<div class="items-sub">SUB</div>
-								<div th:if="${rm.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep 
+								<div class="items-sub-res">
+										<div class="items-sub">SUB</div>
+										<div class="items-resolution">[[${rm.quality.quality_name}]]</div>
+									</div>
+								<div th:if="${rm.type.movie_type_name == 'TV-Series'}" class="items-parts">Ep
 									[[${ #lists.size(movie_ep.findByMovieAndSeasonAndServer(rm.id, 1, 1)) }]]</div>
-								<div th:unless="${rm.type.movie_type_name == 'TV-Series'}" class="items-parts">Full</div>
+								<div th:unless="${rm.type.movie_type_name == 'TV-Series'}" class="items-parts">Full
+								</div>
 								<i class="fa-solid fa-caret-right item-plays"></i>
 							</a>
 						</div>

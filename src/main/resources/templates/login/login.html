@@ -22,8 +22,8 @@
                             </div>
                             <div class="form-check custom-control custom-checkbox">
                                 <div class="float-left">
-                                    <input type="checkbox" name="remember" class="custom-control-input" id="remember" checked>
-			                        <label class="custom-control-label" for="remember">Remember me</label> 
+                                    <input type="checkbox" name="remember-me" class="custom-control-input" id="remember_me" value="true">
+			                        <label class="custom-control-label" for="remember_me">Remember me</label> 
                                 </div>
                                 <div class="float-right">
                                     <a data-show="#modal-tab-forgot" class="link-highlight text-forgot forgot-tab-link">Forgot password?</a>
@@ -36,7 +36,7 @@
                             <div class="form-group login-btn mb-0">
                                 <button id="btn-login" class="btn btn-primary btn-block" type="submit">Login</button>
                                 <div th:replace="/utilities/loading-popup::.loading-relative(content='login-loading')"></div>
-                            </div>
+                            </div> 
                         </form>
                     </div>
                     <div class="modal-footer text-center">
@@ -57,19 +57,19 @@
                         <form th:object="${registerForm}" class="preform" method="post" id="register-form" name="registerForm">
                             <div class="form-group">
                                 <label class="prelabel" for="re-username">USERNAME</label>
-                        		<input th:field="*{username}" class="form-control" type="text" placeholder="username" id="re-username">
+                        		<input field="*{username}" class="form-control" type="text" placeholder="username" id="re-username">
                             </div>
                             <div class="form-group">
                                 <label class="prelabel" for="re-email">EMAIL ADDRESS</label>
-                        		<input th:field="*{email}" class="form-control" type="email" placeholder="name@email.com" id="re-email">
+                        		<input field="*{email}" class="form-control" type="email" placeholder="name@email.com" id="re-email">
                             </div>
                             <div class="form-group">
                                 <label class="prelabel" for="re-password">PASSWORD</label>
-                        		<input th:field="*{password}" class="form-control" type="password" placeholder="password" id="re-password">
+                        		<input field="*{password}" class="form-control" type="password" placeholder="password" id="re-password">
                             </div>
                             <div class="form-group">
                                 <label class="prelabel" for="re-confirmpassword">CONFIRM PASSWORD</label>
-                        		<input th:field="*{confirmPassword}" class="form-control" type="password" placeholder="confirm password" id="re-confirmpassword">
+                        		<input field="*{confirmPassword}" class="form-control" type="password" placeholder="confirm password" id="re-confirmpassword">
                             </div>
                             <div data-theme="dark" class="mb-3 mt-3" id="register-recaptcha"><div style="width: 304px; height: 78px; z-index:1000;">
                             	<div data-theme="dark" class="g-recaptcha" th:attr="data-sitekey=${@captchaSettings.getSite()}" name="recaptcha"></div>

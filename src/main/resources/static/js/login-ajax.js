@@ -4,7 +4,7 @@ $(document).on('submit', '#login-form', function(e) {
 
 	data['email'] = $("#login-email").val();
 	data['password'] = $("#login-password").val();
-	data['rememberme'] = $("#remember").val();
+	data['remember_me'] = $("#remember_me").val();
 	data['recaptcha'] = $('#login-recaptcha .g-recaptcha-response').val();
 	
 	$('#login-loading').css('display', 'block');
@@ -13,7 +13,7 @@ $(document).on('submit', '#login-form', function(e) {
 	$.ajax({
 		type: 'POST',
 		url: "/j_spring_security_check",
-		data: { emailAre: data.email + ',' + data.recaptcha, password: data.password },
+		data: { emailAre: data.email + ',' + data.recaptcha, password: data.password, remember_me: data.remember_me },
 		success: function(response) {
 			var status = JSON.parse(response);
 			$('#login-loading').css('display', 'none');

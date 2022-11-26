@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html th:replace="~{/layout/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<main>
+		<div id="main-user-wrapper" class="layout-page layout-profile">
+			<div class="profile-header">
+				<div class="profile-header-cover" th:style="|background:url(@{${ account.avatar }});|"></div>
+				<div class="container">
+					<div class="ph-title">Hi, [[${ account.username }]]</div>
+					<div class="ph-tabs">
+						<div class="bah-tabs">
+							<ul class="nav nav-tabs pre-tabs border-0">
+								<li class="nav-item"><a class="user-tab user-tab-profile nav-link"
+										href="/user/profile"><i class="fas fa-user mr-2"></i> Profile</a></li>
+								<li class="nav-item"><a class="user-tab user-tab-continueWatching nav-link"
+										href="/user/continue-watching"><i class="fas fa-history mr-2"></i> Continue
+										Watching</a></li>
+								<li class="nav-item"><a class="user-tab user-tab-watchList nav-link"
+										href="/user/watch-list"><i class="fas fa-heart mr-2"></i> Watch List</a></li>
+								<li class="nav-item"><a class="user-tab user-tab-notification nav-link"
+										href="/user/notification"><i class="fas fa-bell mr-2"></i> Notification</a></li>
+								<li class="nav-item"><a class="user-tab user-tab-purchase-history nav-link"
+										href="/user/purchase-history"><i class="fa-solid fa-coins mr-2"></i> Purchase History</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="user_template">
+				<div th:replace="'/user/' + ${link}::.user-content"></div>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>

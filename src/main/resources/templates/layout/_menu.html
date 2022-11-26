@@ -36,12 +36,12 @@
 			<div class="header__functions-icons-watch">
 				<i class="fa-solid fa-wifi"></i>
 			</div>
-			<div class="header__functions-icons-name right-name">
+			<div class="header__functions-icons-name">
 				Watch2gether
 			</div>
 		</a>
-		<a href="" class="header__functions-icons">
-			<div class="header__functions-icons-watch right-random">
+		<a href="/random" class="header__functions-icons">
+			<div class="header__functions-icons-watch">
 				<i class="fa-solid fa-shuffle"></i>
 			</div>
 			<div class="header__functions-icons-name">
@@ -100,14 +100,13 @@
 							<div id="user_menu" class="dropdown-menu dropdown-menu-right">
 								<div class="dropdown-item dropdown-item-user">
 									<div class="user-detail">
-										<div class="name"><strong>[[${ account.username
-												}]]</strong></div>
+										<div class="name"><strong>[[${ account.username }]]</strong></div>
 										<div class="mail">[[${ account.email }]]</div>
 									</div>
 									<div class="clearfix"></div>
 								</div>
 								<div class="grid-menu">
-									<a class="dropdown-item" href="{{ url_for('user', link='profile') }}"><i
+									<a class="dropdown-item" href="/user/profile"><i
 											class="fas fa-user mr-2"></i>Profile</a>
 									<a class="dropdown-item" href="/user/continue-watching"><i
 											class="fas fa-history mr-2"></i>Continue
@@ -117,7 +116,8 @@
 										List</a>
 									<a class="dropdown-item" href="/user/notification"><i
 											class="fas fa-bell mr-2"></i>Notification</a>
-									<a class="dropdown-item" href="/user/mal"><i class="fas fa-coins mr-2"></i>Purchase History
+									<a class="dropdown-item" href="/user/purchase-history"><i 
+											class="fas fa-coins mr-2"></i>Purchase History
 									</a>
 								</div>
 								<a class="dropdown-item text-right text-white btn-logout" href="/logout">Logout<i
@@ -144,7 +144,7 @@
 				<div class="siderbar-lists">
 					<ul>
 						<li><a href="/home" class="nav-link">Home</a></li>
-						<li><a href="" class="nav-link">Most Popular</a></li>
+						<li><a href="/most-popular" class="nav-link">Most Popular</a></li>
 						<li><a th:href="@{/movies}" class="nav-link">Movies</a></li>
 						<li><a th:href="@{/tv-series}" class="nav-link">TV Series</a></li>
 						<li>

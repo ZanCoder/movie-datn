@@ -1,0 +1,34 @@
+<!-- Movies Top -->
+<div class="watchContent__main-sidebar-mostView-content" th:each="mostView, iter: ${mostViews}">
+	<h2 class="watchContent__main-sidebar-mostView-content-top" th:with="num=${iter.index}">
+		[[${#numbers.formatInteger(#strings.toString(num + 1), 2)}]]</h2>
+	<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }"
+		class="watchContent__main-sidebar-mostView-content-img"><img th:src="${mostView.poster}"
+			th:alt="${mostView.title}" class="watchContent__main-sidebar-mostView-content-img-logo"></a>
+	<div class="watchContent__main-sidebar-mostView-content-desc">
+		<a th:href="@{ /movie/{slug}/{season} (slug=${mostView.slug}, season=1) }">
+			<h3 class="watchContent__main-sidebar-mostView-content-descTitle">
+				[[${mostView.title}]]</h3>
+		</a>
+		<div>
+			<span th:if="${type} == 'today' or ${type} == null" class="watchContent__main-sidebar-mostView-content-descViews">
+				<i class="fa-sharp fa-solid fa-eye"></i>
+				[[${#numbers.formatDecimal(movieDao.getMovieMostViewByTodayCount(mostView.id), 0, 'COMMA', 0,'POINT')}]]
+			</span>
+			<span th:if="${type} == 'week'" class="watchContent__main-sidebar-mostView-content-descViews">
+				<i class="fa-sharp fa-solid fa-eye"></i>
+				[[${#numbers.formatDecimal(movieDao.getMovieMostViewByWeekCount(mostView.id), 0, 'COMMA', 0,'POINT')}]]
+			</span>
+			<span th:if="${type} == 'month'" class="watchContent__main-sidebar-mostView-content-descViews">
+				<i class="fa-sharp fa-solid fa-eye"></i>
+				[[${#numbers.formatDecimal(movieDao.getMovieMostViewByMonthCount(mostView.id), 0, 'COMMA', 0,'POINT')}]]
+			</span>
+			
+			<span class="watchContent__main-sidebar-mostView-content-descViews">
+				<i class="fa-solid fa-heart"></i>
+				[[${#numbers.formatDecimal(movie_rateDao.getTotalMovieRated(mostView.id), 0, 'COMMA', 0, 'POINT')}]]
+			</span>
+		</div>
+	</div>
+
+</div>

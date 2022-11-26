@@ -1,0 +1,71 @@
+<div class="profile-content pb-5 pt-2 user-content">
+	<div class="container">
+		<div class="profile-box profile-box-account makeup my-0">
+			<h2 class="h2-heading my-4 w-100 p-0"><i class="fas fa-user mr-3"></i>Edit Profile</h2>
+			<div class="block_area-content row">
+				<div class="show-profile-avatar text-center mb-3 col-xl-3 col-md-3 col-sm-3 order-md-2 order-sm-1">
+					<div class="profile-user-avatar d-inline-block">
+						<div class="pa-edit"><i class="fas fa-pen p-0 m-0" style="font-size: 13px;"></i></div>
+						<img id="preview-avatar" th:src="${ account.avatar }">
+					</div>
+					<input type="file" id="profile-avatar-upload" style="display:none" accept="image/*"> 
+				</div>
+				<form class="preform col-xl-9 col-md-9 col-sm-9 order-1" method="POST" id="profile-form">
+					<input type="hidden" name="avatar_id">
+					<div class="row">
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group">
+								<label class="prelabel" for="pro5-email">Email address</label>
+								<input type="email" name="email" class="form-control" id="pro5-email" 
+									th:value="${ account.email }" readonly>
+							</div>
+						</div>
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group">
+								<label class="prelabel" for="pro5-name">Your name</label>
+								<input type="text" class="form-control" id="pro5-name" name="name" required=""
+									th:value="${ account.username }">
+							</div>
+						</div>
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group">
+								<label class="prelabel" for="pro5-join">Joined</label>
+								<input type="text" class="form-control" disabled id="pro5-join"
+									th:value="${#dates.format(account.joined_date, 'yyyy-MM-dd') }">
+							</div>
+						</div>
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="block">
+								<a class="btn btn-md btn-show-changepass" data-toggle="collapse" href="#show-changepass"><i
+										class="fas fa-key mr-2"></i>Change password</a>
+							</div>
+							<div id="show-changepass" class="collapse mt-3">
+								<div class="form-group">
+									<label class="prelabel" for="pro5-currentpass">Current Password</label>
+									<input type="password" class="form-control" id="pro5-currentpass"
+										name="current_password">
+								</div>
+								<div class="form-group">
+									<label class="prelabel" for="pro5-pass">New Password</label>
+									<input type="password" class="form-control" id="pro5-pass" name="new_password">
+								</div>
+								<div class="form-group">
+									<label class="prelabel" for="pro5-confirm">Confirm New Password</label>
+									<input type="password" class="form-control" id="pro5-confirm"
+										name="confirm_new_password">
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-12 col-lg-12 col-md-12">
+							<div class="form-group">
+								<div class="mt-4"></div>
+								<button class="btn btn-block btn-save-profile btn-primary">Save</button>
+								<div th:replace="/utilities/loading-popup::.loading-relative(content='profile-loading')"></div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

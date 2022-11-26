@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+</head>
+<body>
+	<div class="container">
+	    <div id="editor">
+	      
+	    </div>
+	</div>
+	<script>
+    ClassicEditor
+      .create(document.querySelector('#editor') , {
+        ckfinder: {
+            uploadUrl: '/upload_img'
+        }
+      }).catch(error => {
+        console.error(error)
+      });
+  </script>
+</body>
+</html>

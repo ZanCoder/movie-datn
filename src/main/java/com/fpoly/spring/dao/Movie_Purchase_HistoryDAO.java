@@ -1,5 +1,7 @@
 package com.fpoly.spring.dao;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +21,7 @@ public interface Movie_Purchase_HistoryDAO extends JpaRepository<Movie_Purchase_
 	@Query(value="select count(*) from movie_purchase_history "
 			+ " where account = ?1 and movie = ?2 ", nativeQuery=true)
 	Integer checkPurchased(int account, int movie);
+	
+	@Query("SELECT o FROM Movie_Purchase_History o WHERE o.account.id = ?1 ORDER BY o.timestamp DESC")
+	Page<Movie_Purchase_History> findByAccountOderByTimeStampDesc(int account, Pageable pageable);
 }

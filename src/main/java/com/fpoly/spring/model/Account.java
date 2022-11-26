@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -42,10 +44,34 @@ public class Account {
 	@JoinColumn(name="role")
 	private Account_Role role;
 	Boolean status;
+	Boolean public_wl;
 	@OneToMany(mappedBy="account")
 	@JsonIgnore
 	private List<Coin_Transaction_History> coin_transaction_histories;
 	@OneToMany(mappedBy="account")
 	@JsonIgnore
 	private List<Movie_Purchase_History> movie_purchase_hitories;
+	@OneToMany(mappedBy="account")
+	@JsonIgnore
+	private List<Movie_Rate> movie_rates;
+	@OneToMany(mappedBy="account")
+	@JsonIgnore
+	private List<Continue_Watching> continue_watchings;
+	@OneToMany(mappedBy="account")
+	@JsonIgnore
+	private List<Watch_List> watch_lists;
+	@OneToMany(mappedBy="account")
+	@JsonIgnore
+	private List<Notification_Movie> notification_movies;
+	@OneToMany(mappedBy="account")
+	@JsonIgnore
+	private List<Comment_Movie> comment_movies;
+	@OneToMany(mappedBy="account")
+	@JsonIgnore
+	private List<Comment_Movie_Detail> comment_movie_details;
+	
+	public Boolean checkPassword(String rawPassword) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(rawPassword, this.password_hash);
+    }
 }

@@ -1,0 +1,54 @@
+<div class="modal fade premodal premodal-login" id="modalreportmovie" role="dialog" aria-labelledby="modallogintitle"
+	aria-hidden="true" style="font-size:14px">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="tab-content">
+				<div id="modal-tab-rechare" class="tab-pane active">
+					<div class="modal-header">
+						<h1 class="modal-title" id="modalrecharetitle">Report Issues</h1>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="alert alert-danger mb-3 animated bounceIn" id="report-movie-error"
+							style="display: none;"></div>
+						<div class="alert alert-success mb-3 animated bounceIn" id="report-movie-success"
+							style="display: none;"></div>
+						<form class="preform" id="report-movie-form" method="POST">
+							<input type="hidden" class="report-movie-id">
+							<div class="report-movie-info"><span class="report-movie-title"></span> - <span class="report-movie-ep"></span></div>
+							<div class="report-movie-video">
+								<p style="font-weight: 600">Video:</p>
+								<div class="report-box">
+									<div><input type="checkbox" id="report-novideo" name="report-movie-video"> <label for="report-novideo">No Video</label></div>
+									<div><input type="checkbox" id="report-wrongvideo" name="report-movie-video"> <label for="report-wrongvideo">Wrong Video</label></div>
+									<div><input type="checkbox" id="report-othervideo" name="report-movie-video"> <label for="report-novideo">Other <small>(Please describe below)</small></label></div>
+								</div>
+							</div>
+							<div class="report-movie-audio">
+								<p style="font-weight: 600">Audio:</p>
+								<div class="report-box">
+									<div><input type="checkbox" id="report-noaudio" name="report-movie-audio"> <label for="report-noaudio">No Audio</label></div>
+									<div><input type="checkbox" id="report-wrongaudio" name="report-movie-audio"> <label for="report-wrongaudio">Wrong Audio</label></div>
+									<div><input type="checkbox" id="report-otheraudio" name="report-movie-audio"> <label for="report-otheraudio">Other <small>(Please describe below)</small></label></div>
+								</div>
+							</div>
+							<div class="report-movie-other">
+								<p style="font-weight: 600">Other:</p>
+								<textarea></textarea>
+							</div>
+							<div data-theme="dark" class="mb-3 mt-3" id="report-movie-recaptcha"><div style="width: 304px; height: 78px; z-index:1000;">
+                            	<div data-theme="dark" class="g-recaptcha" th:attr="data-sitekey=${@captchaSettings.getSite()}"></div>
+                            </div></div>
+							<div class="form-group login-btn mb-0">
+                                <button id="btn-recharge" class="btn btn-primary btn-block" type="submit">Send Report</button>
+                                <div th:replace="/utilities/loading-popup::.loading-relative(content='report-movie-loading')"></div>
+                            </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,92 @@
+<div class="cw_l-line" th:attr="data-id=${reply.id}, data-parentId=${c.id}">
+	<a href="#" class="cmt-user-avatar">
+		<img class="cmt-user-avatar-img" th:src="${ c.getReplyById(reply.id).getAccountAvatar() }"
+			th:alt="${ c.getReplyById(reply.id).getAccountUsername() }">
+	</a>
+	<div class="info">
+		<div class="ihead">
+			<a href="#" target="_blank" class="user-name text-white">[[${c.getReplyById(reply.id).getAccountUsername() }]]</a>
+			<div class="time" th:id="'cm-time-' + ${reply.id}" th:attr="data-date=${reply.timestamp}"></div>
+		</div>
+		<div class="ibody" th:classappend="${reply.spoil} ? 'is-spoil' : ''">
+			<p><a class="tag-name">@[[${ reply.tag_name }]]</a> [[${ reply.text }]]</p>
+
+			<div th:if="${reply.spoil}" class="show-spoil my-2"><button type="button"
+					class="btn btn-sm btn-white text-capitalize py-1 px-2">Show spoil</button></div>
+
+		</div>
+		<div class="ibottom text-white">
+			<div class="ib-li ib-reply" th:attr="data-id=${reply.id}">
+				<a class="btn text-capitalize"><i class="fas fa-reply mr-2"></i>Reply</a>
+			</div>
+			<div class="ib-li ib-like">
+				<a class="btn cm-btn-vote" th:attr="data-id=${reply.id}" data-type="1">
+					<i class="far fa-thumbs-up mr-1"></i>
+					<span class="value" th:if="${reply.getCommentMovieLike()} == 0"></span>
+					<span class="value"
+						th:if="${reply.getCommentMovieLike()} != 0">[[${reply.getCommentMovieLike()}]]</span>
+				</a>
+			</div>
+			<div class="ib-li ib-dislike">
+				<a class="btn cm-btn-vote" th:attr="data-id=${reply.id}" data-type="0">
+					<i class="far fa-thumbs-down mr-1"></i>
+					<span class="value" th:if="${reply.getCommentMovieDislike()} == 0"></span>
+					<span class="value"
+						th:if="${reply.getCommentMovieDislike()} != 0">[[${reply.getCommentMovieDislike()}]]</span>
+				</a>
+			</div>
+			<div class="ib-li">
+				<a class="btn text-capitalize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+						class="fas fa-ellipsis-h mr-2"></i>More</a>
+				<div class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list">
+					<a class="dropdown-item cm-report" href="javascript:;" data-type="1"
+						th:attr="data-id=${reply.id}">Report
+						Spam</a>
+					<a class="dropdown-item cm-report" href="javascript:;" data-type="2"
+						th:attr="data-id=${reply.id}">Report
+						Spoil</a>
+				</div>
+			</div>
+		</div>
+
+		<div sec:authorize="isAuthenticated()" th:id="'reply-' + ${reply.id}" class="comment-input is-reply reply-block"
+			style="display: none;">
+			<div class="cmt-user-avatar">
+				<img class="cmt-user-avatar-img" th:src="${account.avatar}" th:alt="${account.username}">
+			</div>
+			<div class="ci-form">
+				<form class="preform preform-dark comment-movie-reply-reply-form">
+					<div th:replace="/utilities/loading-popup::.loading-relative(content='comment-movie-reply')">
+					</div>
+					<textarea class="form-control form-control-textarea comment-subject-reply emo-on cm-input-reply"
+						name="content" maxlength="3000" placeholder="Add a reply" required=""></textarea>
+					<div class="ci-emo">
+						<div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="cb-icon"><i
+								class="fas fa-laugh"></i></div>
+						<div
+							class="dropdown-menu dropdown-menu-model dropdown-menu-normal dr-bottom-right dropdown-menu-emo">
+							<emoji-picker class="dark" data-input="cm-input-reply"></emoji-picker>
+						</div>
+					</div>
+					<div class="ci-buttons">
+						<div class="ci-b-left">
+							<div class="cb-li"><a class="btn btn-sm text-capitalize btn-spoil-reply"><i
+										class="fas fa-check mr-2"></i>Spoil?</a>
+							</div>
+						</div>
+						<div class="ci-b-right">
+							<div class="cb-li">
+								<a class="btn btn-sm btn-secondary text-capitalize btn-close-reply"
+									th:attr="data-id=${reply.id}">Close</a>
+							</div>
+							<div class="cb-li">
+								<button class="btn btn-sm btn-primary text-capitalize cm-send cm-send-reply-reply ml-2"
+									th:attr="data-id=${reply.id}, data-parentId=${c.id}, data-tagName=${c.getReplyById(reply.id).getAccountUsername()}">Reply</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

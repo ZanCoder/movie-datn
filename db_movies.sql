@@ -28,12 +28,14 @@ create table [account](
 	[joined_date] DATETIME DEFAULT CURRENT_TIMESTAMP, -- ngày tham gia
 	[role] bigint foreign key references [account_role]([id]) default 3, -- vai trò
 	[status] bit default 1, -- trạng thái (online hay offline)
+	[public_wl] bit default 1 -- công khai danh sách yêu thích (có hay ko)
 )
 go
 
 -- Bảng lịch sử mua xu
 create table [coin_transaction_history](
 	[id] bigint primary key identity(1, 1), -- id
+	[card] nvarchar(100),
 	[coin_value] float, -- giá trị xu
 	[account] bigint foreign key references [account]([id]), -- tài khoản mua xu
 	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP -- thời gian mua xu
@@ -99,12 +101,9 @@ create table [movie](
 	[release_date] date, -- ngày phim ra mắt
 	[add_date] DATETIME DEFAULT CURRENT_TIMESTAMP, -- ngày thêm phim vào website
 	[productions] nvarchar(1024), -- nhà sản xuất
-	[casts] nvarchar(1024), -- diễn viên
 	[budget] float, -- phí xem phim
 	[vip] bit, -- phim vip hay phim free
 	[imdb_rate] float, -- điểm IMDB
-	[views_count] int default 0, -- số lượt xem
-	[rates_count] int default 0, -- số lượt đánh giá
 	[trailer] nvarchar(200), -- link trailer
 	[type] bigint foreign key references [type]([id]), -- loại phim
 	[status] bigint foreign key references [status]([id]) -- trạng thái phim
@@ -148,20 +147,39 @@ create table [movie_episode](
 )
 go
 
+-- Bảng đánh giá phim
+create table [movie_rate](
+	[id] bigint primary key identity(1, 1),
+	[account] bigint foreign key references [account]([id]),
+	[movie] bigint foreign key references [movie]([id]),
+	[rate] float
+)
+go
+
 -- Bảng thống kê view 
 create table [movie_view](
 	[id] bigint primary key identity(1, 1), -- id
-	[view_date] datetime, -- ngày xem
+	[view_date] datetime DEFAULT CURRENT_TIMESTAMP, -- ngày xem
 	[movie] bigint foreign key references [movie]([id]) -- id phim
 )
 go
 
+-- Bảng phim đã xem
+create table [continue_watching](
+	[id] bigint primary key identity(1, 1),  -- id
+	[account] bigint foreign key references [account]([id]), -- tài khoản
+	[movie_episode] bigint foreign key references [movie_episode]([id]), -- phim
+	[view_date] datetime DEFAULT CURRENT_TIMESTAMP, -- ngày xem
+)
+go
+
 -- Bảng phim yêu thích
-create table [watchlist](
+create table [watch_list](
 	[id] bigint primary key identity(1, 1), -- id
 	[account] bigint foreign key references [account]([id]), -- id tài khoản
 	[movie] bigint foreign key references [movie]([id]), -- id phim
-	[status] varchar(50) -- trạng thái (đang xem, đã xem, dự định xem...)
+	[status] varchar(50), -- trạng thái (đang xem, đã xem, dự định xem...)
+	[add_date] datetime DEFAULT CURRENT_TIMESTAMP, -- ngày thêm
 )
 go
 
@@ -169,44 +187,34 @@ go
 create table [comment_movie](
 	[id] bigint primary key identity(1, 1), -- id
 	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[movie] bigint foreign key references [movie]([id]), -- id phim
-	[movie_ep] bigint foreign key references [movie_episode]([id]), -- id tập
+	[movie_episode] bigint foreign key references [movie_episode]([id]), -- id tập phim
 	[parent_cmt] bigint foreign key references [comment_movie]([id]), -- id bình luận
 	[tag_name] nvarchar(64), -- tên người bình luận
 	[text] nvarchar(500), -- nội dung bình luận
 	[spoil] bit, -- lộ nội dung bình luận (có hoặc ko)
-	[timestamp] datetime, -- thời gian bình luận
-	[like] int, -- tổng like
-	[dislike] int, -- tổng dislike
+	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP, -- thời gian bình luận
 )
 go
 
 -- Bảng bình luận phim chi tiết
 create table [comment_movie_detail](
-	[id] bigint primary key identity(1, 1), -- id
 	[account] bigint foreign key references [account]([id]), -- id tài khoản
 	[comment_movie] bigint foreign key references [comment_movie]([id]), -- id phim
-	[favorite] bit -- thích hoặc ko thích
-)
-go
+	[favorite] bit -- thích hoặc ko thích,
 
--- Bảng server phim chi tiết
-create table [movie_server_detail](
-	[movie] bigint foreign key references [movie]([id]), -- id phim
-	[server] bigint foreign key references [server]([id]), -- id server
-	[api_key] varchar(200), -- api lấy server phim
-	primary key([movie], [server])
+	primary key (account, comment_movie) -- id
 )
 go
 
 -- Bảng thông báo phim đến người dùng
 create table [notification_movie](
-	[id] bigint primary key identity(1, 1), -- id
 	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[movie] bigint foreign key references [movie]([id]), -- id phim
-	[movie_ep] bigint foreign key references [movie_episode]([id]), -- id tập phim
+	[movie_episode] bigint foreign key references [movie_episode]([id]), -- id tập phim
 	[description] nvarchar(200), -- nội dung thông báo
-	[timestamp] datetime, -- thời gian thông báo
+	[new_noti] bit, -- mới nới cũ
+	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP, -- thời gian thông báo
+
+	primary key([account], [movie_episode]) -- id
 )
 go
 
@@ -272,6 +280,10 @@ create table [setting](
 )
 go
 
+CREATE INDEX index_movie_view
+ON [movie_view] (id, view_date, movie);
+go
+
 CREATE TRIGGER generate_slug_movie ON [movie]
 FOR INSERT
 AS 
@@ -312,6 +324,53 @@ BEGIN
 END
 go
 
+CREATE FUNCTION get_movie_rated(@movieId bigint)
+RETURNS float
+AS
+BEGIN
+    DECLARE @total int
+	DECLARE @res float
+
+	IF (NOT EXISTS(select * from movie_rate where movie = @movieId))
+		RETURN 0
+
+	select @total = count(*) from movie_rate where movie = @movieId
+	select @res = sum(movie_rate.rate) / @total from movie_rate where movie = @movieId
+
+	RETURN @res
+END
+GO
+
+CREATE FUNCTION get_total_movie_rated(@movieId bigint)
+RETURNS float
+AS
+BEGIN
+    DECLARE @total int
+
+	IF (NOT EXISTS(select * from movie_rate where movie = @movieId))
+		RETURN 0
+
+	select @total = count(*) from movie_rate where movie = @movieId
+
+	RETURN @total
+END
+GO
+
+CREATE FUNCTION get_movie_viewed(@movieId bigint)
+RETURNS float
+AS
+BEGIN
+	DECLARE @res int
+
+	IF (NOT EXISTS(select * from movie_view where movie = @movieId))
+		RETURN 0
+
+	select @res = count(*) from movie_view where movie = @movieId
+
+	RETURN @res
+END
+GO
+
 select movie.type, movie.title from [movie]
 join movie_genre on movie.id = movie_genre.movie
 join movie_country on movie.id = movie_country.movie
@@ -322,3 +381,9 @@ movie.id <> 12 and
 (genre.id in (select movie_genre.genre from [movie_genre] where movie_genre.movie = 12)
 or country.id in (select movie_country.country from movie_country where movie_country.movie = 12))
 group by movie.type, movie.title
+
+select * from watch_list
+where account = 1
+order by dbo.get_movie_rated(watch_list.movie) desc
+
+select * from movie_rate
