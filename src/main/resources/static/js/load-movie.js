@@ -1,5 +1,4 @@
 $("#my_video").on('load', function (){
-    $('.loading-movie').css('display', 'none');
     var movieId = $(this).attr('data-movieId');
     var movieEp = $(this).attr('data-movieEp');
     var movieSeason = $(this).attr('data-movieSeason');
@@ -12,4 +11,8 @@ $("#my_video").on('load', function (){
 			console.log(response);
 		}
 	});
+});
+
+$("#my_video").ready(function (){
+	 $('.loading-movie').css('display', 'none');
 });

@@ -1,5 +1,6 @@
 package com.fpoly.spring.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +21,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="[Comment_Movie_Detail]")
-public class Comment_Movie_Detail {
+public class Comment_Movie_Detail implements Serializable{
 	@EmbeddedId
-	Comment_Movie_DetailKey id;
+	Comment_Movie_DetailKey id = new Comment_Movie_DetailKey();
 	@MapsId("account_id")
 	@ManyToOne 
 	@JsonIgnore

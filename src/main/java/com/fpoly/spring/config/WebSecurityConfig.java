@@ -56,6 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				"/user/profile", "/user/continue-watching", "/user/watch-list", "/user/notification", "/user/purchase-history"
 			).authenticated();
 		
+		http.authorizeRequests().antMatchers("/admin").hasAnyAuthority("ADMIN", "MOD");
+		http.authorizeRequests().antMatchers("/admin/account-form", 
+				"/admin/account-table", "/admin/movie-table", "/admin/purchase-table").hasAnyAuthority("ADMIN");
+		
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 		
 		http.authorizeRequests().and().formLogin()

@@ -1,5 +1,7 @@
 package com.fpoly.spring.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +24,13 @@ public interface Coin_Transaction_HistoryDAO extends JpaRepository<Coin_Transact
 	
 	@Query("SELECT o FROM Coin_Transaction_History o WHERE o.account.id = ?1 ORDER BY o.timestamp DESC")
 	Page<Coin_Transaction_History> findByAccountOrderByTimeStampDesc(int account, Pageable pageable);
+	
+	@Query(value="select sum(coin_value) from coin_transaction_history", nativeQuery=true)
+	float revenue();
+	
+	@Query(value="select count(*) from coin_transaction_history where card like ?1 ", nativeQuery=true)
+	long tranfer(String card);
+	
+	@Query(value="select * from coin_transaction_history order by timestamp desc ", nativeQuery=true)
+	List<Coin_Transaction_History> findAllOrderByTimeStampDesc();
 }

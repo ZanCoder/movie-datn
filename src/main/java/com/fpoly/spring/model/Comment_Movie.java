@@ -73,6 +73,16 @@ public class Comment_Movie {
 		return this.account.getUsername();
 	}
 	
+	@JsonProperty("account_role")
+	public int getAccountRole() {
+		return this.account.getRole().getId();
+	}
+	
+	@JsonProperty("account_role_name")
+	public String getAccountRoleName() {
+		return this.account.getRole().getAcc_role_name();
+	}
+	
 	@JsonProperty("comment_movie_like")
 	public long getCommentMovieLike() {
 		return this.comment_movie_details == null ? 0 : this.comment_movie_details.stream()
@@ -89,7 +99,7 @@ public class Comment_Movie {
 	public List<Comment_Movie> getReplies() {
 		return this.comment_movies == null ? new ArrayList() : this.comment_movies.stream()
 				.filter(o -> o.getParent_cmt().getId() == this.id)
-				.sorted(Comparator.comparing(Comment_Movie::getTimestamp).reversed())
+//				.sorted(Comparator.comparing(Comment_Movie::getTimestamp).reversed())
 				.collect(Collectors.toList());
 	}
 	
@@ -98,5 +108,26 @@ public class Comment_Movie {
 		return this.comment_movies.stream()
 				.filter(o -> o.getId() == replyId)
 				.findFirst().get();
+	}
+	
+	@JsonProperty("get_account_like")
+	public long getAccountLike(int accountId) {
+		return this.comment_movie_details == null ? 0 : this.comment_movie_details.stream()
+				.filter(o -> o.getAccount().getId() == accountId)
+				.filter(o -> o.getFavorite() == true).count();
+	}
+	
+	@JsonProperty("get_account_dislike")
+	public long getAccountDisLike(int accountId) {
+		return this.comment_movie_details == null ? 0 : this.comment_movie_details.stream()
+				.filter(o -> o.getAccount().getId() == accountId)
+				.filter(o -> o.getFavorite() == false).count();
+	}
+	
+	@JsonProperty("get_favorite")
+	public long getTopComment() {
+		return this.comment_movie_details == null ? 0 : this.comment_movie_details.stream()
+				.filter(o -> o.getComment_movie().getId() == this.getId())
+				.filter(o -> o.getFavorite() == true).count();
 	}
 }

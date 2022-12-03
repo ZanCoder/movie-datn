@@ -2,6 +2,8 @@ package com.fpoly.spring.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,9 +17,9 @@ import com.fpoly.spring.model.Comment_Movie;
 @Repository
 public interface Comment_MovieDAO extends JpaRepository<Comment_Movie, Integer>{
 	@Query(value="SELECT * FROM [comment_movie] "
-			+ " WHERE movie_episode = ?1 AND parent_cmt IS NULL"
-			+ " ORDER BY timestamp DESC", nativeQuery=true)
-	List<Comment_Movie> findByMovieEpisode(int movie_episode);
+			+ " WHERE movie_episode = ?1 AND parent_cmt IS NULL "
+			+ " ORDER BY timestamp DESC ", nativeQuery=true)
+	Page<Comment_Movie> findByMovieEpisode(int movie_episode, Pageable pageable);
 	
 	@Modifying(clearAutomatically=true)
     @Transactional

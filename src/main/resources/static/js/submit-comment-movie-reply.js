@@ -2,7 +2,7 @@ $(document).on('submit', '.comment-movie-reply-form', function(e) {
 	e.preventDefault();
 
 	var movieEpId = $(this).attr('data-movieEpId');
-	var parentId = $(this).attr('data-id');
+	var parentId = $(this).attr('data-parentId');
 	var text = $('.cm-input-' + parentId).val();
 	var tagName = $(this).attr('data-tagName');
 	var spoil = $('.btn-spoil-reply').hasClass('active');
@@ -22,11 +22,8 @@ $(document).on('submit', '.comment-movie-reply-form', function(e) {
 				})
 			);
 			$('.btn-spoil-reply').removeClass('active');
-			$('#replies-' + parentId).prepend(data);
+			$('#replies-' + parentId).append(data);
 			
-			var obj = document.getElementById(`cm-time-${parentId}`);
-			var date = obj.getAttribute('data-date');
-			obj.innerHTML = moment(date).fromNow();
 		}
 	});
 });

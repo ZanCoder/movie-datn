@@ -1,10 +1,12 @@
-<div class="cw_l-line" th:attr="id='cm-' + ${ c.id }, data-id=${c.id}">
+<div class="cw_l-line cw_l-lineBase" th:attr="id='cm-' + ${ c.id }, data-id=${c.id}, data-date=${c.timestamp}, data-vote=${c.getTopComment()}">
 	<div class="cmt-user-avatar">
 		<img class="cmt-user-avatar-img" th:src="${c.getAccountAvatar()}" th:alt="${c.getAccountUsername()}">
 	</div>
 	<div class="info">
 		<div class="ihead">
-			<div class="user-name">[[${ c.getAccountUsername() }]]</div>
+			<a href="" target="_blank" class="user-name is-level-x is-level-a font-weight-bold" th:if="${c.getAccountRole()} == 1"><i class="badg-level level-a"></i> [[${ c.getAccountUsername() }]] <span>[[${c.getAccountRoleName()}]]</span></a>
+			<a href="" target="_blank" class="user-name is-level-x is-level-b font-weight-bold" th:if="${c.getAccountRole()} == 2"><i class="badg-level level-b"></i> [[${ c.getAccountUsername() }]] <span>[[${c.getAccountRoleName()}]]</span></a>
+			<a href="" target="_blank" class="user-name text-white font-weight-bold" th:if="${c.getAccountRole()} == 3">[[${ c.getAccountUsername() }]]</a>
 			<div class="time" th:id="'cm-time-' + ${c.id}" th:attr="data-date=${c.timestamp}"></div>
 		</div>
 		<div class="ibody" th:classappend="${c.spoil} ? 'is-spoil' : ''">
@@ -22,7 +24,13 @@
 					class="btn text-capitalize" style="box-shadow:none;"><i class="fas fa-reply mr-2"></i>Reply</a>
 			</div>
 			<div class="ib-li ib-like">
-				<a class="btn cm-btn-vote text-capitalize" th:attr="data-id=${ c.id }" data-type="1"
+				<a sec:authorize="isAnonymous()" class="btn cm-btn-vote text-capitalize" data-toggle="modal" data-target="#modallogin" data-type="1"
+					style="box-shadow:none;">
+					<i class="far fa-thumbs-up mr-1"></i>
+					<span class="value" th:if="${c.getCommentMovieLike()} == 0"></span>
+					<span class="value" th:if="${c.getCommentMovieLike()} != 0">[[${c.getCommentMovieLike()}]]</span>
+				</a>
+				<a sec:authorize="isAuthenticated()" th:classappend="|${'cm-btn-' + c.id } ${c.getAccountLike(account.id) != 0 ? 'active' : ''}|" class="btn cm-btn-vote text-capitalize" th:attr="data-id=${ c.id }" data-type="1"
 					style="box-shadow:none;">
 					<i class="far fa-thumbs-up mr-1"></i>
 					<span class="value" th:if="${c.getCommentMovieLike()} == 0"></span>
@@ -30,7 +38,14 @@
 				</a>
 			</div>
 			<div class="ib-li ib-dislike">
-				<a class="btn cm-btn-vote text-capitalize" th:attr="data-id=${ c.id }" data-type="0"
+				<a sec:authorize="isAnonymous()" class="btn cm-btn-vote text-capitalize" data-toggle="modal" data-target="#modallogin" data-type="0"
+					style="box-shadow:none;">
+					<i class="far fa-thumbs-down mr-1"></i>
+					<span class="value" th:if="${c.getCommentMovieDislike()} == 0"></span>
+					<span class="value"
+						th:if="${c.getCommentMovieDislike()} != 0">[[${c.getCommentMovieDislike()}]]</span>
+				</a>
+				<a sec:authorize="isAuthenticated()" th:classappend="|${'cm-btn-' + c.id } ${c.getAccountDisLike(account.id) != 0 ? 'active' : ''}|" class="btn cm-btn-vote text-capitalize" th:attr="data-id=${ c.id }" data-type="0"
 					style="box-shadow:none;">
 					<i class="far fa-thumbs-down mr-1"></i>
 					<span class="value" th:if="${c.getCommentMovieDislike()} == 0"></span>
@@ -58,7 +73,7 @@
 			</div>
 			<div class="ci-form">
 				<form class="preform preform-dark comment-movie-reply-form"
-					th:attr="data-id=${c.id}, data-tagName=${c.getAccountUsername()}, data-movieEpId=${c.getMovieEpId()}">
+					th:attr="data-parentId=${c.id}, data-tagName=${c.getAccountUsername()}, data-movieEpId=${c.getMovieEpId()}">
 					<div class="loading-absolute bg-white" style="display: none">
 						<div class="loading">
 							<div class="span1"></div>
@@ -117,5 +132,5 @@
 			</th:block>
 		</div>
 
-	</div>
+	</div>  
 </div>

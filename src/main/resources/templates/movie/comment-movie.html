@@ -1,23 +1,17 @@
 <div class="block_area block_area-comment" id="comment-block">
 	<div class="block_area-header block_area-header-tabs">
-		<div class="float-left bah-heading mr-4">
+		<div class="bah-heading mr-4">
 			<h2 class="cat-heading">Comments</h2>
 		</div>
 	</div>
-	<div class="shows-comments">
+	<div class="shows-comments" style="background: #2A2C31;">
 		<div id="content-comments" class="comments-wrap">
 			<div class="sc-header text-white">
 				<div class="sc-h-from">
-                    <a class="btn btn-sm text-capitalize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow:none;">Episode [[${ movie_ep.ep }]]<i class="fas fa-angle-down ml-2"></i></a>
-                    <div class="dropdown-menu dropdown-menu-model dropdown-menu-normal" aria-labelledby="ssc-list">
-                        <a class="dropdown-item cm-by active" data-value="episode" href="javascript:;">Episode [[${ movie_ep.ep }]]
-                            <i class="fas fa-check ml-2"></i></a>
-                        <a class="dropdown-item cm-by " data-value="all" href="javascript:;">All
-                            Episode </a>
-                    </div>
+                    <a class="btn btn-sm text-capitalize" style="box-shadow:none;"><i class="fas fa-eye mr-2"></i> Episode [[${ movie_ep.ep }]]</a>
                 </div>
                 
-                <div class="sc-h-title"><i class="far fa-comment-alt mr-2"></i>[[${#lists.size(comment_movies)}]]<span> Comments</span>
+                <div class="sc-h-title"><i class="far fa-comment-alt mr-2"></i>[[${comment_movies.getTotalElements()}]]<span> Comments</span>
 				</div>
 				<div class="sc-h-sort">
 					<a class="btn btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -92,8 +86,8 @@
 				</th:block>
 			</div>
 			
-				<div class="rep-more mt-3">
-					<button type="button" class="btn btn-sm text-capitalize" id="cm-view-more" data-page="0">
+				<div th:if="${comment_movies.hasNext}" class="rep-more mt-3">
+					<button type="button" class="btn btn-sm text-capitalize" id="cm-view-more" data-page="0" th:attr="data-movieEpId=${movieEpId}, data-totalPage=${totalPage}">
 						<i class="fas fa-caret-down mr-2"></i><span>View more</span>
 					</button>
 				</div>
@@ -103,3 +97,4 @@
 </div>
 
 <script type="text/javascript" th:src="@{/js/comment-handler.js}"></script>
+<script type="text/javascript" th:src="@{/js/vote-comment-movie.js}"></script>  

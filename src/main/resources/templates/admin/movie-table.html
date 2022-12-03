@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<main class="container-fluid page-body-wrapper">
+		<!-- partial -->
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="row">
+					<!-- Movies -->
+					<div class="col-lg-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<div class="flex-title">
+									<h4 class="card-title">Movies Table</h4>
+									<label for="search-account"><input type="text"></label>
+								</div>
+								<!-- Movies Table -->
+								<div class="movies-element" th:each="movie: ${movies}">
+									<div class="movies-img">
+										<img th:src="${movie.poster}"
+											alt="">
+									</div>
+									<div class="movies-text">
+										<div class="movies-text-title">
+											<h3>[[${movie.title}]]</h3>
+										</div>
+										<div class="movies-text-description">
+											<span>[[${movie.description}]]</span>
+										</div>
+										<div class="movies-time">
+											<span>[[${movie.type.movie_type_name}]]</span>
+											<i class="dot"></i>
+											<span>Ep [[${ #lists.size(movie_epDao.findByMovieAndSeasonAndServer(movie.id, 1, 1)) }]]</span>
+											<i class="dot"></i>
+											<span>[[${movie.duration_min}]]</span>
+										</div>
+										<div class="movies-release">
+											<span>[[${#dates.format(movie.release_date, 'yyyy-MM-dd')}]]</span>
+											<span>Productions: [[${movie.productions}]]</span>
+										</div>
+										<div class="movies-rates">
+											<span>
+												<i class="fa-solid fa-star"></i>
+												<i class="fa-solid fa-star"></i>
+												<i class="fa-solid fa-star"></i>
+												<i class="fa-solid fa-star"></i>
+												<i class="fa-solid fa-star"></i>
+											</span>
+										</div>
+									</div>
+									<!-- Button Delete -->
+									<div class="movies-delete-btn">
+										<button><i class="fa-solid fa-x"></i></button>
+									</div>
+
+									<!-- Button Edit -->
+									<div class="movies-edit-btn">
+										<button><i class="fa-solid fa-pen-to-square"></i></button>
+									</div>
+								</div>
+							</div>
+							<div style="display: flex;justify-content: center;margin-top:10px;">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item">
+											<a class="page-link" href="#" aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+											</a>
+										</li>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item"><a class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item">
+											<a class="page-link" href="#" aria-label="Next">
+												<span aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- content-wrapper ends -->
+		<div th:replace="/admin/_footer.html"></div>
+	</main>
+</body>
+
+</html>

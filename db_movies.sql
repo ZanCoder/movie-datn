@@ -25,6 +25,7 @@ create table [account](
 	[avatar] varchar(200) default 'https://iili.io/yRmaGp.png', -- hình đại diện
 	[password_hash] nvarchar(128), -- mật khẩu
 	[budget] float default 0, -- số dư trong tài khoản
+	[power] float default 0, -- số tiền đã tiêu
 	[joined_date] DATETIME DEFAULT CURRENT_TIMESTAMP, -- ngày tham gia
 	[role] bigint foreign key references [account_role]([id]) default 3, -- vai trò
 	[status] bit default 1, -- trạng thái (online hay offline)
@@ -102,7 +103,7 @@ create table [movie](
 	[add_date] DATETIME DEFAULT CURRENT_TIMESTAMP, -- ngày thêm phim vào website
 	[productions] nvarchar(1024), -- nhà sản xuất
 	[budget] float, -- phí xem phim
-	[vip] bit, -- phim vip hay phim free
+	[vip] bit default 0, -- phim vip hay phim free
 	[imdb_rate] float, -- điểm IMDB
 	[trailer] nvarchar(200), -- link trailer
 	[type] bigint foreign key references [type]([id]), -- loại phim
@@ -368,6 +369,30 @@ BEGIN
 	select @res = count(*) from movie_view where movie = @movieId
 
 	RETURN @res
+END
+GO
+
+CREATE FUNCTION get_achievement(@accountId bigint)
+RETURNS float
+AS
+BEGIN
+	DECLARE @power float
+
+	IF (NOT EXISTS(select * from account where id = @accountId))
+		RETURN 0
+
+	select @power = account.power from account where id = @accountId
+
+	IF (@power < 20)
+		return 'New'
+	ELSE IF (@power >= 20 AND @power < 40)
+		return 'Angelfish'
+	ELSE IF (@power >= 40 AND @power < 60)
+		return 'Crab'
+	ELSE IF (@power >= 60 AND @power < 80)
+		return 'Crab'
+
+	return 'Dolphin'
 END
 GO
 

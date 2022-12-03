@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<!-- partial -->
+	<main class="container-fluid page-body-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="row">
+					<!-- Accounts -->
+					<div class="col-lg-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<div class="flex-title">
+									<h4 class="card-title">Accounts Table</h4>
+									<label for="search-account"><input type="text" placeholder="Search..."></label>
+								</div>
+								</p>
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th> Avatar </th>
+												<th> Username </th>
+												<th> Email </th>
+												<th> Power </th>
+												<th> Budget </th>
+												<th> Role </th>
+												<th> Joined Date </th>
+												<th> Action </th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="account: ${accounts}">
+												<td class="py-1">
+													<img th:src="${account.avatar}"
+														alt="image" />
+												</td>
+												<td> [[${account.username}]] </td>
+												<td> [[${account.email}]] </td>
+												<td> [[${account.power}]] coin </td>
+												<td> [[${account.budget}]] coin </td>
+												<td> [[${account.role.acc_role_name}]] </td>
+												<td> [[${#dates.format(account.joined_date, 'EEE, d MMM yyyy HH:mm a')}]] </td>
+												<td>
+													<!-- Button trigger modal -->
+													<button style="width: 36.9px;" type="button"
+														class="btn badge-warning" data-toggle="modal"
+														data-target="#exampleModal">
+														<i class="fa-solid fa-pen-to-square"></i>
+													</button>
+
+													<!-- Modal -->
+													<div class="modal fade" id="exampleModal" tabindex="-1"
+														role="dialog" aria-labelledby="exampleModalLabel"
+														aria-hidden="true">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">Edit
+																	</h5>
+																	<button type="button" class="close"
+																		data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<div class="col-12 grid-margin stretch-card">
+																		<div class="card">
+																			<div class="card-body">
+																				<h4 class="card-title">Accounts Form
+																				</h4>
+																				<p class="card-description"> Accounts
+																					form
+																				</p>
+																				<form class="forms-sample">
+																					<div class="form-group">
+																						<label
+																							for="exampleInputName1">Username</label>
+																						<input type="text"
+																							class="form-control"
+																							id="exampleInputName1"
+																							placeholder="Username">
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="exampleInputEmail3">Email
+																							address</label>
+																						<input type="email"
+																							class="form-control"
+																							id="exampleInputEmail3"
+																							placeholder="Email">
+																					</div>
+																					<div class="form-group">
+																						<label>Upload Avatar</label>
+																						<input type="file" name="img[]"
+																							class="file-upload-default">
+																						<div
+																							class="input-group col-xs-12">
+																							<input type="text"
+																								class="form-control file-upload-info"
+																								disabled
+																								placeholder="Upload Avatar">
+																							<span
+																								class="input-group-append">
+																								<button
+																									class="file-upload-browse btn btn-primary"
+																									type="button">Upload</button>
+																							</span>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="exampleInputPassword4">Password</label>
+																						<input type="password"
+																							class="form-control"
+																							id="exampleInputPassword4"
+																							placeholder="Password">
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="exampleSelectGender">Budget</label>
+																						<div class="input-group">
+																							<div
+																								class="input-group-prepend">
+																								<span
+																									class="input-group-text bg-primary text-white">$</span>
+																							</div>
+																							<input type="text"
+																								class="form-control"
+																								aria-label="Amount (to the nearest dollar)">
+																							<div
+																								class="input-group-append">
+																								<span
+																									class="input-group-text">.00</span>
+																							</div>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="exampleSelectGender">Role</label>
+																						<select class="form-control"
+																							id="exampleSelectGender">
+																							<option>Admin</option>
+																							<option>Mod</option>
+																							<option>User</option>
+																						</select>
+																					</div>
+																					<div class="col-md-6">
+																						<div class="form-group row">
+																							<label
+																								class="col-sm-3 col-form-label">Status</label>
+																							<div class="col-sm-4">
+																								<div class="form-check">
+																									<label
+																										class="form-check-label">
+																										<input
+																											type="radio"
+																											class="form-check-input"
+																											name="statusRadios"
+																											id="statusRadios1"
+																											value=""
+																											checked>
+																										Online
+																									</label>
+																								</div>
+																							</div>
+																							<div class="col-sm-5">
+																								<div class="form-check">
+																									<label
+																										class="form-check-label">
+																										<input
+																											type="radio"
+																											class="form-check-input"
+																											name="statusRadios"
+																											id="statusRadios2"
+																											value="option2">
+																										Offline </label>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																					<button type="submit"
+																						class="btn btn-primary mr-2">Submit</button>
+																					<button
+																						class="btn btn-dark">Cancel</button>
+																				</form>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-primary">Save
+																		changes</button>
+																</div>
+															</div>
+														</div>
+													</div>
+													<button onclick="toasts()" class="badge badge-danger"><i
+															class="fa-solid fa-trash"></i></button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div style="display: flex;justify-content: center;margin-top:10px;">
+										<nav aria-label="Page navigation example">
+											<ul class="pagination">
+												<li class="page-item">
+													<a class="page-link" href="#" aria-label="Previous">
+														<span aria-hidden="true">&laquo;</span>
+													</a>
+												</li>
+												<li class="page-item"><a class="page-link" href="#">1</a></li>
+												<li class="page-item"><a class="page-link" href="#">2</a></li>
+												<li class="page-item"><a class="page-link" href="#">3</a></li>
+												<li class="page-item">
+													<a class="page-link" href="#" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- content-wrapper ends -->
+		<div th:replace="/admin/_footer.html"></div>
+	</main>
+</body>
+
+</html>

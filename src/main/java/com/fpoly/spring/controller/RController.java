@@ -1,5 +1,9 @@
 package com.fpoly.spring.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fpoly.spring.captcha.ICaptchaService;
 import com.fpoly.spring.dao.AccountDAO;
 import com.fpoly.spring.dao.Coin_Transaction_HistoryDAO;
+import com.fpoly.spring.dao.Comment_MovieDAO;
+import com.fpoly.spring.dao.Comment_Movie_DetailDAO;
 import com.fpoly.spring.dao.Continue_WatchingDAO;
 import com.fpoly.spring.dao.CountryDAO;
 import com.fpoly.spring.dao.GenreDAO;
@@ -42,6 +48,8 @@ import com.fpoly.spring.dao.Notification_MovieDAO;
 import com.fpoly.spring.dao.Watch_ListDAO;
 import com.fpoly.spring.form.RegisterForm;
 import com.fpoly.spring.model.Account;
+import com.fpoly.spring.model.Comment_Movie;
+import com.fpoly.spring.model.Comment_Movie_Detail;
 import com.fpoly.spring.model.Continue_Watching;
 import com.fpoly.spring.model.Country;
 import com.fpoly.spring.model.Genre;
@@ -99,6 +107,12 @@ public class RController {
 	
 	@Autowired
 	EmailSenderService emailSenderService;
+	
+	@Autowired
+	Comment_MovieDAO cmDao;
+	
+	@Autowired
+	Comment_Movie_DetailDAO cmDetailDao;
 	
 	@RequestMapping(value="/search-movie", method=RequestMethod.POST)
 	@ResponseBody
@@ -218,6 +232,7 @@ public class RController {
 		}else {
 			try {
 				accountDao.rechargeCoin(account.getId(), Double.parseDouble(new DecimalFormat("#.##").format(account.getBudget() - movie.getBudget())));
+				accountDao.updatePower(account.getId(), account.getPower() + Double.parseDouble(new DecimalFormat("#.##").format(movie.getBudget())));
 				movie_purchaseDao.savePurchased(account.getId(), movie.getId());
 				
 				response.setValidated(true);
@@ -522,4 +537,78 @@ public class RController {
 		
 		return response;
 	}
+	
+	@RequestMapping(value="/vote_movie_comment", method=RequestMethod.POST)
+	@ResponseBody
+	public ValidateResponse voteMovieComment(HttpServletRequest request) {
+		ValidateResponse response = new ValidateResponse();
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String email = loggedInUser.getName(); 
+	    Account account = accountDao.findByEmail(email);
+	    
+	    try {
+	    	int type = Integer.parseInt(request.getParameter("type"));
+		    int id = Integer.parseInt(request.getParameter("id"));
+		    
+		    Comment_Movie cm = cmDao.findById(id).get();
+		    Comment_Movie_Detail cmDetail = cmDetailDao.findByAccountAndCommentMovie(account.getId(), id);
+		    
+		    if(cmDetail == null) {
+		    	Comment_Movie_Detail cmDetailNew = new Comment_Movie_Detail();
+		    	cmDetailNew.setAccount(account);
+		    	cmDetailNew.setComment_movie(cm);
+		    	cmDetailNew.setFavorite(type == 1 ? true : false);
+			    
+			    cmDetailDao.save(cmDetailNew);
+		    }else {
+		    	if(type == 1) {
+		    		int check = cmDetailDao.checkLike(account.getId(), id);
+		    		if(check == 1) cmDetailDao.delete(cmDetail);
+		    		else cmDetailDao.updateFavorite(account.getId(), id, true);
+		    	}else if(type == 0) {
+		    		int check = cmDetailDao.checkDisLike(account.getId(), id);
+		    		if(check == 1) cmDetailDao.delete(cmDetail);
+		    		else cmDetailDao.updateFavorite(account.getId(), id, false);
+		    	}else {
+		    		cmDetail.setFavorite(type == 1 ? true : false);
+			    	cmDetailDao.save(cmDetail);
+		    	}
+		    }
+		    
+		    response.setValidated(true);
+		    response.setMessages(new HashMap<String, String>() {{
+                put("like", String.valueOf(cmDetailDao.findByCommentMovie(id).stream()
+                		.filter(o -> o.getFavorite() == true)
+                		.count())); 
+                put("dislike", String.valueOf(cmDetailDao.findByCommentMovie(id).stream()
+                		.filter(o -> o.getFavorite() == false)
+                		.count())); 
+            }});
+	    }catch(Exception e) {
+	    	response.setValidated(false);
+            response.setErrorMessages(new HashMap<String, String>() {{
+                put("error", e.getMessage()); 
+            }});
+	    }
+	    
+		return response;
+	}
+	
+//	@RequestMapping(value="view_more_movie_comments", method=RequestMethod.POST, produces = {"text/html;charset=utf-8"})
+//	@ResponseBody
+//	public String viewMoreMovieComments(Model model, HttpServletRequest request) {
+//		
+//		try {
+//			File htmlFile = new File("src/main/resources/templates/movie/comment-movie-box.html");
+//			String htmlString = Files.readString(htmlFile.toPath(), StandardCharsets.UTF_8);
+//			model.addAttribute("c", "hello");
+//			return htmlString;
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return "";
+//	}
 }

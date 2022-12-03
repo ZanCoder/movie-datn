@@ -944,3 +944,40 @@ html {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
 }
+
+/* custom user-name */
+.badg-level.level-a {
+    background-image: url(../img/level-a.png);
+}
+
+.badg-level.level-b {
+    background-image: url(../img/level-b.png);
+}
+
+.badg-level {
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+    background-position: center center;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: sub;
+}
+
+.user-name.is-level-a {
+	color: #ff426e!important;
+}
+
+.user-name.is-level-b {
+	color: #4da6ff!important;
+}
+
+.user-name.is-level-x span {
+    font-size: 9px;
+    text-transform: uppercase;
+    margin-left: 5px;
+    color: #94969d;
+    border: 1px solid #94969d;
+    padding: 1px 3px;
+    border-radius: 0.25rem;
+}

@@ -1,5 +1,7 @@
 package com.fpoly.spring.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -40,6 +42,13 @@ public interface AccountDAO extends JpaRepository<Account, Integer>{
 	@Modifying(clearAutomatically=true)
     @Transactional
 	@Query(value="update account "
+			+ " set power = ?2 "
+			+ " where id = ?1 ", nativeQuery=true)
+	void updatePower(int id, double power);
+	
+	@Modifying(clearAutomatically=true)
+    @Transactional
+	@Query(value="update account "
 			+ " set username = ?2, password_hash = ?3, avatar = ?4 "
 			+ " where id = ?1 ", nativeQuery=true)
 	void updateProfile(int id, String username, String password_hash, String avatar);
@@ -47,4 +56,12 @@ public interface AccountDAO extends JpaRepository<Account, Integer>{
 	@Query(value="select count(*) from account"
 			+ " where ?1 like (select username from account where id <> ?2)", nativeQuery=true)
 	Integer checkDuplicateUsername(String username, int id);
+	
+	@Query(value="select * from [account]"
+			+ " where role = 3 "
+			+ " order by power desc ", nativeQuery=true)
+	List<Account> getMostPower();
+	
+	@Query(value="select dbo.get_achievement(?1)", nativeQuery=true)
+	String getAchievement(int account);
 }

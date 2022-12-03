@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -229,6 +231,26 @@ public class HomeController {
 		    
 		    Double getMovieRated = movie_rateDao.getMovieRated(movie.getId());
 		    Integer getTotalMovieRated = movie_rateDao.getTotalMovieRated(movie.getId());
+		    List<Movie> populars = movieDao.getTop10Populars();
+		    
+		    List<Object[]> recommends = movieDao.getRecommends(movie.getId());
+			List<Movie> recommend_movies = new ArrayList<Movie>();
+			
+			Iterator it = recommends.iterator();
+			while(it.hasNext()){
+			     Object[] line = (Object[]) it.next();
+			     Movie m = new Movie();
+			     m.setId(Integer.parseInt(String.valueOf(line[0])));
+			     m.setTitle(String.valueOf(line[1]));
+			     m.setPoster(String.valueOf(line[2]));
+			     m.setSlug(String.valueOf(line[3]));
+			     m.setVip(Boolean.parseBoolean(String.valueOf(line[4])));
+			     m.setDuration_min(String.valueOf(line[5]));
+			     m.setType(typeDao.findById(Integer.parseInt(String.valueOf(line[6]))).get());
+			     m.setQuality(qualityDao.findById(Integer.parseInt(String.valueOf(line[7]))).get());
+				
+				recommend_movies.add(m);  
+			}
 		    
 		    model.addAttribute("movie", movie);
 			model.addAttribute("movie_eps", movie_eps);
@@ -240,6 +262,9 @@ public class HomeController {
 			model.addAttribute("servers", servers);
 			model.addAttribute("getMovieRated", getMovieRated);
 			model.addAttribute("getTotalMovieRated", getTotalMovieRated);
+			model.addAttribute("populars", populars);
+			model.addAttribute("movie_episodeDao", movie_episodeDao);
+			model.addAttribute("recommend_movies", recommend_movies.stream().limit(12).collect(Collectors.toList()));
 //		}catch(Exception e) {
 //			return "redirect:/home";
 //		}
@@ -575,13 +600,16 @@ public class HomeController {
 	@RequestMapping(value="/load_comment_movie", method=RequestMethod.GET)
 	public String loadCommentMovie(Model model, HttpServletRequest request) {
 		
+		Pageable pageable = PageRequest.of(0, 2);
+		
 		int movieEpId = Integer.parseInt(request.getParameter("movieEpId"));
 		Movie_Episode movie_ep = movie_episodeDao.findById(movieEpId).get();
-		List<Comment_Movie> comment_movies = cmDao.findByMovieEpisode(movieEpId);
+		Page<Comment_Movie> comment_movies = cmDao.findByMovieEpisode(movieEpId, pageable);
 		
 		model.addAttribute("movieEpId", movieEpId);
 	    model.addAttribute("comment_movies", comment_movies);
 	    model.addAttribute("movie_ep", movie_ep);
+	    model.addAttribute("totalPage", comment_movies.getTotalPages());
 	    
 		return "/movie/comment-movie";
 	}
@@ -628,6 +656,22 @@ public class HomeController {
 				model.addAttribute("replies", cmNew.getReplies());
 				return "/movie/comment-movie-box";
 			}
+	}
+	
+	@RequestMapping(value="view_more_movie_comments", method=RequestMethod.POST, produces = {"text/html;charset=utf-8"})
+	public String viewMoreMovieComments(Model model, HttpServletRequest request) {
+		int movieEpId = Integer.parseInt(request.getParameter("movieEpId"));
+		int datepage = Integer.parseInt(request.getParameter("page")) + 1;
+		Pageable pageable = PageRequest.of(datepage, 2);
+		
+		Movie_Episode movie_ep = movie_episodeDao.findById(movieEpId).get();
+		Page<Comment_Movie> comment_movies = cmDao.findByMovieEpisode(movieEpId, pageable);
+		
+		model.addAttribute("movieEpId", movieEpId);
+	    model.addAttribute("comment_movies", comment_movies);
+	    model.addAttribute("movie_ep", movie_ep);
+	    
+		return "/movie/comment-movie-more";
 	}
 	
 	@GetMapping("/test")

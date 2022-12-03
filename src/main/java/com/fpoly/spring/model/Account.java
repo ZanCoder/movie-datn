@@ -36,6 +36,7 @@ public class Account {
 	String avatar;
 	String password_hash;
 	Double budget;
+	float power;
 	@Column(name="joined_date", columnDefinition="date DEFAULT GETDATE()")
 	@Temporal(TemporalType.TIMESTAMP)
 	Date joined_date = new java.sql.Date(System.currentTimeMillis());

@@ -1,5 +1,6 @@
 $(window).ready(function() {
 	if ($('.load-cm-movie').length > 0) {
+		$('#comment-movie-loading').css('display', 'block');
 		var hT = $('.load-cm-movie').offset().top,
 			hH = $('.load-cm-movie').outerHeight(),
 			wH = $(window).height(),
@@ -11,6 +12,7 @@ $(window).ready(function() {
 				url: "/load_comment_movie",
 				data: { movieEpId: movieEpId },
 				success: function(data) {
+					$('#comment-movie-loading').css('display', 'none');
 					$('.load-cm-movie').html(data);
 				}
 			});
@@ -21,6 +23,7 @@ $(window).ready(function() {
 
 $(window).scroll(function() {
 	if ($('.load-cm-movie').length > 0) {
+		$('#comment-movie-loading').css('display', 'block');
 		var hT = $('.load-cm-movie').offset().top,
 			hH = $('.load-cm-movie').outerHeight(),
 			wH = $(window).height(),
@@ -32,6 +35,7 @@ $(window).scroll(function() {
 				url: "/load_comment_movie",
 				data: { movieEpId: movieEpId },
 				success: function(data) {
+					$('#comment-movie-loading').css('display', 'none');
 					$('.load-cm-movie').html(data);
 				}
 			});

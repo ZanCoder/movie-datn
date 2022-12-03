@@ -1,0 +1,15 @@
+<th:block th:each="c: ${comment_movies}">
+	<div th:replace="/movie/comment-movie-box::.cw_l-line(c=${c}, replies=${c.getReplies()})"></div>
+</th:block>
+<script type="text/javascript" th:src="@{/js/vote-comment-movie.js}"></script>                          
+<script type="text/javascript">
+$(function() {
+	var time = $('.time');
+	if (time) {
+		time.each(function(i, obj) {
+			var date = obj.getAttribute('data-date');
+			obj.innerHTML = moment(date).fromNow();
+		});
+	}
+});
+</script>

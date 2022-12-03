@@ -24,6 +24,9 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	@Query(value="select top 5 * from [movie] order by dbo.get_movie_viewed(movie.id) desc", nativeQuery=true)
 	List<Movie> getTop5Populars();
 	
+	@Query(value="select top 10 * from [movie] order by dbo.get_movie_viewed(movie.id) desc", nativeQuery=true)
+	List<Movie> getTop10Populars();
+	
 	@Query(value="select * from [movie] order by dbo.get_movie_viewed(movie.id) desc", nativeQuery=true)
 	Page<Movie> getPopulars(Pageable pageable);
 	
@@ -86,6 +89,16 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	@Query(value="select count(*) from [movie_view] "
 			+ " where movie_view.movie = ?1 and DATEDIFF(month, getdate(), movie_view.view_date) = 0", nativeQuery=true)
 	int getMovieMostViewByMonthCount(int movie);
+	
+	@Query(value="select * from [movie] "
+			+ " order by "
+			+ " (select count(*) from [movie_view] "
+			+ " where movie_view.movie = movie.id) desc", nativeQuery=true)
+	List<Movie> getTopMostViewsAllTime();
+	
+	@Query(value="select count(*) from [movie_view] "
+			+ " where movie_view.movie = ?1", nativeQuery=true)
+	int getMovieMostViewCount(int movie);
 	
 	@Query(value="select top 16 movie.id, movie.title, movie.poster, movie.slug, movie.vip, movie.duration_min, movie.type, movie.quality from [movie] join movie_genre on movie.id = movie_genre.movie "
 			+ "join movie_country on movie.id = movie_country.movie "

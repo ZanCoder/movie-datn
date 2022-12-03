@@ -1,4 +1,4 @@
-use db_movies
+Ôªøuse db_movies
 go
 
 insert into [account_role]
@@ -9,7 +9,13 @@ go
 
 insert into [account]([username], [email], [password_hash], [role])
 values	(N'sK0rpion', 'nhatphay722@gmail.com', '$2a$10$rh3IlC/fdXP8QhXY.0kvouhDEWpzwGlBCGYEiSa/JNgbb.h8QnYqK', 3), -- nhatphat0
-		(N'Admin', 'admin@gmail.com', '$2a$10$ZkSRUbURvjSZyyNQdJYV1OTPOwqgXPy34/ROVV9Ug8LUm7oQsmcjO', 1) -- admin123
+		(N'Admin', 'admin@gmail.com', '$2a$10$ZkSRUbURvjSZyyNQdJYV1OTPOwqgXPy34/ROVV9Ug8LUm7oQsmcjO', 1), -- admin123
+		(N'Modder', 'mod@gmail.com', '$2a$10$HhjLSruiV5.GJ0xi3DSKiOslw9WvzcI6PkVIf47uCqT7dwnMD6OVG', 2), -- mod123
+		(N'ƒê·ªó Ki·ªÅu Ph∆∞∆°ng', 'phuong@gmail.com', '$2a$10$Di.zPVTjpeXAmyxYNxSBY.YGOLRoTWe4.erltk/bRuEKZE8sWKHau', 3), -- phuong123
+		(N'L∆∞∆°ng Th·ªã Th√∫y L√†nh', 'lanh@gmail.com', '$2a$10$xyLXAOOuP3xlIe3o.s38WewfvOPo55158vWIfL7gfl4NQFm2zHBe6', 3), -- lanh123
+		(N'Nguy·ªÖn VƒÉn Giang', 'giang@gmail.com', '$2a$10$7mwpU3eXpVCcQ7fBd./dcuVyN0IPLu5L5kLp4/L.SKRPCwvNJ4dYe', 3), -- giang123
+		(N'Ng√¥ Xu√¢n B·∫£o T√¢m', 'tam@gmail.com', '$2a$10$vHvqRMTKJLSJHEF2.qgg/.q2tDuqm0uhZm8tT4fY7pbm1/jQh/gSi', 3), -- tam123
+		(N'Tr·∫ßn ƒê·ª©c Anh', 'anh@gmail.com', '$2a$10$5rS/d9jD4f4TWAh3DGhEQ.OhN8Z3h7GUlA4/H/MX9Txug0fF5XVOi', 3) -- anh123
 go
 
 insert into [genre]	([genre_name])
@@ -285,12 +291,12 @@ go
 insert into [movie]([title], [status], [quality], [duration_min], [poster], [cover], [description], 
 					[release_date], [productions], [budget], [vip],
 					[imdb_rate], [trailer], [type])
-values	('Mortal Kombat Legends: Scorpionís Revenge', 2, 1, '80 min', 'https://iili.io/D8E3Fa.jpg', 'https://iili.io/D81EYv.jpg', 'Hanzo Hasashi is exiled to the tortuous Netherrealm after the heinous slaughter of his family by the stone-cold mercenary Sub-Zero. In exchange for his servitude to the sinister Quan Chi, he is given the opportunity to avenge his family ñ and is resurrected asScorpion, a lost soul bent on vengeance. Back on Earthrealm, Lord Raiden assembles a group of elite warriors ñ Shaolin monk Liu Kang, Special Forces officer Sonya Blade, and action star Johnny Cage ñ an unlikely band of heroes with only one chance to save humanity. To accomplish this, they must defeat Shang Tsung''s horde of Outworld gladiators and take control of the Mortal Kombat tournament.',
+values	('Mortal Kombat Legends: Scorpion‚Äôs Revenge', 2, 1, '80 min', 'https://iili.io/D8E3Fa.jpg', 'https://iili.io/D81EYv.jpg', 'Hanzo Hasashi is exiled to the tortuous Netherrealm after the heinous slaughter of his family by the stone-cold mercenary Sub-Zero. In exchange for his servitude to the sinister Quan Chi, he is given the opportunity to avenge his family ‚Äì and is resurrected asScorpion, a lost soul bent on vengeance. Back on Earthrealm, Lord Raiden assembles a group of elite warriors ‚Äì Shaolin monk Liu Kang, Special Forces officer Sonya Blade, and action star Johnny Cage ‚Äì an unlikely band of heroes with only one chance to save humanity. To accomplish this, they must defeat Shang Tsung''s horde of Outworld gladiators and take control of the Mortal Kombat tournament.',
 		'2020-04-14', 'Warner Bros Animation, DC Entertainment, Midway Games', 0, 0,
 		7.4, 'I1vccr3yWBU', 1)
 insert into [movie_episode]
-values	(9, 'Mortal Kombat Legends: Scorpionís Revenge Full', 1, 1, 1, 'KKGyVhOXR'),
-		(9, 'Mortal Kombat Legends: Scorpionís Revenge Full', 1, 1, 2, '9i67kf0vvkv2')
+values	(9, 'Mortal Kombat Legends: Scorpion‚Äôs Revenge Full', 1, 1, 1, 'KKGyVhOXR'),
+		(9, 'Mortal Kombat Legends: Scorpion‚Äôs Revenge Full', 1, 1, 2, '9i67kf0vvkv2')
 go
 insert into [movie_genre]
 values	(9, 1),
@@ -594,7 +600,7 @@ values	('Invincible', 2, 1, '25 min', 'https://iili.io/D8jsYF.jpg', 'https://iil
 		8.7, '-bfAVpuko5o', 2)
 go
 insert into [movie_episode]
-values	(21, 'ITíS ABOUT TIME', 1, 1, 1, 'n9UG1uaqw'),
+values	(21, 'IT‚ÄôS ABOUT TIME', 1, 1, 1, 'n9UG1uaqw'),
 		(21, 'HERE GOES NOTHINGE', 2, 1, 1, 'c-T962jdI'),
 		(21, 'WHO YOU CALLING UGLY?', 3, 1, 1, 'dw2b__YUy'),
 		(21, 'Neil Armstrong Eat Your Heart Out', 4, 1, 1, 'CjMp6o4KI4'),
@@ -603,7 +609,7 @@ values	(21, 'ITíS ABOUT TIME', 1, 1, 1, 'n9UG1uaqw'),
 		(21, 'We Need to Talk', 7, 1, 1, 'X84NrGjlv'),
 		(21, 'Where I Really Come From', 8, 1, 1, 'RDi7dwvmw'),
 
-		(21, 'ITíS ABOUT TIME', 1, 1, 2, 'pomqngu0j0gh'),
+		(21, 'IT‚ÄôS ABOUT TIME', 1, 1, 2, 'pomqngu0j0gh'),
 		(21, 'HERE GOES NOTHINGE', 2, 1, 2, '1iqxjy3ipvc1'),
 		(21, 'WHO YOU CALLING UGLY?', 3, 1, 2, 'utg0gch08w79'),
 		(21, 'Neil Armstrong Eat Your Heart Out', 4, 1, 2, 'wfez2303fpke'),
@@ -652,7 +658,7 @@ values	(22, 'Pilot', 1, 1, 1, 'B0VYI6zch'),
 		(22, 'Mandala', 11, 2, 1, 'xsX9xsiIvJ'),
 		(22, 'Phoenix', 12, 2, 1, 'Eg7k5hGyxK'),
 		(22, 'ABQ', 13, 2, 1, 'Q70_ywILbv'),
-		(22, N'No M·s', 1, 3, 1, 'cu9S9zrdL'),
+		(22, N'No M√°s', 1, 3, 1, 'cu9S9zrdL'),
 		(22, 'Caballo Sin Nombre', 2, 3, 1, 'bIehtFsoiO'),
 		(22, 'I.F.T', 3, 3, 1, 'Wusu1Sa4qN'),
 		(22, 'Green Light', 4, 3, 1, 'KA_3CUWfj4'),
@@ -715,7 +721,7 @@ values	(22, 'Pilot', 1, 1, 1, 'B0VYI6zch'),
 		(22, 'Mandala', 11, 2, 2, 'yj374v4mfugs'),
 		(22, 'Phoenix', 12, 2, 2, 'wfz2xy4vytba'),
 		(22, 'ABQ', 13, 2, 2, 'x071tk9d8pfo'),
-		(22, N'No M·s', 1, 3, 2, 'o15t33bxtsl5'),
+		(22, N'No M√°s', 1, 3, 2, 'o15t33bxtsl5'),
 		(22, 'Caballo Sin Nombre', 2, 3, 2, 'nht11ouv5r95'),
 		(22, 'I.F.T', 3, 3, 2, 'fmpxuk8ponv0'),
 		(22, 'Green Light', 4, 3, 2, 'rldk58k7af5u'),
@@ -896,24 +902,24 @@ values	('What If...?', 2, 1, '34 min', 'https://iili.io/H2KOxJ2.jpg', 'https://i
 		7.4, 'x9D0uUKJ5KI', 2)
 go
 insert into [movie_episode]
-values	(26, 'What IfÖ Captain Carter Were The First Avenger?', 1, 1, 1, 'V-QHOSZp5'),
-		(26, 'What IfÖ TíChalla Became a Star-Lord?', 2, 1, 1, 'GgV25tifIs'),
+values	(26, 'What If‚Ä¶ Captain Carter Were The First Avenger?', 1, 1, 1, 'V-QHOSZp5'),
+		(26, 'What If‚Ä¶ T‚ÄôChalla Became a Star-Lord?', 2, 1, 1, 'GgV25tifIs'),
 		(26, 'What If The World Lost Its Mightiest Heroes', 3, 1, 1, 'nPQ78QQ-R'),
-		(26, 'What IfÖ Doctor Strange Lost His Heart Instead of His Hands?', 4, 1, 1, 'HOsVtFC4r'),
+		(26, 'What If‚Ä¶ Doctor Strange Lost His Heart Instead of His Hands?', 4, 1, 1, 'HOsVtFC4r'),
 		(26, 'What If Zombies', 5, 1, 1, 'wy30S7K9W'),
 		(26, 'What If Killmonger Rescued Tony Stark', 6, 1, 1, 'HOEHaA7_0'),
 		(26, 'What If Thor Were An Only Chld', 7, 1, 1, 'MMLNrtaHE'),
-		(26, 'What IfÖ Ultron Won?', 8, 1, 1, 'myHvWiYOx0'),
+		(26, 'What If‚Ä¶ Ultron Won?', 8, 1, 1, 'myHvWiYOx0'),
 		(26, 'What If The Watcher Broke His Oath', 9, 1, 1, 'BUisdktApf'),
 
-		(26, 'What IfÖ Captain Carter Were The First Avenger?', 1, 1, 2, 'fqb1eh4bd83m'),
-		(26, 'What IfÖ TíChalla Became a Star-Lord?', 2, 1, 2, 'xhuto9yw538f'),
+		(26, 'What If‚Ä¶ Captain Carter Were The First Avenger?', 1, 1, 2, 'fqb1eh4bd83m'),
+		(26, 'What If‚Ä¶ T‚ÄôChalla Became a Star-Lord?', 2, 1, 2, 'xhuto9yw538f'),
 		(26, 'What If The World Lost Its Mightiest Heroes', 3, 1, 2, 'xk2rugqen136'),
-		(26, 'What IfÖ Doctor Strange Lost His Heart Instead of His Hands?', 4, 1, 2, '85z369r7ps78'),
+		(26, 'What If‚Ä¶ Doctor Strange Lost His Heart Instead of His Hands?', 4, 1, 2, '85z369r7ps78'),
 		(26, 'What If Zombies', 5, 1, 2, 'zrj2l3h3nel9'),
 		(26, 'What If Killmonger Rescued Tony Stark', 6, 1, 2, 'i7hp1zt4yomc'),
 		(26, 'What If Thor Were An Only Chld', 7, 1, 2, 'gy7rtjjjxhq0'),
-		(26, 'What IfÖ Ultron Won?', 8, 1, 2, '6w1wq63ag7hl'),
+		(26, 'What If‚Ä¶ Ultron Won?', 8, 1, 2, '6w1wq63ag7hl'),
 		(26, 'What If The Watcher Broke His Oath', 9, 1, 2, 'mkup336yiisc')
 go
 insert into [movie_genre]
@@ -1011,7 +1017,7 @@ values	(29,  'The Ends Beginning', 1, 1, 1, 'ZYFaxlBgeD'),
 		(29,  'Rare Species', 6, 1, 1, 'vpZOYxL4b'),
 		(29,  'Before a Fall', 7, 1, 1, 'XdChAPCE0D'),
 		(29,  'Much More', 8, 1, 1, 'RujpNzDBC6'),
-		(29,  'A Grain of Truthî', 1, 2, 1, 'cmbFkAlv9'),
+		(29,  'A Grain of Truth‚Äù', 1, 2, 1, 'cmbFkAlv9'),
 		(29,  'Kaer Morhen', 2, 2, 1, 'sbOg2ul2Vl'),
 		(29,  'What Is Lost', 3, 2, 1, 'hwPMWwq4W'),
 		(29,  'Redanian Intelligence', 4, 2, 1, 'AWImm3OKy'),
@@ -1028,7 +1034,7 @@ values	(29,  'The Ends Beginning', 1, 1, 1, 'ZYFaxlBgeD'),
 		(29,  'Rare Species', 6, 1, 2, 'v15lb9z08c7z'),
 		(29,  'Before a Fall', 7, 1, 2, '981q2xunl61x'),
 		(29,  'Much More', 8, 1, 2, '4dz1a5anjre9'),
-		(29,  'A Grain of Truthî', 1, 2, 2, 'mh0l06qnb9zq'),
+		(29,  'A Grain of Truth‚Äù', 1, 2, 2, 'mh0l06qnb9zq'),
 		(29,  'Kaer Morhen', 2, 2, 2, 'l14eq1vjq8zn'),
 		(29,  'What Is Lost', 3, 2, 2, 'rwqyhdt9d2wf'),
 		(29,  'Redanian Intelligence', 4, 2, 2, 'ftlaj98p2xeh'),
@@ -1090,7 +1096,7 @@ values	(30,  'Uno', 1, 1, 1, 'IAs05jCnL'),
 		(30,  'Something Beautiful', 3, 4, 1, 'qKMRD9mkS'),
 		(30,  'Talk', 4, 4, 1, '1U4DdcEci'),
 		(30,  'Quite a Ride', 5, 4, 1, 'G0crrBk34'),
-		(30,  N'PiÒata', 6, 4, 1, '9ICxIIm_1d'),
+		(30,  N'Pi√±ata', 6, 4, 1, '9ICxIIm_1d'),
 		(30,  'Something Stupid', 7, 4, 1, '-nh2_QKER'),
 		(30,  'Coushatta', 8, 4, 1, 'vbAgqNATuk'),
 		(30,  'Wiedersehen', 9, 4, 1, '3hMmDoQRO'),
@@ -1154,7 +1160,7 @@ values	(30,  'Uno', 1, 1, 1, 'IAs05jCnL'),
 		(30,  'Something Beautiful', 3, 4, 2, 'b9thkyt907fw'),
 		(30,  'Talk', 4, 4, 2, 'g77nlabe6p8c'),
 		(30,  'Quite a Ride', 5, 4, 2, 'w15q5jd7qvvr'),
-		(30,  N'PiÒata', 6, 4, 2, 'dlnt4l2tdnzg'),
+		(30,  N'Pi√±ata', 6, 4, 2, 'dlnt4l2tdnzg'),
 		(30,  'Something Stupid', 7, 4, 2, 'wqsm8so6gknm'),
 		(30,  'Coushatta', 8, 4, 2, 'r45oo4m470uj'),
 		(30,  'Wiedersehen', 9, 4, 2, 'qz00fyndst88'),
@@ -1259,7 +1265,7 @@ go
 insert into [movie]([title], [status], [quality], [duration_min], [poster], [cover], [description], 
 					[release_date], [productions], [budget], [vip],
 					[imdb_rate], [trailer], [type])
-values	('Ant-Man and the Wasp: Quantumania', 3, 1, '120 min', 'https://iili.io/mB2MWG.jpg', 'https://iili.io/mB2Vsf.jpg', 'Superhero duo Scott Lang and Hope Van Dyne, together with Hopeís parents Hank Pym and Janet Van Dyne, find themselves exploring the Quantum Realm, interacting with strange new creatures, and embarking on an adventure that will push them beyond the limits of what they thought was possible.',
+values	('Ant-Man and the Wasp: Quantumania', 3, 1, '120 min', 'https://iili.io/mB2MWG.jpg', 'https://iili.io/mB2Vsf.jpg', 'Superhero duo Scott Lang and Hope Van Dyne, together with Hope‚Äôs parents Hank Pym and Janet Van Dyne, find themselves exploring the Quantum Realm, interacting with strange new creatures, and embarking on an adventure that will push them beyond the limits of what they thought was possible.',
 		'2023-02-15', 'Kevin Feige Productions, Marvel Studios', 0, 0,
 		null, 'ZlNFpri-Y40', 1)
 go
@@ -1293,7 +1299,7 @@ go
 insert into [movie]([title], [status], [quality], [duration_min], [poster], [cover], [description], 
 					[release_date], [productions], [budget], [vip],
 					[imdb_rate], [trailer], [type])
-values	('Black Panther: Wakanda Forever', 3, 1, '161 min', 'https://iili.io/mBfwCu.jpg', 'https://iili.io/mBfNEb.jpg', 'Queen Ramonda, Shuri, MíBaku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King TíChallaís death. As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia and Everett Ross and forge a new path for the kingdom of Wakanda.',
+values	('Black Panther: Wakanda Forever', 3, 1, '161 min', 'https://iili.io/mBfwCu.jpg', 'https://iili.io/mBfNEb.jpg', 'Queen Ramonda, Shuri, M‚ÄôBaku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T‚ÄôChalla‚Äôs death. As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia and Everett Ross and forge a new path for the kingdom of Wakanda.',
 		'2022-11-03', 'Marvel Studios, Kevin Feige Productions', 0, 0,
 		null, '_Z3QKkl1WyM', 1)
 go
@@ -1310,7 +1316,7 @@ go
 insert into [movie]([title], [status], [quality], [duration_min], [poster], [cover], [description], 
 					[release_date], [productions], [budget], [vip],
 					[imdb_rate], [trailer], [type])
-values	('Avatar: The Way of Water', 3, 1, 'N/A min', 'https://iili.io/mBFkMb.jpg', 'https://iili.io/mBFvPj.jpg', 'Set more than a decade after the events of the first film, ìAvatar: The Way of Waterî begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.',
+values	('Avatar: The Way of Water', 3, 1, 'N/A min', 'https://iili.io/mBFkMb.jpg', 'https://iili.io/mBFvPj.jpg', 'Set more than a decade after the events of the first film, ‚ÄúAvatar: The Way of Water‚Äù begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.',
 		'2022-12-14', 'Lightstorm Entertainment, 20th Century Studios, TSG Entertainment, River Road Entertainment', 0, 0,
 		null, 'd9MyW72ELq0', 1)
 go

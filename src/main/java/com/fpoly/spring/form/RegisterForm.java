@@ -20,8 +20,6 @@ public class RegisterForm {
 		this.password = password;
 		this.confirmPassword = confirmPassword;
 	}
-	
-	
 
 	public String getRecaptcha() {
 		return recaptcha;

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+</head>
+
+<body>
+	<!-- partial -->
+	<main class="container-fluid page-body-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="row">
+
+					<!-- Create Movies Form -->
+					<div class="col-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Movies Form</h4>
+								<p class="card-description"> Movies form </p>
+								<form class="forms-sample">
+									<div class="form-group">
+										<label for="exampleInputTitle1">Title</label>
+										<input type="text" class="form-control" id="exampleInputTitle1"
+											placeholder="Title">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputDuration3">Duration</label>
+										<input type="type" class="form-control" id="exampleInputDuration3"
+											placeholder="Duration">
+									</div>
+									<div class="form-group">
+										<label>Upload Poster</label>
+										<input type="file" name="img[]" class="file-upload-default">
+										<div class="input-group col-xs-12">
+											<input type="text" class="form-control file-upload-info" disabled
+												placeholder="Upload Poster">
+											<span class="input-group-append">
+												<button class="file-upload-browse btn btn-primary"
+													type="button">Upload</button>
+											</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label>Upload Cover</label>
+										<input type="file" name="img[]" class="file-upload-default">
+										<div class="input-group col-xs-12">
+											<input type="text" class="form-control file-upload-info" disabled
+												placeholder="Upload Cover">
+											<span class="input-group-append">
+												<button class="file-upload-browse btn btn-primary"
+													type="button">Upload</button>
+											</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="exampleTextarea1">Description</label>
+										<textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputRelease4">Release</label>
+										<input type="type" class="form-control" id="exampleInputRelease4"
+											placeholder="dd/mm/yyyy">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputProductions4">Productions</label>
+										<input type="type" class="form-control" id="exampleInputProductions4"
+											placeholder="Productions">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputCasts4">Casts</label>
+										<input type="type" class="form-control" id="exampleInputCasts4"
+											placeholder="Casts">
+									</div>
+									<div class="form-group">
+										<label for="exampleSelectGender">Budget</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text bg-primary text-white">$</span>
+											</div>
+											<input type="text" class="form-control"
+												aria-label="Amount (to the nearest dollar)">
+											<div class="input-group-append">
+												<span class="input-group-text">.00</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group row">
+											<label class="col-sm-3 col-form-label">Vip</label>
+											<div class="col-sm-4">
+												<div class="form-check">
+													<label class="form-check-label">
+														<input type="radio" class="form-check-input" name="vipRadios"
+															id="vipRadios1" value="" checked> Free </label>
+												</div>
+											</div>
+											<div class="col-sm-5">
+												<div class="form-check">
+													<label class="form-check-label">
+														<input type="radio" class="form-check-input" name="vipRadios"
+															id="vipRadios2" value="option2"> Vip </label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="exampleSelectRate">Rate</label>
+										<select class="form-control" id="exampleSelectRate">
+											<option>1 Star</option>
+											<option>2 Star</option>
+											<option>3 Star</option>
+											<option>4 Star</option>
+											<option>5 Star</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="exampleSelectGender">Budget</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text bg-primary text-white">$</span>
+											</div>
+											<input type="text" class="form-control"
+												aria-label="Amount (to the nearest dollar)">
+											<div class="input-group-append">
+												<span class="input-group-text">.00</span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputTrailer1">Trailer</label>
+										<input type="text" class="form-control" id="exampleInputTrailer1"
+											placeholder="Trailer">
+									</div>
+									<button type="submit" class="btn btn-primary mr-2">Submit</button>
+									<button class="btn btn-dark">Cancel</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="/admin/_footer.html"></div>
+		</div>
+	</main>
+</body>
+
+</html>

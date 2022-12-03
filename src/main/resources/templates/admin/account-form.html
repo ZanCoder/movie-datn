@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+</head>
+
+<body>
+	<!-- partial -->
+	<main class="container-fluid page-body-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="row">
+					<!-- Create Accounts Form -->
+					<div class="col-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Accounts Form</h4>
+								<p class="badge badge-danger" th:if="${error}"> [[${error}]]</p>
+								<form th:object="${adminAccountForm}" id="admin-account-form" class="forms-sample" th:action="@{/admin/account-form}" method="POST">
+									<div class="form-group">
+										<label for="adminAccount-username">Username</label>
+										<input th:field="*{username}" type="text" class="form-control" id="adminAccount-username"
+											placeholder="Username">
+									</div>
+									<div class="form-group">
+										<label for="adminAccount-username">Email address</label>
+										<input th:field="*{email}" type="email" class="form-control" id="adminAccount-email"
+											placeholder="Email">
+									</div>
+									<div class="form-group">
+										<label for="adminAccount-password">Password</label>
+										<input th:field="*{password}" type="password" class="form-control" id="adminAccount-password"
+											placeholder="Password">
+									</div>
+									<button type="submit" class="btn btn-primary mr-2">Submit</button>
+									<button class="btn btn-dark">Cancel</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="/admin/_footer.html"></div>
+		</div>
+	</main>
+</body>
+</html>

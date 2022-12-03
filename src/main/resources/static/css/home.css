@@ -1234,6 +1234,7 @@
     width: auto;
     height: 365px;
     background: #2a2c31 url('/img/giphy.gif') top right no-repeat;
+	clear: both;
 }
 
 #about {
