@@ -18,17 +18,21 @@
 							<div class="card-body">
 								<div class="flex-title">
 									<h4 class="card-title">Movies Table</h4>
-									<label for="search-account"><input type="text"></label>
+									<form>
+										<label for="search-movie">
+											<input type="text" placeholder="Search title..." id="search-movie" name="q"
+												style="background: none;border: none; border-bottom: 1px solid white; color: white;">
+										</label>
+									</form>
 								</div>
 								<!-- Movies Table -->
 								<div class="movies-element" th:each="movie: ${movies}">
 									<div class="movies-img">
-										<img th:src="${movie.poster}"
-											alt="">
+										<img th:src="${movie.poster}" th:alt="${movie.title}">
 									</div>
 									<div class="movies-text">
 										<div class="movies-text-title">
-											<h3>[[${movie.title}]]</h3>
+											<h3>[[${movie.title}]] - [[${movie.id}]]</h3>
 										</div>
 										<div class="movies-text-description">
 											<span>[[${movie.description}]]</span>
@@ -36,7 +40,9 @@
 										<div class="movies-time">
 											<span>[[${movie.type.movie_type_name}]]</span>
 											<i class="dot"></i>
-											<span>Ep [[${ #lists.size(movie_epDao.findByMovieAndSeasonAndServer(movie.id, 1, 1)) }]]</span>
+											<span>Ep [[${
+												#lists.size(movie_epDao.findByMovieAndSeasonAndServer(movie.id, 1, 1))
+												}]]</span>
 											<i class="dot"></i>
 											<span>[[${movie.duration_min}]]</span>
 										</div>
@@ -45,51 +51,303 @@
 											<span>Productions: [[${movie.productions}]]</span>
 										</div>
 										<div class="movies-rates">
+											<span class="d-inline-flex">
+												<i th:if="${movie_rateDao.getMovieRated(movie.id)} > 0"
+													th:each="r: ${#numbers.sequence(1, movie_rateDao.getMovieRated(movie.id))}"
+													class="fa-solid fa-star"></i>
+												<i th:if="${movie_rateDao.getMovieRated(movie.id)} < 5"
+													th:each="i: ${#numbers.sequence(1, 5 - movie_rateDao.getMovieRated(movie.id))}"
+													class="fa-solid fa-star" style="color: #A3ADBA!important;"></i>
+											</span>
 											<span>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
+												<small>[[${movie_rateDao.getMovieRated(movie.id)}]]
+													([[${movie_rateDao.getTotalMovieRated(movie.id)}]] voted)</small>
 											</span>
 										</div>
 									</div>
 									<!-- Button Delete -->
 									<div class="movies-delete-btn">
-										<button><i class="fa-solid fa-x"></i></button>
+										<button data-toggle="modal"
+											th:attr="data-target='#modeladminmovie-delete-' + ${movie.id}">
+											<i class="fa-solid fa-x"></i>
+										</button>
+									</div>
+									<!-- Modal delete -->
+									<div class="modal fade" th:id="'modeladminmovie-delete-' + ${movie.id}"
+										tabindex="-1">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Delete Form</h5>
+													<button type="button" class="btn-close" data-mdb-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<form action="/delete_admin_movie" method="POST">
+													<input type="hidden" th:value="${movie.id}" name="id">
+													<div class="modal-body">
+														<p>Are you sure you want to delete [[${movie.title}]]</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal" aria-label="Close">Close</button>
+														<button type="submit"
+															class="btn-delete-admin-movie btn btn-primary"
+															th:attr="data-id=${movie.id}">Save
+															changes</button>
+													</div>
+												</form>
+											</div>
+										</div>
 									</div>
 
 									<!-- Button Edit -->
 									<div class="movies-edit-btn">
-										<button><i class="fa-solid fa-pen-to-square"></i></button>
+										<button data-toggle="modal"
+											th:attr="data-target='#modaladminmovie-' + ${movie.id}"><i
+												class="fa-solid fa-pen-to-square"></i></button>
+									</div>
+									<!-- Modal Edit -->
+									<div class="modal fade" th:id="'modaladminmovie-' + ${movie.id}" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Edit
+													</h5>
+													<button type="button" class="close text-white" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="col-12 grid-margin stretch-card">
+														<div class="card">
+															<div class="card-body">
+																<h4 class="card-title">Movie Form
+																</h4>
+																<p class="card-description"> Movie
+																	form
+																</p>
+																<form class="forms-sample form-admin-movie">
+																	<div class="alert alert-danger mb-3 animated bounceIn"
+																		th:id="'admin-movie-error-' + ${movie.id}"
+																		style="display: none;"></div>
+																	<div class="alert alert-success mb-3 animated bounceIn"
+																		th:id="'admin-movie-success-' + ${movie.id}"
+																		style="display: none;"></div>
+																	<input type="hidden" id="admin-movie-id"
+																		th:value="${movie.id}">
+																	<div class="form-group">
+																		<label for="admin-movie-title">Title</label>
+																		<input type="text" class="form-control"
+																			th:id="'admin-movie-title-' + ${movie.id}"
+																			th:value="${movie.title}"
+																			placeholder="Title" required>
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-quality">Quality</label>
+																		<select class="form-control"
+																			th:id="'admin-movie-quality-' + ${movie.id}">
+																			<option th:each="q: ${qualities}"
+																				th:value="${q.id}"
+																				th:selected="${q.id == movie.quality.id}"
+																				th:text="${q.quality_name}"></option>
+																		</select>
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-duration">Duration
+																			min</label>
+																		<input type="text" class="form-control"
+																			th:id="'admin-movie-duration-' + ${movie.id}"
+																			th:value="${movie.duration_min}"
+																			placeholder="Duration min" required>
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-poster">Upload
+																			Poster</label>
+																		<input type="file"
+																			class="file-upload-default admin-movie-poster"
+																			th:attr="data-id=${movie.id}"
+																			th:id="'admin-movie-poster-' + ${movie.id}"
+																			accept="image/*">
+																		<div class="input-group col-xs-12">
+																			<input type="text"
+																				class="form-control file-upload-info admin-movie-poster"
+																				th:id="'poster-' + ${movie.id}" disabled
+																				th:value="${movie.poster}"
+																				placeholder="Upload Poster">
+																			<span class="input-group-append">
+																				<button
+																					class="file-upload-browse admin-movie-poster btn btn-primary"
+																					th:attr="data-id=${movie.id}"
+																					type="button">Upload</button>
+																			</span>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-poster">Upload
+																			Cover</label>
+																		<input type="file"
+																			class="file-upload-default admin-movie-cover"
+																			th:attr="data-id=${movie.id}"
+																			th:id="'admin-movie-cover-' + ${movie.id}"
+																			accept="image/*">
+																		<div class="input-group col-xs-12">
+																			<input type="text"
+																				class="form-control file-upload-info admin-movie-cover"
+																				th:id="'cover-' + ${movie.id}" disabled
+																				th:value="${movie.cover}"
+																				placeholder="Upload Cover">
+																			<span class="input-group-append">
+																				<button
+																					class="file-upload-browse admin-movie-cover btn btn-primary"
+																					th:attr="data-id=${movie.id}"
+																					type="button">Upload</button>
+																			</span>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label
+																			for="admin-movie-description">Description</label>
+																		<textarea class="form-control"
+																			th:id="'admin-movie-description-' + ${movie.id}"
+																			rows="4"
+																			required>[[${movie.description}]]</textarea>
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-release">Release
+																			date</label>
+																		<input type="date" class="form-control"
+																			th:value="${#dates.format(movie.release_date, 'yyyy-MM-dd')}"
+																			th:id="'admin-movie-release-' + ${movie.id}"
+																			required>
+																	</div>
+																	<div class="form-group">
+																		<label
+																			for="admin-movie-productions">Productions</label>
+																		<input type="text" class="form-control"
+																			th:value="${movie.productions}"
+																			th:id="'admin-movie-productions-' + ${movie.id}"
+																			required>
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-budget">Budget</label>
+																		<div class="input-group">
+																			<div class="input-group-prepend">
+																				<span
+																					class="input-group-text bg-primary text-white">coin</span>
+																			</div>
+																			<input type="number" class="form-control"
+																				th:id="'admin-movie-budget-' + ${movie.id}"
+																				step="0.01" th:value="${movie.budget}">
+																			<div class="input-group-append">
+																				<span
+																					class="input-group-text">.00</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<div class="custom-control custom-switch">
+																			<input type="checkbox"
+																				class="custom-control-input"
+																				th:id="'admin-movie-vip-' + ${movie.id}"
+																				th:checked="${movie.vip}">
+																			<label class="custom-control-label p-0 m-0"
+																				th:for="'admin-movie-vip-' + ${movie.id}">VIP</label>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-imdb">IMDB</label>
+																		<input type="number" class="form-control"
+																			th:value="${movie.imdb_rate}" step="0.01"
+																			th:id="'admin-movie-imdb-' + ${movie.id}">
+																	</div>
+																	<div class="form-group">
+																		<label for="admin-movie-trailer">Trailer</label>
+																		<input type="text" class="form-control"
+																			th:value="${movie.trailer}"
+																			th:id="'admin-movie-trailer-' + ${movie.id}"
+																			required>
+																	</div>
+																	<div class="form-group">
+																		<label for="adminMovie-type">Type</label>
+																		<select class="form-control"
+																			th:id="'admin-movie-type-' + ${movie.id}">
+																			<option th:each="t: ${typies}"
+																				th:value="${t.id}"
+																				th:text="${t.movie_type_name}"
+																				th:selected="${t.id == movie.type.id}">
+																			</option>
+																		</select>
+																	</div>
+																	<div class="form-group">
+																		<label for="adminMovie-status">Status</label>
+																		<select class="form-control"
+																			th:id="'admin-movie-status-' + ${movie.id}">
+																			<option th:each="s: ${statues}"
+																				th:value="${s.id}"
+																				th:text="${s.status_name}"
+																				th:selected="${s.id == movie.status.id}">
+																			</option>
+																		</select>
+																	</div>
+																	<div class="form-group">
+																		<p>Genres</p>
+																		<ul class="d-flex justify-content-center flex-wrap p-3"
+																			style="gap: 50px; background: #2A3038;">
+																			<li th:each="g, iter: ${genres}">
+																				<input th:value="${g.id}"
+																					type="checkbox"
+																					class="form-check-input"
+																					th:classappend="'form-check-genre-' + ${movie.id}"
+																					th:id="'admin-movie-genre-' + ${movie.id} + '-' + ${g.id}"
+																					th:checked="${#lists.contains(movie.getGenres(), g)}">
+																				<label class="p-0 m-0"
+																					style="line-height: 0; vertical-align: unset;"
+																					th:for="'admin-movie-genre-' + ${movie.id}">[[${g.genre_name}]]</label>
+																			</li>
+																		</ul>
+																	</div>
+																	<div class="form-group">
+																		<p>Countries</p>
+																		<ul class="d-flex justify-content-center flex-wrap p-3"
+																			style="gap: 50px; background: #2A3038;">
+																			<li th:each="c, iter: ${countries}">
+																				<input th:value="${c.id}"
+																					type="checkbox"
+																					class="form-check-input"
+																					th:classappend="'form-check-country-' + ${movie.id}"
+																					th:id="'admin-movie-country-' + ${movie.id} + '-' + ${c.id}"
+																					th:checked="${#lists.contains(movie.getCountries(), c)}">
+																				<label class="p-0 m-0"
+																					style="line-height: 0; vertical-align: unset;"
+																					th:for="'admin-movie-country-' + ${movie.id}">[[${c.country_name}]]</label>
+																			</li>
+																		</ul>
+																	</div>
+																	<div
+																		th:replace="/utilities/loading-popup::.loading-relative(content='admin-movie-loading-' + ${movie.id})">
+																	</div>
+																	<button type="submit"
+																		class="btn btn-primary mr-2">Submit</button>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div style="display: flex;justify-content: center;margin-top:10px;">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li class="page-item">
-											<a class="page-link" href="#" aria-label="Previous">
-												<span aria-hidden="true">&laquo;</span>
-											</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item">
-											<a class="page-link" href="#" aria-label="Next">
-												<span aria-hidden="true">&raquo;</span>
-											</a>
-										</li>
-									</ul>
-								</nav>
-							</div>
+							<!-- Paging -->
+							<div th:replace="/utilities/paginate::.paginate"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		<!-- content-wrapper ends -->
-		<div th:replace="/admin/_footer.html"></div>
+			<!-- content-wrapper ends -->
+			<div th:replace="/admin/_footer.html"></div>
 	</main>
 </body>
 

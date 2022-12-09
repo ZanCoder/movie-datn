@@ -16,123 +16,79 @@
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">Movies Form</h4>
-								<p class="card-description"> Movies form </p>
-								<form class="forms-sample">
+								<p class="badge badge-danger" style="white-space: pre-wrap;" th:if="${error}"> [[${error}]]</p>
+								<form th:object="${adminMovieForm}" id="admin-movie-form" class="forms-sample" th:action="@{/admin/movie-form}" method="POST">
 									<div class="form-group">
-										<label for="exampleInputTitle1">Title</label>
-										<input type="text" class="form-control" id="exampleInputTitle1"
-											placeholder="Title">
+										<label for="adminMovie-title">Title</label>
+										<input th:field="*{title}" type="text" class="form-control" id="adminMovie-title"
+											placeholder="Title" required>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputDuration3">Duration</label>
-										<input type="type" class="form-control" id="exampleInputDuration3"
-											placeholder="Duration">
+										<label for="adminMovie-quality">Quality</label>
+										<select class="form-control" id="adminMovie-quality" th:field="*{quality}">
+									      <option th:each="q: ${qualities}" th:value="${q.id}" th:text="${q.quality_name}"></option>
+									    </select>
 									</div>
 									<div class="form-group">
-										<label>Upload Poster</label>
-										<input type="file" name="img[]" class="file-upload-default">
-										<div class="input-group col-xs-12">
-											<input type="text" class="form-control file-upload-info" disabled
-												placeholder="Upload Poster">
-											<span class="input-group-append">
-												<button class="file-upload-browse btn btn-primary"
-													type="button">Upload</button>
-											</span>
-										</div>
+										<label for="adminMovie-duration_min">Duration min</label>
+										<input th:field="*{duration_min}" type="text" class="form-control" id="adminMovie-duration_min"
+											placeholder="Duration min" required>
 									</div>
 									<div class="form-group">
-										<label>Upload Cover</label>
-										<input type="file" name="img[]" class="file-upload-default">
-										<div class="input-group col-xs-12">
-											<input type="text" class="form-control file-upload-info" disabled
-												placeholder="Upload Cover">
-											<span class="input-group-append">
-												<button class="file-upload-browse btn btn-primary"
-													type="button">Upload</button>
-											</span>
-										</div>
+										<label for="adminMovie-description">Description</label>
+										<textarea th:field="*{description}" class="form-control" id="adminMovie-description" rows="4" required></textarea>
 									</div>
 									<div class="form-group">
-										<label for="exampleTextarea1">Description</label>
-										<textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+										<label for="adminMovie-release_date">Release date</label>
+										<input th:field="*{release_date}" type="date" class="form-control" id="adminMovie-release_date"
+											placeholder="yyyy-mm-dd" required>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputRelease4">Release</label>
-										<input type="type" class="form-control" id="exampleInputRelease4"
-											placeholder="dd/mm/yyyy">
+										<label for="adminMovie-productions">Productions</label>
+										<input th:field="*{productions}" type="text" class="form-control" id="adminMovie-productions"
+											placeholder="Productions" required>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputProductions4">Productions</label>
-										<input type="type" class="form-control" id="exampleInputProductions4"
-											placeholder="Productions">
+										<label for="adminMovie-imdb">IMDB</label>
+										<input th:field="*{imdb_rate}" type="number" step="0.01" class="form-control" id="adminMovie-imdb"
+											placeholder="IMDB">
 									</div>
 									<div class="form-group">
-										<label for="exampleInputCasts4">Casts</label>
-										<input type="type" class="form-control" id="exampleInputCasts4"
-											placeholder="Casts">
+										<label for="adminMovie-trailer">Trailer</label>
+										<input th:field="*{trailer}" type="text" class="form-control" id="adminMovie-trailer"
+											placeholder="Trailer" required>
 									</div>
 									<div class="form-group">
-										<label for="exampleSelectGender">Budget</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text bg-primary text-white">$</span>
-											</div>
-											<input type="text" class="form-control"
-												aria-label="Amount (to the nearest dollar)">
-											<div class="input-group-append">
-												<span class="input-group-text">.00</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group row">
-											<label class="col-sm-3 col-form-label">Vip</label>
-											<div class="col-sm-4">
-												<div class="form-check">
-													<label class="form-check-label">
-														<input type="radio" class="form-check-input" name="vipRadios"
-															id="vipRadios1" value="" checked> Free </label>
-												</div>
-											</div>
-											<div class="col-sm-5">
-												<div class="form-check">
-													<label class="form-check-label">
-														<input type="radio" class="form-check-input" name="vipRadios"
-															id="vipRadios2" value="option2"> Vip </label>
-												</div>
-											</div>
-										</div>
+										<label for="adminMovie-type">Type</label>
+										<select class="form-control" id="adminMovie-type" th:field="*{type}">
+									      <option th:each="t: ${typies}" th:value="${t.id}" th:text="${t.movie_type_name}"></option>
+									    </select>
 									</div>
 									<div class="form-group">
-										<label for="exampleSelectRate">Rate</label>
-										<select class="form-control" id="exampleSelectRate">
-											<option>1 Star</option>
-											<option>2 Star</option>
-											<option>3 Star</option>
-											<option>4 Star</option>
-											<option>5 Star</option>
-										</select>
+										<label for="adminMovie-status">Status</label>
+										<select class="form-control" id="adminMovie-status" style="pointer-events: none">
+									      <option th:each="s: ${statues}" th:value="${s.id}" th:text="${s.status_name}" th:selected="${s.id == 3}"></option>
+									    </select>
 									</div>
 									<div class="form-group">
-										<label for="exampleSelectGender">Budget</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text bg-primary text-white">$</span>
-											</div>
-											<input type="text" class="form-control"
-												aria-label="Amount (to the nearest dollar)">
-											<div class="input-group-append">
-												<span class="input-group-text">.00</span>
-											</div>
-										</div>
+										<p>Genres</p>
+										<ul class="d-flex justify-content-center flex-wrap p-3" style="gap: 50px; background: #2A3038;">
+											<li th:each="g, iter: ${genres}">
+												<input th:field="*{genres[__${iter.index}__]}" th:value="${g.id}" type="checkbox" class="form-check-input" th:id="'adminMovie-genre-' + ${g.id}">
+												<label class="p-0 m-0" style="line-height: 0; vertical-align: unset;" th:for="'adminMovie-genre-' + ${g.id}">[[${g.genre_name}]]</label>
+											</li> 
+										</ul>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputTrailer1">Trailer</label>
-										<input type="text" class="form-control" id="exampleInputTrailer1"
-											placeholder="Trailer">
+										<p>Countries</p>
+										<ul class="d-flex justify-content-center flex-wrap p-3" style="gap: 50px; background: #2A3038;">
+											<li th:each="c, iter: ${countries}">
+												<input th:field="*{countries[__${iter.index}__]}" th:value="${c.id}"  type="checkbox" class="form-check-input" th:id="'adminMovie-country-' + ${c.id}">
+												<label class="p-0 m-0" style="line-height: 0; vertical-align: unset;" th:for="'adminMovie-country-' + ${c.id}">[[${c.country_name}]]</label>
+											</li>
+										</ul>
 									</div>
 									<button type="submit" class="btn btn-primary mr-2">Submit</button>
-									<button class="btn btn-dark">Cancel</button>
 								</form>
 							</div>
 						</div>

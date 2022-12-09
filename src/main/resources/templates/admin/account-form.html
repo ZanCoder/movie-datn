@@ -15,7 +15,7 @@
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">Accounts Form</h4>
-								<p class="badge badge-danger" th:if="${error}"> [[${error}]]</p>
+								<p class="badge badge-danger" style="white-space: pre-wrap;" th:if="${error}"> [[${error}]]</p>
 								<form th:object="${adminAccountForm}" id="admin-account-form" class="forms-sample" th:action="@{/admin/account-form}" method="POST">
 									<div class="form-group">
 										<label for="adminAccount-username">Username</label>
@@ -33,7 +33,6 @@
 											placeholder="Password">
 									</div>
 									<button type="submit" class="btn btn-primary mr-2">Submit</button>
-									<button class="btn btn-dark">Cancel</button>
 								</form>
 							</div>
 						</div>

@@ -61,27 +61,23 @@ values	(1, 1, 'Full Movie Available NOW!', 1),
 		(1, 7, 'Full Movie Available NOW!', 1),
 		(1, 9, 'Full Movie Available NOW!', 1),
 		(1, 34, 'Episode 2 Available NOW!', 1)
+go
 
-select * from [comment_movie]
-delete from [movie_view]
-delete from comment_movie_detail
-delete from comment_movie
-where id <> 1
-DBCC CHECKIDENT ('comment_movie', RESEED, 1)
-GO
+insert into [coin_transaction_history]
+values	('VISA', 20, 1, DATEADD(month, -1, GETDATE())),
+		('VISA', 5, 1, GETDATE()),
+		('VISA', 55, 1, GETDATE()),
+		('MASTERCARD', 50, 1, GETDATE()),
+		('JCB', 30, 1, DATEADD(day, -1, GETDATE())),
+		('DISCOVER', 50, 1, DATEADD(month, -9, GETDATE())),
+		('DISCOVER', 100, 1, DATEADD(month, -5, GETDATE()))
+go
 
-insert into [movie_view](view_date, movie)
-values	('2022-11-22 21:55:07.497', 19)
+insert into [movie_purchase_history]
+values	(1, 28, DATEADD(month, -1, GETDATE())),
+		(1, 26, DATEADD(month, -1, GETDATE())),
+		(1, 24, DATEADD(month, -1, GETDATE())),
+		(1, 30, GETDATE()),
+		(1, 29, DATEADD(day, -1, GETDATE()))
+go
 
-insert into [comment_movie] (account, movie_episode, text, spoil)
-values	(1, 1, 'hello', 0)
-
-insert into [account]([username], [email], [password_hash], [role])
-values	(N'Moder', 'mod@gmail.com', '$2a$10$HhjLSruiV5.GJ0xi3DSKiOslw9WvzcI6PkVIf47uCqT7dwnMD6OVG', 2)
-
-SELECT * FROM [comment_movie]
-WHERE movie_episode = 1 AND parent_cmt IS NULL 
-ORDER BY timestamp DESC 
-OFFSET 0 * 1 rows FETCH NEXT 2 ROWS ONLY   
-
-select * from [account]

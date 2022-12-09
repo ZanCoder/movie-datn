@@ -2,6 +2,7 @@ package com.fpoly.spring.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,14 +32,14 @@ public class Movie {
 	int id;
 	String title;
 	String slug;
-	Double rate = 0.0;
+	double rate = 0.0;
 	@ManyToOne 
 	@JsonIgnore
 	@JoinColumn(name="quality")
 	private Quality quality;
 	String duration_min;
-	String poster;
-	String cover;
+	String poster = "https://iili.io/HCZX6ss.png";
+	String cover = "https://iili.io/HCZX4Xn.png";
 	String description;
 	Date release_date;
 	@Column(name="add_date", columnDefinition="date DEFAULT GETDATE()")
@@ -84,5 +85,15 @@ public class Movie {
 	@JsonProperty("status")
 	public String getStatusName() {
 		return this.status.getStatus_name();
+	}
+	
+	@JsonProperty("genres")
+	public List<Genre> getGenres() {
+		return this.movie_genres.stream().map(o -> o.getGenre()).collect(Collectors.toList());
+	}
+	
+	@JsonProperty("countries")
+	public List<Country> getCountries() {
+		return this.movie_countries.stream().map(o -> o.getCountry()).collect(Collectors.toList());
 	}
 }

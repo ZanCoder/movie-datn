@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -62,7 +63,7 @@ import com.fpoly.spring.service.EmailSenderService;
 import com.fpoly.spring.utils.CardType;
 
 @RestController
-public class RController {
+public class RController {	
 	@Autowired
     PasswordEncoder passwordEncoder;
 	
@@ -347,7 +348,7 @@ public class RController {
 		try {
 			String username_updated, password_updated, avatar_updated = "";
 			
-			if(accountDao.checkDuplicateUsername(username, account.getId()) != 0) {
+			if(accountDao.checkDuplicateUsernameExceptID(username, account.getId()) != 0) {
 				throw new Exception("Username is not available.");
 			}
 			

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+</head>
+
+<body>
+	<!-- partial -->
+	<main class="container-fluid page-body-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="row">
+
+					<!-- Create Movies Form -->
+					<div class="col-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Notification Movie Form</h4>
+								<p class="badge badge-danger" style="white-space: pre-wrap;" th:if="${error}"> [[${error}]]</p>
+								<form th:object="${adminNotificationMovieForm}" id="admin-notification-movie-form" class="forms-sample" th:action="@{/admin/notification-movie-form}" method="POST">
+									<div class="form-group">
+										<label for="adminNotify-movie">Send to</label>
+										<select class="form-control" id="adminNotify-movie" th:field="*{send_to}">
+									      <option value="0">All</option>
+									      <option value="1">New</option>
+									      <option value="2">Angelfish</option>
+									      <option value="3">Crab</option>
+									      <option value="4">Starfish</option>
+									      <option value="5">Dolphin</option>
+									    </select>
+									</div>
+									<div class="form-group">
+										<label for="adminNotify-movie_ep">Movie Episode</label>
+										<input th:field="*{movie_ep}" type="number" min="1" class="form-control" id="adminNotify-movie_ep"
+											placeholder="Movie Episode" required>
+									</div>
+									<div class="form-group">
+										<label for="adminNotify-description">Description</label>
+										<textarea th:field="*{description}" class="form-control" id="adminNotify-description" rows="4" required></textarea>
+									</div>
+									<button type="submit" class="btn btn-primary mr-2">Submit</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="/admin/_footer.html"></div>
+		</div>
+	</main>
+</body>
+
+</html>

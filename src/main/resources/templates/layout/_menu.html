@@ -102,7 +102,7 @@
 									<div class="user-detail">
 										<div class="name d-flex justify-content-between">
 											<strong>[[${ account.username }]]</strong>
-											<a th:if="${account.role.id} == 1 or ${account.role.id} == 2" href="/admin" style="color:red">Manage</a>
+											<a th:if="${account.role.id} == 1 or ${account.role.id} == 2" href="/admin/dashboard" style="color:red">Manage</a>
 										</div>
 										<div class="mail">[[${ account.email }]]</div>
 									</div>

@@ -18,7 +18,11 @@
 							<div class="card-body">
 								<div class="flex-title">
 									<h4 class="card-title">Accounts Table</h4>
-									<label for="search-account"><input type="text" placeholder="Search..."></label>
+									<form>
+										<label for="search-account">
+										<input type="text" name="q" id="admin-account-search" placeholder="Search username..." 
+											style="background: none; border: none; border-bottom: 1px solid white; color: white;"></label>
+									</form>
 								</div>
 								</p>
 								<div class="table-responsive">
@@ -38,33 +42,33 @@
 										<tbody>
 											<tr th:each="account: ${accounts}">
 												<td class="py-1">
-													<img th:src="${account.avatar}"
-														alt="image" />
+													<img th:src="${account.avatar}" alt="image" />
 												</td>
 												<td> [[${account.username}]] </td>
 												<td> [[${account.email}]] </td>
 												<td> [[${account.power}]] coin </td>
 												<td> [[${account.budget}]] coin </td>
 												<td> [[${account.role.acc_role_name}]] </td>
-												<td> [[${#dates.format(account.joined_date, 'EEE, d MMM yyyy HH:mm a')}]] </td>
+												<td> [[${#dates.format(account.joined_date, 'EEE, d MMM yyyy HH:mm
+													a')}]] </td>
 												<td>
-													<!-- Button trigger modal -->
+													<!-- Button trigger modal edit -->
 													<button style="width: 36.9px;" type="button"
 														class="btn badge-warning" data-toggle="modal"
-														data-target="#exampleModal">
-														<i class="fa-solid fa-pen-to-square"></i>
+														th:attr="data-target='#modaladminaccount-' + ${account.id}">
+														<i class="fa-solid fa-pen-to-square text-white"></i>
 													</button>
 
-													<!-- Modal -->
-													<div class="modal fade" id="exampleModal" tabindex="-1"
-														role="dialog" aria-labelledby="exampleModalLabel"
+													<!-- Modal Edit -->
+													<div class="modal fade" th:id="'modaladminaccount-' + ${account.id}"
+														tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 														aria-hidden="true">
 														<div class="modal-dialog" role="document">
 															<div class="modal-content">
 																<div class="modal-header">
 																	<h5 class="modal-title" id="exampleModalLabel">Edit
 																	</h5>
-																	<button type="button" class="close"
+																	<button type="button" class="close text-white"
 																		data-dismiss="modal" aria-label="Close">
 																		<span aria-hidden="true">&times;</span>
 																	</button>
@@ -78,62 +82,85 @@
 																				<p class="card-description"> Accounts
 																					form
 																				</p>
-																				<form class="forms-sample">
+																				<form
+																					class="forms-sample form-admin-account">
+																					<div class="alert alert-danger mb-3 animated bounceIn"
+																						th:id="'admin-account-error-' + ${account.id}"
+																						style="display: none;"></div>
+																					<div class="alert alert-success mb-3 animated bounceIn"
+																						th:id="'admin-account-success-' + ${account.id}"
+																						style="display: none;"></div>
+																					<input type="hidden"
+																						id="admin-account-id"
+																						th:value="${account.id}">
 																					<div class="form-group">
 																						<label
-																							for="exampleInputName1">Username</label>
+																							for="admin-account-username">Username</label>
 																						<input type="text"
 																							class="form-control"
-																							id="exampleInputName1"
-																							placeholder="Username">
+																							th:id="'admin-account-username-' + ${account.id}"
+																							th:value="${account.username}"
+																							placeholder="Username"
+																							required>
 																					</div>
 																					<div class="form-group">
 																						<label
-																							for="exampleInputEmail3">Email
+																							for="admin-account-email">Email
 																							address</label>
 																						<input type="email"
 																							class="form-control"
-																							id="exampleInputEmail3"
-																							placeholder="Email">
+																							th:id="'admin-account-email-' + ${account.id}"
+																							th:value="${account.email}"
+																							placeholder="Email"
+																							required>
 																					</div>
 																					<div class="form-group">
-																						<label>Upload Avatar</label>
+																						<label
+																							for="admin-account-avatar">Upload
+																							Avatar</label>
 																						<input type="file" name="img[]"
-																							class="file-upload-default">
+																							class="file-upload-default"
+																							th:attr="data-id=${account.id}"
+																							th:id="'admin-account-avatar-' + ${account.id}" accept="image/*">
 																						<div
 																							class="input-group col-xs-12">
 																							<input type="text"
-																								class="form-control file-upload-info"
+																								class="form-control file-upload-info admin-account"
+																								th:id="${account.id}"
 																								disabled
+																								th:value="${account.avatar}"
 																								placeholder="Upload Avatar">
 																							<span
 																								class="input-group-append">
 																								<button
-																									class="file-upload-browse btn btn-primary"
+																									class="file-upload-browse admin-account btn btn-primary"
+																									th:attr="data-id=${account.id}"
 																									type="button">Upload</button>
 																							</span>
 																						</div>
 																					</div>
 																					<div class="form-group">
 																						<label
-																							for="exampleInputPassword4">Password</label>
+																							for="admin-account-password">Password</label>
 																						<input type="password"
 																							class="form-control"
-																							id="exampleInputPassword4"
-																							placeholder="Password">
+																							th:id="'admin-account-password-' + ${account.id}"
+																							placeholder="Password"
+																							required>
 																					</div>
 																					<div class="form-group">
 																						<label
-																							for="exampleSelectGender">Budget</label>
+																							for="admin-account-budget">Budget</label>
 																						<div class="input-group">
 																							<div
 																								class="input-group-prepend">
 																								<span
-																									class="input-group-text bg-primary text-white">$</span>
+																									class="input-group-text bg-primary text-white">coin</span>
 																							</div>
-																							<input type="text"
+																							<input type="number"
 																								class="form-control"
-																								aria-label="Amount (to the nearest dollar)">
+																								th:id="'admin-account-budget-' + ${account.id}"
+																								th:value="${account.budget}">
 																							<div
 																								class="input-group-append">
 																								<span
@@ -141,101 +168,64 @@
 																							</div>
 																						</div>
 																					</div>
-																					<div class="form-group">
-																						<label
-																							for="exampleSelectGender">Role</label>
-																						<select class="form-control"
-																							id="exampleSelectGender">
-																							<option>Admin</option>
-																							<option>Mod</option>
-																							<option>User</option>
-																						</select>
-																					</div>
-																					<div class="col-md-6">
-																						<div class="form-group row">
-																							<label
-																								class="col-sm-3 col-form-label">Status</label>
-																							<div class="col-sm-4">
-																								<div class="form-check">
-																									<label
-																										class="form-check-label">
-																										<input
-																											type="radio"
-																											class="form-check-input"
-																											name="statusRadios"
-																											id="statusRadios1"
-																											value=""
-																											checked>
-																										Online
-																									</label>
-																								</div>
-																							</div>
-																							<div class="col-sm-5">
-																								<div class="form-check">
-																									<label
-																										class="form-check-label">
-																										<input
-																											type="radio"
-																											class="form-check-input"
-																											name="statusRadios"
-																											id="statusRadios2"
-																											value="option2">
-																										Offline </label>
-																								</div>
-																							</div>
-																						</div>
+																					<div
+																						th:replace="/utilities/loading-popup::.loading-relative(content='admin-account-loading-' + ${account.id})">
 																					</div>
 																					<button type="submit"
 																						class="btn btn-primary mr-2">Submit</button>
-																					<button
-																						class="btn btn-dark">Cancel</button>
+																					<button class="btn btn-dark"
+																						data-dismiss="modal"
+																						aria-label="Close">Cancel</button>
 																				</form>
 																			</div>
 																		</div>
 																	</div>
 																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save
-																		changes</button>
-																</div>
 															</div>
 														</div>
 													</div>
-													<button onclick="toasts()" class="badge badge-danger"><i
-															class="fa-solid fa-trash"></i></button>
+													<button class="badge badge-danger" data-toggle="modal"
+														th:attr="data-target='#modeladminacccount-delete-' + ${account.id}"><i
+															class="fa-solid fa-trash text-white"></i></button>
+													<!-- Modal delete -->
+													<div class="modal fade" th:id="'modeladminacccount-delete-' + ${account.id}" tabindex="-1">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">Delete Form</h5>
+																	<button type="button" class="btn-close"
+																		data-mdb-dismiss="modal"
+																		aria-label="Close"></button>
+																</div>
+																<form action="/delete_admin_account" method="POST">
+																	<input type="hidden" th:value="${account.id}" name="id">
+																	<div class="modal-body">
+																		<p>Are you sure you want to delete [[${account.username}]]</p>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary"
+																			data-dismiss="modal" aria-label="Close">Close</button>
+																		<button type="submit" class="btn-delete-admin-account btn btn-primary" th:attr="data-id=${account.id}">Save
+																			changes</button>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
 												</td>
 											</tr>
 										</tbody>
 									</table>
-									<div style="display: flex;justify-content: center;margin-top:10px;">
-										<nav aria-label="Page navigation example">
-											<ul class="pagination">
-												<li class="page-item">
-													<a class="page-link" href="#" aria-label="Previous">
-														<span aria-hidden="true">&laquo;</span>
-													</a>
-												</li>
-												<li class="page-item"><a class="page-link" href="#">1</a></li>
-												<li class="page-item"><a class="page-link" href="#">2</a></li>
-												<li class="page-item"><a class="page-link" href="#">3</a></li>
-												<li class="page-item">
-													<a class="page-link" href="#" aria-label="Next">
-														<span aria-hidden="true">&raquo;</span>
-													</a>
-												</li>
-											</ul>
-										</nav>
-									</div>
 								</div>
 							</div>
+							<!-- Paging -->
+							<div th:replace="/utilities/paginate::.paginate"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		<!-- content-wrapper ends -->
-		<div th:replace="/admin/_footer.html"></div>
+			<!-- content-wrapper ends -->
+			<div th:replace="/admin/_footer.html"></div>
 	</main>
 </body>
 

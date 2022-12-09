@@ -8,7 +8,7 @@ values	('ADMIN'),
 go
 
 insert into [account]([username], [email], [password_hash], [role])
-values	(N'sK0rpion', 'nhatphay722@gmail.com', '$2a$10$rh3IlC/fdXP8QhXY.0kvouhDEWpzwGlBCGYEiSa/JNgbb.h8QnYqK', 3), -- nhatphat0
+values	(N'Nguyễn Nhật Phát', 'nhatphay722@gmail.com', '$2a$10$rh3IlC/fdXP8QhXY.0kvouhDEWpzwGlBCGYEiSa/JNgbb.h8QnYqK', 3), -- nhatphat0
 		(N'Admin', 'admin@gmail.com', '$2a$10$ZkSRUbURvjSZyyNQdJYV1OTPOwqgXPy34/ROVV9Ug8LUm7oQsmcjO', 1), -- admin123
 		(N'Modder', 'mod@gmail.com', '$2a$10$HhjLSruiV5.GJ0xi3DSKiOslw9WvzcI6PkVIf47uCqT7dwnMD6OVG', 2), -- mod123
 		(N'Đỗ Kiều Phương', 'phuong@gmail.com', '$2a$10$Di.zPVTjpeXAmyxYNxSBY.YGOLRoTWe4.erltk/bRuEKZE8sWKHau', 3), -- phuong123
@@ -1443,8 +1443,7 @@ values	('Batman v Superman: Dawn of Justice', 3, 1, '151 min', 'https://iili.io/
 go
 insert into [movie_genre]
 values	(44, 1),
-		(44, 3),
-		(44, 1)
+		(44, 3)
 go
 insert into [movie_country]
 values	(44, 36)

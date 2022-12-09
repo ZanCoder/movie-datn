@@ -199,7 +199,7 @@ public class HomeController {
 	
 	@GetMapping("/watch-movie/{slug}/{se_ep}")
 	public String watch(Model model, @PathVariable("slug") String slug, @PathVariable("se_ep") String se_ep) {
-//		try {
+		try {
 			Movie movie = movieDao.findBySlugLike(slug);
 			String[] se = se_ep.split("-");
 			Integer seasons = movie_episodeDao.getCountSeason(movie.getId());
@@ -265,9 +265,9 @@ public class HomeController {
 			model.addAttribute("populars", populars);
 			model.addAttribute("movie_episodeDao", movie_episodeDao);
 			model.addAttribute("recommend_movies", recommend_movies.stream().limit(12).collect(Collectors.toList()));
-//		}catch(Exception e) {
-//			return "redirect:/home";
-//		}
+		}catch(Exception e) {
+			return "redirect:/home";
+		}
 		
 		return "movie/watch_movie";
 	}

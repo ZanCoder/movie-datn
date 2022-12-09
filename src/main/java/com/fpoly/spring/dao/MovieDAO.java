@@ -134,4 +134,10 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	
 	@Query(value="select count(*) from movie", nativeQuery=true)
 	Integer getCountAll();
+	
+	@Query(value="SELECT o FROM Movie o ORDER BY o.add_date DESC")
+	Page<Movie> findAllOrderByAddDateDesc(Pageable pageable);
+	
+	@Query(value="SELECT o FROM Movie o WHERE o.title like ?1 ORDER BY o.add_date DESC")
+	Page<Movie> findAllLikeTitleOrderByAddDateDesc(String title, Pageable pageable);
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+</head>
+
+<body>
+	<!-- partial -->
+	<main class="container-fluid page-body-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="row">
+
+					<!-- Create Movies Form -->
+					<div class="col-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Movie Episode Form</h4>
+								<p class="badge badge-danger" style="white-space: pre-wrap;" th:if="${error}"> [[${error}]]</p>
+								<form th:object="${adminMovieEpisodeForm}" id="admin-movie-ep-form" class="forms-sample" th:action="@{/admin/movie-ep-form}" method="POST">
+									<div class="form-group">
+										<label for="adminMovieEp-movie">Movie</label>
+										<input th:field="*{movie}" type="number" min="1" class="form-control" id="adminMovieEp-movie"
+											placeholder="Movie id" required>
+									</div>
+									<div class="form-group">
+										<label for="adminMovieEp-title">Title</label>
+										<input th:field="*{title}" type="text" class="form-control" id="adminMovieEp-title"
+											placeholder="Title" required>
+									</div>
+									<div class="form-group">
+										<label for="adminMovieEp-ep">Episode</label>
+										<input th:field="*{ep}" type="number" min="1" class="form-control" id="adminMovieEp-ep"
+											placeholder="Ep" required>
+									</div>
+									<div class="form-group">
+										<label for="adminMovieEp-season">Season</label>
+										<input th:field="*{season}" type="number" min="1" class="form-control" id="adminMovieEp-season"
+											placeholder="Season" required>
+									</div>
+									<div class="form-group">
+										<label for="adminMovieEp-server_hyd">HYD Server</label>
+										<input th:field="*{server_hyd}" type="text" class="form-control" id="adminMovieEp-server_hyd"
+											placeholder="HYD Server" required>
+									</div>
+									<div class="form-group">
+										<label for="adminMovieEp-server_sb">SB Server</label>
+										<input th:field="*{server_sb}" type="text" class="form-control" id="adminMovieEp-server_sb"
+											placeholder="SB Server" required>
+									</div>
+									<button type="submit" class="btn btn-primary mr-2">Submit</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="/admin/_footer.html"></div>
+		</div>
+	</main>
+</body>
+
+</html>

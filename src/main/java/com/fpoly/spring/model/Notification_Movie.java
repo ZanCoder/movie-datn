@@ -30,7 +30,7 @@ import lombok.Setter;
 @Table(name="[Notification_Movie]")
 public class Notification_Movie implements Serializable{
 	@EmbeddedId
-	NotificationKey id;
+	NotificationKey id = new NotificationKey();
 	@MapsId("account_id")
 	@ManyToOne 
 	@JsonIgnore

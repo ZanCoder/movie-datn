@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<!-- partial -->
+	<main class="container-fluid page-body-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="row">
+					<!-- Accounts -->
+					<div class="col-lg-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<div class="flex-title">
+									<h4 class="card-title">Movie Episode Table</h4>
+									<form>
+										<label for="search-account">
+										<input type="number" name="q" id="admin-movie_episode-search" placeholder="Search movie..." 
+											style="background: none; border: none; border-bottom: 1px solid white; color: white;"></label>
+									</form>
+								</div>
+								</p>
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th> Movie </th>
+												<th> Title </th>
+												<th> Episode </th>
+												<th> Season </th>
+												<th> Server </th>
+												<th> Api Key </th>
+												<th> Action </th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="movie_ep: ${movie_eps}">
+												<td> [[${movie_ep.movie.id}]] </td>
+												<td> [[${movie_ep.title}]] </td>
+												<td> [[${movie_ep.ep}]] </td>
+												<td> [[${movie_ep.season}]] </td>
+												<td> [[${movie_ep.server.movie_server_name}]] </td>
+												<td> [[${movie_ep.api_key}]] </td>
+												<td>
+													<!-- Button trigger modal edit -->
+													<button style="width: 36.9px;" type="button"
+														class="btn badge-warning" data-toggle="modal"
+														th:attr="data-target='#modaladminmovieep-' + ${movie_ep.id}">
+														<i class="fa-solid fa-pen-to-square text-white"></i>
+													</button>
+
+													<!-- Modal Edit -->
+													<div class="modal fade" th:id="'modaladminmovieep-' + ${movie_ep.id}"
+														tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+														aria-hidden="true">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">Edit
+																	</h5>
+																	<button type="button" class="close text-white"
+																		data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<div class="col-12 grid-margin stretch-card">
+																		<div class="card">
+																			<div class="card-body">
+																				<h4 class="card-title">Movie_Episode Form
+																				</h4>
+																				<p class="card-description">Movie_Episode Form</p>
+																				<form
+																					class="forms-sample form-admin-movie_ep">
+																					<div class="alert alert-danger mb-3 animated bounceIn"
+																						th:id="'admin-movie_ep-error-' + ${movie_ep.id}"
+																						style="display: none;"></div>
+																					<div class="alert alert-success mb-3 animated bounceIn"
+																						th:id="'admin-movie_ep-success-' + ${movie_ep.id}"
+																						style="display: none;"></div>
+																					<input type="hidden"
+																						id="admin-movie_ep-id"
+																						th:value="${movie_ep.id}">
+																					<div class="form-group">
+																						<label
+																							for="admin-movie_ep-movie">Movie</label>
+																						<input type="number"
+																							class="form-control"
+																							th:id="'admin-movie_ep-movie-' + ${movie_ep.id}"
+																							th:value="${movie_ep.movie.id}"
+																							placeholder="Movie id"
+																							required>
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="admin-movie_ep-title">Title</label>
+																						<input type="text"
+																							class="form-control"
+																							th:id="'admin-movie_ep-title-' + ${movie_ep.id}"
+																							th:value="${movie_ep.title}"
+																							placeholder="Title"
+																							required>
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="admin-movie_ep-ep">Episode</label>
+																						<input type="number"
+																							class="form-control"
+																							th:id="'admin-movie_ep-ep-' + ${movie_ep.id}"
+																							th:value="${movie_ep.ep}"
+																							placeholder="Episode"
+																							required>
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="admin-movie_ep-season">Season</label>
+																						<input type="number"
+																							class="form-control"
+																							th:id="'admin-movie_ep-season-' + ${movie_ep.id}"
+																							th:value="${movie_ep.season}"
+																							placeholder="Season"
+																							required>
+																					</div>
+																					<div class="form-group">
+																						<label
+																							for="admin-movie_ep-season">Api Key</label>
+																						<input type="text"
+																							class="form-control"
+																							th:id="'admin-movie_ep-api-' + ${movie_ep.id}"
+																							th:value="${movie_ep.api_key}"
+																							placeholder="Api Key"
+																							required>
+																					</div>
+																					<div
+																						th:replace="/utilities/loading-popup::.loading-relative(content='admin-movie_ep-loading-' + ${movie_ep.id})">
+																					</div>
+																					<button type="submit"
+																						class="btn btn-primary mr-2">Submit</button>
+																				</form>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<button class="badge badge-danger" data-toggle="modal"
+														th:attr="data-target='#modeladminmovieep-delete-' + ${movie_ep.id}"><i
+															class="fa-solid fa-trash text-white"></i></button>
+													<!-- Modal delete -->
+													<div class="modal fade" th:id="'modeladminmovieep-delete-' + ${movie_ep.id}" tabindex="-1">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">Delete Form</h5>
+																	<button type="button" class="btn-close"
+																		data-mdb-dismiss="modal"
+																		aria-label="Close"></button>
+																</div>
+																<form action="/delete_admin_movie_ep" method="POST">
+																	<input type="hidden" th:value="${movie_ep.id}" name="id">
+																	<div class="modal-body">
+																		<p>Are you sure you want to delete [[${movie_ep.movie.id}]] - E[[${movie_ep.ep}]]S[[${movie_ep.season}]] - [[${movie_ep.server.movie_server_name}]] Server</p>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary"
+																			data-dismiss="modal" aria-label="Close">Close</button>
+																		<button type="submit" class="btn-delete-admin-movie_ep btn btn-primary" th:attr="data-id=${movie_ep.id}">Save
+																			changes</button>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!-- Paging -->
+							<div th:replace="/utilities/paginate::.paginate"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- content-wrapper ends -->
+			<div th:replace="/admin/_footer.html"></div>
+	</main>
+</body>
+
+</html>

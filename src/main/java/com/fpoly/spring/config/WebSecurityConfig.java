@@ -56,9 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				"/user/profile", "/user/continue-watching", "/user/watch-list", "/user/notification", "/user/purchase-history"
 			).authenticated();
 		
-		http.authorizeRequests().antMatchers("/admin").hasAnyAuthority("ADMIN", "MOD");
-		http.authorizeRequests().antMatchers("/admin/account-form", 
-				"/admin/account-table", "/admin/movie-table", "/admin/purchase-table").hasAnyAuthority("ADMIN");
+		http.authorizeRequests().antMatchers("/admin/dashboard").hasAnyAuthority("ADMIN", "MOD");
+		http.authorizeRequests().antMatchers("/admin/account-form", "/admin/account-table", 
+				"/admin/movie-form", "/admin/movie-table", 
+				"/admin/notification-movie-form",
+				"/admin/authorize-table",
+				"/admin/revenue-chart", "/admin/sales-chart", "/admin/purchase-chart",
+				"/admin/movie-ep-form", "/admin/movie-ep-table",
+				"/admin/purchase-table").hasAnyAuthority("ADMIN");
 		
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 		

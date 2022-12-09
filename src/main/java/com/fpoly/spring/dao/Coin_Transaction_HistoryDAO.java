@@ -25,7 +25,7 @@ public interface Coin_Transaction_HistoryDAO extends JpaRepository<Coin_Transact
 	@Query("SELECT o FROM Coin_Transaction_History o WHERE o.account.id = ?1 ORDER BY o.timestamp DESC")
 	Page<Coin_Transaction_History> findByAccountOrderByTimeStampDesc(int account, Pageable pageable);
 	
-	@Query(value="select sum(coin_value) from coin_transaction_history", nativeQuery=true)
+	@Query(value="select ISNULL(sum(coin_value), 0) from coin_transaction_history", nativeQuery=true)
 	float revenue();
 	
 	@Query(value="select count(*) from coin_transaction_history where card like ?1 ", nativeQuery=true)
@@ -33,4 +33,18 @@ public interface Coin_Transaction_HistoryDAO extends JpaRepository<Coin_Transact
 	
 	@Query(value="select * from coin_transaction_history order by timestamp desc ", nativeQuery=true)
 	List<Coin_Transaction_History> findAllOrderByTimeStampDesc();
+	
+	@Query(value="select dbo.get_revenue_mom()", nativeQuery=true)
+	float revenue_MOM();
+	
+	@Query(value="select dbo.get_revenue_dod()", nativeQuery=true)
+	float revenue_DOD();
+	
+	@Query(value="select ISNULL(sum(coin_value), 0) from coin_transaction_history "
+			+ " where month(timestamp) = ?1 and year(timestamp) = year(getdate()) ", nativeQuery=true)
+	float revenueByMonth(int month);
+	
+	@Query(value="select ISNULL(sum(coin_value), 0) from coin_transaction_history "
+			+ " where year(timestamp) = ?1 ", nativeQuery=true)
+	float revenueByYear(int year);
 }

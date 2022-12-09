@@ -1,15 +1,23 @@
 package com.fpoly.spring.utils;
 
 import java.io.Serializable;
+import java.security.Key;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.stream.Collectors;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -33,9 +41,8 @@ public class WebUtils {
     }
 	
 	public static void main(String[] arg) throws ParseException {
-		String password = "phuong123";
+		String password = "phat";
         String encrytedPassword = encrytePassword(password);
-
         System.out.println("Encryted Password: " + encrytedPassword);
 	}
 }

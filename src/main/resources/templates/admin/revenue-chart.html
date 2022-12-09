@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html th:replace="~{/admin/base :: dynamic(~{::main})}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<main class="container-fluid page-body-wrapper">
+		<!-- partial -->
+		<div class="main-panel">
+			<div class="content-wrapper">
+				<div class="page-header">
+					<h3 class="page-title"> Revenue </h3>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<div class="chartjs-size-monitor">
+									<div class="chartjs-size-monitor-expand">
+										<div class=""></div>
+									</div>
+									<div class="chartjs-size-monitor-shrink">
+										<div class=""></div>
+									</div>
+								</div>
+								<h4 class="card-title">Revenue by month</h4>
+								<canvas id="revenueByMonth" style="height: 273px; display: block; width: 546px;"
+									width="682" height="341" class="chartjs-render-monitor"></canvas>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<div class="chartjs-size-monitor">
+									<div class="chartjs-size-monitor-expand">
+										<div class=""></div>
+									</div>
+									<div class="chartjs-size-monitor-shrink">
+										<div class=""></div>
+									</div>
+								</div>
+								<h4 class="card-title">Revenue by year</h4>
+								<canvas id="revenueByYear" style="height: 273px; display: block; width: 546px;"
+									width="682" height="341" class="chartjs-render-monitor"></canvas>
+							</div>
+						</div>
+					</div>
+					<script th:src="@{/admin/assets/vendors/chart.js/Chart.min.js}"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+						integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+						crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+					<script type="text/javascript" th:inline="javascript">
+						/*<![CDATA[*/
+						const currentYear = (new Date()).getFullYear();
+						const range = (start, stop, step) => Array.from({length: (stop - start) / step + 1}, (_, i) => start + (i * step));
+						var years = range(currentYear, currentYear - 4, -1);
+						var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+						
+						function getRandomColor() {
+						  var letters = '0123456789ABCDEF';
+						  var color = '#';
+						  for (var i = 0; i < 6; i++) {
+						    color += letters[Math.floor(Math.random() * 16)];
+						  }
+						  return color;
+						}
+						
+						var dataMonth = {
+							labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+							datasets: [{
+								label: 'revenue',
+								data: /*[[${months_data}]]*/[],
+								backgroundColor: 
+									Array.apply(null, Array(months.length)).map(function (x, i) { return getRandomColor(); })
+								,
+								borderColor: [
+									'rgba(255,99,132,1)',
+								],
+								borderWidth: 1,
+								fill: false
+							}]
+						};
+						
+						var dataYear = {
+							labels: /*[[${years}]]*/[],
+							datasets: [{
+								label: 'revenue',
+								data: /*[[${years_data}]]*/[],
+								backgroundColor: 
+									Array.apply(null, Array(years.length)).map(function (x, i) { return getRandomColor(); })
+								,
+								borderColor: [
+									'rgba(255,99,132,1)',
+								],
+								borderWidth: 1,
+								fill: false
+							}]
+						};
+
+						var options = {
+							plugins: {
+								filler: {
+									propagate: true
+								}
+							},
+							scales: {
+								yAxes: [{
+									gridLines: {
+										color: "rgba(204, 204, 204,0.1)"
+									}
+								}],
+								xAxes: [{
+									gridLines: {
+										color: "rgba(204, 204, 204,0.1)"
+									}
+								}]
+							}
+						}
+
+						if ($("#revenueByMonth").length) {
+							var areaChartCanvas = $("#revenueByMonth").get(0).getContext("2d");
+							var areaChart = new Chart(areaChartCanvas, {
+								type: 'line',
+								data: dataMonth,
+								options: options
+							});
+						}
+						
+						if ($("#revenueByYear").length) {
+							var areaChartCanvas = $("#revenueByYear").get(0).getContext("2d");
+							var areaChart = new Chart(areaChartCanvas, {
+								type: 'line',
+								data: dataYear,
+								options: options
+							});
+						}
+						/*]]>*/
+					</script>
+				</div>
+			</div>
+			<!-- content-wrapper ends -->
+			<div th:replace="/admin/_footer.html"></div>
+	</main>
+</body>
+
+</html>

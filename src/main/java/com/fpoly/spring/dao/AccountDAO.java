@@ -2,6 +2,8 @@ package com.fpoly.spring.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +15,12 @@ import com.fpoly.spring.model.Account;
 
 @Repository
 public interface AccountDAO extends JpaRepository<Account, Integer>{
+	@Query(value="SELECT o FROM Account o ORDER BY o.joined_date DESC")
+	Page<Account> findAllOrderByJoinedDate(Pageable pagaable);
+	
+	@Query(value="SELECT o FROM Account o WHERE o.username like ?1 ORDER BY o.joined_date DESC")
+	Page<Account> findAllLikeUsernameOrderByJoinedDate(String username, Pageable pagaable);
+	
 	@Query(value="SELECT o FROM Account o WHERE o.username = ?1")
 	Account findByUsername(String username);
 	
@@ -54,8 +62,20 @@ public interface AccountDAO extends JpaRepository<Account, Integer>{
 	void updateProfile(int id, String username, String password_hash, String avatar);
 
 	@Query(value="select count(*) from account"
-			+ " where ?1 like (select username from account where id <> ?2)", nativeQuery=true)
-	Integer checkDuplicateUsername(String username, int id);
+			+ " where username like ?1 and id <> ?2", nativeQuery=true)
+	Integer checkDuplicateUsernameExceptID(String username, int id);
+	
+	@Query(value="select count(*) from account"
+			+ " where username like ?1", nativeQuery=true)
+	Integer checkDuplicateUsername(String username);
+	
+	@Query(value="select count(*) from account"
+			+ " where email like ?1", nativeQuery=true)
+	Integer checkDuplicateEmail(String email);
+	
+	@Query(value="select count(*) from account"
+			+ " where email like ?1 and id <> ?2", nativeQuery=true)
+	Integer checkDuplicateEmailExceptID(String email, int id);
 	
 	@Query(value="select * from [account]"
 			+ " where role = 3 "

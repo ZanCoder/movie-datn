@@ -16,4 +16,9 @@ public interface Movie_GenreDAO extends JpaRepository<Movie_Genre, Integer>{
 			+ " WHERE i.id = ?1 ",
 			nativeQuery=true)
 	List<Movie_Genre> getByGenre(Integer id);
+	
+	@Query(value="SELECT * FROM [Movie_Genre] "
+			+ " WHERE movie = ?1 ",
+			nativeQuery=true)
+	List<Movie_Genre> getByMovie(Integer movie);
 }

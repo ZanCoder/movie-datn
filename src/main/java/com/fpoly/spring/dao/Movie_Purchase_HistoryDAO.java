@@ -27,13 +27,45 @@ public interface Movie_Purchase_HistoryDAO extends JpaRepository<Movie_Purchase_
 	@Query("SELECT o FROM Movie_Purchase_History o WHERE o.account.id = ?1 ORDER BY o.timestamp DESC")
 	Page<Movie_Purchase_History> findByAccountOderByTimeStampDesc(int account, Pageable pageable);
 	
-	@Query(value="select sum(budget) from movie_purchase_history "
+	@Query(value="select ISNULL(sum(budget), 0) from movie_purchase_history "
 			+ " join movie on movie_purchase_history.movie = movie.id ", nativeQuery=true)
 	float sales();
+	
+	@Query(value="select dbo.get_sales_mom() ", nativeQuery=true)
+	float sales_MOM();
+	
+	@Query(value="select dbo.get_sales_dod() ", nativeQuery=true)
+	float sales_DOD();
+	
+	@Query(value="select ISNULL(sum(budget), 0) from movie_purchase_history "
+			+ " join movie on movie_purchase_history.movie = movie.id "
+			+ " where month(timestamp) = ?1 and year(timestamp) = year(getdate()) ", nativeQuery=true)
+	float salesByMonth(int month);
+	
+	@Query(value="select ISNULL(sum(budget), 0) from movie_purchase_history "
+			+ " join movie on movie_purchase_history.movie = movie.id "
+			+ " where year(timestamp) = ?1 ", nativeQuery=true)
+	float salesByYear(int year);
 	
 	@Query(value="select count(*) from movie_purchase_history "
 			+ " join movie on movie_purchase_history.movie = movie.id ", nativeQuery=true)
 	long purchase();
+	
+	@Query(value="select dbo.get_purchase_mom() ", nativeQuery=true)
+	long purchase_MOM();
+	
+	@Query(value="select dbo.get_purchase_dod() ", nativeQuery=true)
+	long purchase_DOD();
+	
+	@Query(value="select count(*) from movie_purchase_history "
+			+ " join movie on movie_purchase_history.movie = movie.id "
+			+ " where month(timestamp) = ?1 and year(timestamp) = year(getdate()) ", nativeQuery=true)
+	long purchaseByMonth(int month);
+	
+	@Query(value="select count(*) from movie_purchase_history "
+			+ " join movie on movie_purchase_history.movie = movie.id "
+			+ " where year(timestamp) = ?1 ", nativeQuery=true)
+	long purchaseByYear(int year);
 	
 	@Query(value="select movie from movie_purchase_history "
 			+ " group by movie "

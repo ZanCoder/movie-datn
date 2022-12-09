@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 	<div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-		<a class="sidebar-brand brand-logo" href="/admin"><img src="/img/logo.png" alt="logo" style="height:40px!important;"/></a>
-		<a class="sidebar-brand brand-logo-mini" href="/index"><img th:src="@{/admin/assets/images/logo-mini.svg}"
+		<a class="sidebar-brand brand-logo" href="/admin/dashboard"><img src="/img/logo.png" alt="logo" style="height:40px!important;"/></a>
+		<a class="sidebar-brand brand-logo-mini" href="/admin/dashboard"><img th:src="@{/admin/assets/images/logo-mini.svg}"
 				alt="logo" /></a>
 	</div>
 	<ul class="nav">
@@ -59,7 +59,7 @@
 			<span class="nav-link">Navigation</span>
 		</li>
 		<li class="nav-item menu-items">
-			<a class="nav-link" href="/admin">
+			<a class="nav-link" href="/admin/dashboard">
 				<span class="menu-icon">
 					<i class="mdi mdi-speedometer"></i>
 				</span>
@@ -76,11 +76,10 @@
 			</a>
 			<div class="collapse" id="ui-basic">
 				<ul class="nav flex-column sub-menu">
-					<li class="nav-item"> <a class="nav-link" href="/admin/movie-form">Movie Form</a>
-					</li>
-					<li class="nav-item"> <a class="nav-link" href="/admin/other-form">Other Form</a></li>
-					<li class="nav-item"> <a class="nav-link" href="/admin/account-form">Account Form</a>
-					</li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/account-form">Account Form</a></li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/movie-form">Movie Form</a></li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/movie-ep-form">Movie_Episode Form</a></li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/notification-movie-form">Notification_Movie Form</a></li>
 				</ul>
 			</div>
 		</li>
@@ -90,36 +89,42 @@
 				<span class="menu-icon">
 					<i class="fa-solid fa-table"></i>
 				</span>
-				<span class="menu-title">Form Table</span>
+				<span class="menu-title">Tables</span>
 				<i class="menu-arrow"></i>
 			</a>
 			<div class="collapse" id="ui-basicc">
 				<ul class="nav flex-column sub-menu">
-					<li class="nav-item"> <a class="nav-link" href="/admin/account-table">Accounts
-							Table</a></li>
-					<li class="nav-item"> <a class="nav-link" href="/admin/movie-table">Movies Table</a>
+					<li class="nav-item"> <a class="nav-link" href="/admin/account-table">Account Table</a></li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/movie-table">Movie Table</a>
 					</li>
-					<li class="nav-item"> <a class="nav-link" href="pages/ui-table/other-table.html">Other Table</a>
+					<li class="nav-item"> <a class="nav-link" href="/admin/movie-ep-table">Movie_Episode Table</a>
 					</li>
-					<li class="nav-item"> <a class="nav-link" href="/admin/purchase-table">Purchased Element</a>
-					</li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/authorize-table">Authorize Table</a></li>
 				</ul>
 			</div>
 		</li>
 		<li class="nav-item menu-items">
-			<a class="nav-link" href="pages/charts/chartjs.html">
-				<span class="menu-icon">
+			<a class="nav-link" data-toggle="collapse" href="#ui-basiccc" aria-expanded="false" aria-controls="ui-basicc">
+              	<span class="menu-icon">
 					<i class="mdi mdi-chart-bar"></i>
 				</span>
 				<span class="menu-title">Charts</span>
-			</a>
+				<i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basiccc">
+				<ul class="nav flex-column sub-menu">
+					<li class="nav-item"> <a class="nav-link" href="/admin/revenue-chart">Revenue Chart</a></li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/sales-chart">Sales Chart</a></li>
+					<li class="nav-item"> <a class="nav-link" href="/admin/purchase-chart">Purchase Chart</a></li>
+				</ul>
+			</div>
 		</li>
 	</ul>
 </nav>
 
 <nav class="navbar p-0 fixed-top d-flex flex-row">
 				<div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-					<a class="navbar-brand brand-logo-mini" href="/index"><img th:src="@{/admin/assets/images/logo-mini.svg}"
+					<a class="navbar-brand brand-logo-mini" href="/admin/dashboard"><img th:src="@{/admin/assets/images/logo-mini.svg}"
 							alt="logo" /></a>
 				</div>
 				<div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">

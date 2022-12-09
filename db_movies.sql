@@ -38,7 +38,7 @@ create table [coin_transaction_history](
 	[id] bigint primary key identity(1, 1), -- id
 	[card] nvarchar(100),
 	[coin_value] float, -- giá trị xu
-	[account] bigint foreign key references [account]([id]), -- tài khoản mua xu
+	[account] bigint foreign key references [account]([id]) ON DELETE SET NULL, -- tài khoản mua xu
 	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP -- thời gian mua xu
 )
 go
@@ -96,13 +96,13 @@ create table [movie](
 	[rate] float default 0, -- điểm đánh giá
 	[quality] bigint foreign key references [quality]([id]), -- chất lượng phim
 	[duration_min] varchar(10), -- thời lượng phim
-	[poster] varchar(200), -- ảnh đại diện của phim
-	[cover] varchar(200), -- ảnh bìa của phim
+	[poster] varchar(200) default 'https://iili.io/HCZX6ss.png', -- ảnh đại diện của phim
+	[cover] varchar(200) default 'https://iili.io/HCZX4Xn.png', -- ảnh bìa của phim
 	[description] nvarchar(1024), -- mô tả phim
 	[release_date] date, -- ngày phim ra mắt
 	[add_date] DATETIME DEFAULT CURRENT_TIMESTAMP, -- ngày thêm phim vào website
 	[productions] nvarchar(1024), -- nhà sản xuất
-	[budget] float, -- phí xem phim
+	[budget] float default 0, -- phí xem phim
 	[vip] bit default 0, -- phim vip hay phim free
 	[imdb_rate] float, -- điểm IMDB
 	[trailer] nvarchar(200), -- link trailer
@@ -114,32 +114,34 @@ go
 -- Bảng lịch sử mua phim
 create table [movie_purchase_history](
 	[id] bigint primary key identity(1, 1), -- id
-	[account] bigint foreign key references [account]([id]), -- tài khoản mua xu
-	[movie] bigint foreign key references [movie]([id]), -- phim đã mua
+	[account] bigint foreign key references [account]([id]) ON DELETE CASCADE, -- tài khoản mua xu
+	[movie] bigint foreign key references [movie]([id]) ON DELETE CASCADE, -- phim đã mua
 	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP -- thời gian mua xu
 )
 go
 
 -- Bảng những thể loại của 1 bộ phim
 create table [movie_genre](
-	[id] bigint primary key identity(1, 1), -- id
-	[movie] bigint foreign key references [movie]([id]), -- id phim
-	[genre] bigint foreign key references [genre]([id]) -- id thể loại
+	[movie] bigint foreign key references [movie]([id]) ON DELETE CASCADE, -- id phim
+	[genre] bigint foreign key references [genre]([id]), -- id thể loại
+
+	primary key(movie, genre) -- id
 )
 go
 
 -- Bảng những quốc gia của 1 bộ phim
 create table [movie_country](
-	[id] bigint primary key identity(1, 1), -- id
-	[movie] bigint foreign key references [movie]([id]), -- id phim
-	[country] bigint foreign key references [country]([id]) -- id quốc gia
+	[movie] bigint foreign key references [movie]([id]) ON DELETE CASCADE, -- id phim
+	[country] bigint foreign key references [country]([id]), -- id quốc gia
+
+	primary key(movie, country)
 )
 go
 
 -- Bảng tập phim
 create table [movie_episode](
 	[id] bigint primary key identity(1, 1), -- id tập
-	[movie] bigint foreign key references [movie]([id]), -- id phim
+	[movie] bigint foreign key references [movie]([id]) ON DELETE CASCADE, -- id phim
 	[title] nvarchar(200), -- tiêu đề tập phim
 	[ep] int, -- số tập
 	[season] int, -- mùa 
@@ -151,8 +153,8 @@ go
 -- Bảng đánh giá phim
 create table [movie_rate](
 	[id] bigint primary key identity(1, 1),
-	[account] bigint foreign key references [account]([id]),
-	[movie] bigint foreign key references [movie]([id]),
+	[account] bigint foreign key references [account]([id]) ON DELETE CASCADE,
+	[movie] bigint foreign key references [movie]([id]) ON DELETE CASCADE,
 	[rate] float
 )
 go
@@ -161,15 +163,15 @@ go
 create table [movie_view](
 	[id] bigint primary key identity(1, 1), -- id
 	[view_date] datetime DEFAULT CURRENT_TIMESTAMP, -- ngày xem
-	[movie] bigint foreign key references [movie]([id]) -- id phim
+	[movie] bigint foreign key references [movie]([id]) ON DELETE CASCADE -- id phim
 )
 go
 
 -- Bảng phim đã xem
 create table [continue_watching](
 	[id] bigint primary key identity(1, 1),  -- id
-	[account] bigint foreign key references [account]([id]), -- tài khoản
-	[movie_episode] bigint foreign key references [movie_episode]([id]), -- phim
+	[account] bigint foreign key references [account]([id]) ON DELETE CASCADE, -- tài khoản
+	[movie_episode] bigint foreign key references [movie_episode]([id]) ON DELETE CASCADE, -- phim
 	[view_date] datetime DEFAULT CURRENT_TIMESTAMP, -- ngày xem
 )
 go
@@ -177,8 +179,8 @@ go
 -- Bảng phim yêu thích
 create table [watch_list](
 	[id] bigint primary key identity(1, 1), -- id
-	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[movie] bigint foreign key references [movie]([id]), -- id phim
+	[account] bigint foreign key references [account]([id]) ON DELETE CASCADE, -- id tài khoản
+	[movie] bigint foreign key references [movie]([id]) ON DELETE CASCADE, -- id phim
 	[status] varchar(50), -- trạng thái (đang xem, đã xem, dự định xem...)
 	[add_date] datetime DEFAULT CURRENT_TIMESTAMP, -- ngày thêm
 )
@@ -187,9 +189,9 @@ go
 -- Bảng bình luận phim
 create table [comment_movie](
 	[id] bigint primary key identity(1, 1), -- id
-	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[movie_episode] bigint foreign key references [movie_episode]([id]), -- id tập phim
-	[parent_cmt] bigint foreign key references [comment_movie]([id]), -- id bình luận
+	[account] bigint foreign key references [account]([id]) ON DELETE CASCADE, -- id tài khoản
+	[movie_episode] bigint foreign key references [movie_episode]([id]) ON DELETE CASCADE, -- id tập phim
+	[parent_cmt] bigint foreign key references [comment_movie]([id]) ON DELETE NO ACTION, -- id bình luận
 	[tag_name] nvarchar(64), -- tên người bình luận
 	[text] nvarchar(500), -- nội dung bình luận
 	[spoil] bit, -- lộ nội dung bình luận (có hoặc ko)
@@ -199,8 +201,8 @@ go
 
 -- Bảng bình luận phim chi tiết
 create table [comment_movie_detail](
-	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[comment_movie] bigint foreign key references [comment_movie]([id]), -- id phim
+	[account] bigint foreign key references [account]([id]) ON DELETE CASCADE, -- id tài khoản
+	[comment_movie] bigint foreign key references [comment_movie]([id]) ON DELETE NO ACTION, -- id phim
 	[favorite] bit -- thích hoặc ko thích,
 
 	primary key (account, comment_movie) -- id
@@ -209,10 +211,10 @@ go
 
 -- Bảng thông báo phim đến người dùng
 create table [notification_movie](
-	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[movie_episode] bigint foreign key references [movie_episode]([id]), -- id tập phim
+	[account] bigint foreign key references [account]([id]) ON DELETE CASCADE, -- id tài khoản
+	[movie_episode] bigint foreign key references [movie_episode]([id]) ON DELETE CASCADE, -- id tập phim
 	[description] nvarchar(200), -- nội dung thông báo
-	[new_noti] bit, -- mới nới cũ
+	[new_noti] bit default 1, -- mới nới cũ
 	[timestamp] datetime DEFAULT CURRENT_TIMESTAMP, -- thời gian thông báo
 
 	primary key([account], [movie_episode]) -- id
@@ -257,27 +259,6 @@ create table [comment_community_detail](
 	[account] bigint foreign key references [account]([id]), -- id tài khoản
 	[comment_com] bigint foreign key references [comment_movie]([id]), -- id diễn đàn
 	[favorite] bit -- thích hoặc ko thích
-)
-go
-
--- Bảng lịch sử xem phim
-create table [history_wm](
-	[id] bigint primary key identity(1, 1), -- id
-	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[movie] bigint foreign key references [movie]([id]), -- id phim
-	[movie_ep] bigint foreign key references [movie_episode]([id]), -- id tập phim
-	[timestamp] datetime, -- thời gian đã xem
-)
-go
-
--- Bảng cài đặt
-create table [setting](
-	[id] bigint primary key identity(1, 1), -- id
-	[account] bigint foreign key references [account]([id]), -- id tài khoản
-	[auto_next] bit, -- tự động chuyển tập (có hay ko)
-	[auto_play] bit, -- tự động phát (có hay ko)
-	[notification] bit, -- bật thông báo (có hay ko)
-	[public_wl] bit -- công khai danh sách yêu thích (có hay ko)
 )
 go
 
@@ -373,7 +354,7 @@ END
 GO
 
 CREATE FUNCTION get_achievement(@accountId bigint)
-RETURNS float
+RETURNS varchar(10)
 AS
 BEGIN
 	DECLARE @power float
@@ -390,9 +371,153 @@ BEGIN
 	ELSE IF (@power >= 40 AND @power < 60)
 		return 'Crab'
 	ELSE IF (@power >= 60 AND @power < 80)
-		return 'Crab'
+		return 'Starfish'
 
 	return 'Dolphin'
+END
+GO
+
+CREATE FUNCTION get_revenue_mom()
+RETURNS float
+AS
+BEGIN
+	declare @preventMonth float
+	select @preventMonth = ISNULL(sum(coin_value), 0) from [coin_transaction_history]
+	where month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	declare @pastMonth float
+	select @pastMonth = ISNULL(sum(coin_value), 0) from [coin_transaction_history]
+	where month(timestamp) = month(getdate()) - 1 and year(timestamp) = year(getdate())
+
+	IF @preventMonth = 0 AND @pastMonth = 0
+	BEGIN
+		RETURN 0
+	END
+
+	IF @preventMonth = 0
+	BEGIN
+		RETURN -100
+	END
+
+	RETURN (@preventMonth - @pastMonth) / @preventMonth * 100
+END
+GO
+
+CREATE FUNCTION get_revenue_dod()
+RETURNS float
+AS
+BEGIN
+	declare @preventDay float
+	select @preventDay = ISNULL(sum(coin_value), 0) from [coin_transaction_history]
+	where day(timestamp) = day(getdate()) and month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	declare @pastDay float
+	select @pastDay = ISNULL(sum(coin_value), 0) from [coin_transaction_history]
+	where day(timestamp) = day(getdate()) - 1 and month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	IF @preventDay = 0 AND @pastDay = 0
+	BEGIN
+		RETURN 0
+	END
+
+	IF @preventDay = 0
+	BEGIN
+		RETURN -100
+	END
+
+	RETURN (@preventDay - @pastDay) / @preventDay * 100
+END
+GO
+
+CREATE FUNCTION get_sales_mom()
+RETURNS float
+AS
+BEGIN
+	declare @preventMonth float
+	select @preventMonth = ISNULL(sum(budget), 0) from movie_purchase_history
+			join movie on movie_purchase_history.movie = movie.id 
+	where month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	declare @pastMonth float
+	select @pastMonth = ISNULL(sum(budget), 0) from movie_purchase_history
+			join movie on movie_purchase_history.movie = movie.id 
+	where month(timestamp) = month(getdate()) - 1 and year(timestamp) = year(getdate())
+
+	IF @preventMonth = 0 AND @pastMonth = 0
+	BEGIN
+		RETURN 0
+	END
+
+	IF @preventMonth = 0
+	BEGIN
+		RETURN -100
+	END
+
+	RETURN (@preventMonth - @pastMonth) / @preventMonth * 100
+END
+GO
+
+CREATE FUNCTION get_sales_dod()
+RETURNS float
+AS
+BEGIN
+	declare @preventDay float
+	select @preventDay = ISNULL(sum(budget), 0) from movie_purchase_history
+			join movie on movie_purchase_history.movie = movie.id 
+	where day(timestamp) = day(getdate()) and month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	declare @pastDay float
+	select @pastDay = ISNULL(sum(budget), 0) from movie_purchase_history
+			join movie on movie_purchase_history.movie = movie.id 
+	where day(timestamp) = day(getdate()) - 1 and month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	IF @preventDay = 0 AND @pastDay = 0
+	BEGIN
+		RETURN 0
+	END
+
+	IF @preventDay = 0
+	BEGIN
+		RETURN -100
+	END
+
+	RETURN (@preventDay - @pastDay) / @preventDay * 100
+END
+GO
+
+CREATE FUNCTION get_purchase_mom()
+RETURNS int
+AS
+BEGIN
+	declare @preventMonth int
+	select @preventMonth = count(*) from movie_purchase_history
+		join movie on movie_purchase_history.movie = movie.id 
+	where month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	declare @pastMonth int
+	select @pastMonth = count(*) from movie_purchase_history
+		join movie on movie_purchase_history.movie = movie.id 
+	where month(timestamp) = month(getdate()) - 1 and year(timestamp) = year(getdate())
+
+	RETURN @preventMonth - @pastMonth
+END
+GO
+
+CREATE FUNCTION get_purchase_dod()
+RETURNS int
+AS
+BEGIN
+	declare @preventDay int
+	select @preventDay = count(*) from movie_purchase_history
+		join movie on movie_purchase_history.movie = movie.id 
+	where day(timestamp) = day(getdate()) and month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	declare @pastDay int
+	select @pastDay = count(*) from movie_purchase_history
+		join movie on movie_purchase_history.movie = movie.id 
+	where day(timestamp) = day(getdate()) - 1 and month(timestamp) = month(getdate()) and year(timestamp) = year(getdate())
+
+	RETURN @preventDay - @pastDay
 END
 GO
 
@@ -406,9 +531,3 @@ movie.id <> 12 and
 (genre.id in (select movie_genre.genre from [movie_genre] where movie_genre.movie = 12)
 or country.id in (select movie_country.country from movie_country where movie_country.movie = 12))
 group by movie.type, movie.title
-
-select * from watch_list
-where account = 1
-order by dbo.get_movie_rated(watch_list.movie) desc
-
-select * from movie_rate

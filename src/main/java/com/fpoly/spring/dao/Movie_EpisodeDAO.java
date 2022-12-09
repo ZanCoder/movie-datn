@@ -2,10 +2,13 @@ package com.fpoly.spring.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.fpoly.spring.model.Movie;
 import com.fpoly.spring.model.Movie_Episode;
 
 @Repository
@@ -30,4 +33,10 @@ public interface Movie_EpisodeDAO extends JpaRepository<Movie_Episode, Integer> 
 	
 	@Query(value="select count(*) from (select count(season) as s from [movie_episode] where movie = ?1 group by season) c", nativeQuery=true)
 	Integer getCountSeason(int id);
+	
+	@Query(value="SELECT o FROM Movie_Episode o ORDER BY o.id DESC")
+	Page<Movie_Episode> findAllOrderByIdDesc(Pageable pageable);
+	
+	@Query(value="SELECT o FROM Movie_Episode o WHERE o.movie.id = ?1 ORDER BY o.id DESC")
+	Page<Movie_Episode> findAllByMovieOrderByIdDesc(int movie, Pageable pageable);
 }
