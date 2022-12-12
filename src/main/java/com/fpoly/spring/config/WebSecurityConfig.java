@@ -56,14 +56,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				"/user/profile", "/user/continue-watching", "/user/watch-list", "/user/notification", "/user/purchase-history"
 			).authenticated();
 		
-		http.authorizeRequests().antMatchers("/admin/dashboard").hasAnyAuthority("ADMIN", "MOD");
+		http.authorizeRequests().antMatchers("/admin/dashboard",
+											"/admin/notification-movie-form",
+											"/admin/transaction-history-table",
+											"/admin/movie-form", "/admin/movie-table", 
+											"/admin/movie-ep-form", "/admin/movie-ep-table",
+											"/admin/revenue-chart", "/admin/sales-chart", "/admin/purchase-chart")
+		.hasAnyAuthority("ADMIN", "MOD");
 		http.authorizeRequests().antMatchers("/admin/account-form", "/admin/account-table", 
-				"/admin/movie-form", "/admin/movie-table", 
-				"/admin/notification-movie-form",
-				"/admin/authorize-table",
-				"/admin/revenue-chart", "/admin/sales-chart", "/admin/purchase-chart",
-				"/admin/movie-ep-form", "/admin/movie-ep-table",
-				"/admin/purchase-table").hasAnyAuthority("ADMIN");
+				"/admin/authorize-table")
+		.hasAnyAuthority("ADMIN");
 		
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 		
@@ -74,12 +76,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .successHandler(authSuccessHandler)
 			.usernameParameter("emailAre")
 			.passwordParameter("password")
-			.and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
+			.and()
+			.rememberMe().rememberMeParameter("remember_me")
+			.tokenRepository(persistentTokenRepository())
+			.tokenValiditySeconds(86400*30)
+			.and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID", "remember-me")
 			.logoutSuccessUrl("/home");
 		
-		http.authorizeRequests().and() 
-		.rememberMe().key("uniqueAndSecret").tokenRepository(this.persistentTokenRepository())
-		.tokenValiditySeconds(1 * 24 * 60 * 60).rememberMeParameter("remember_me");
+//		http.authorizeRequests().and() 
+//		.rememberMe().rememberMeParameter("remember_me")
+//		.tokenRepository(persistentTokenRepository())
+//		.tokenValiditySeconds(86400*30);
 	}
 	
 	@Bean
@@ -90,8 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
     public PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices() {
-        PersistentTokenBasedRememberMeServices service = new PersistentTokenBasedRememberMeServices("remember_me", userDetailsService, persistentTokenRepository());
-        service.setCookieName("remember_me");
+        PersistentTokenBasedRememberMeServices service = new PersistentTokenBasedRememberMeServices("remember-me", userDetailsService, persistentTokenRepository());
+        service.setCookieName("remember-me");
         service.setTokenValiditySeconds(864000);
         return service;
     }

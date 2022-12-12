@@ -25,6 +25,9 @@ public interface Coin_Transaction_HistoryDAO extends JpaRepository<Coin_Transact
 	@Query("SELECT o FROM Coin_Transaction_History o WHERE o.account.id = ?1 ORDER BY o.timestamp DESC")
 	Page<Coin_Transaction_History> findByAccountOrderByTimeStampDesc(int account, Pageable pageable);
 	
+	@Query("SELECT o FROM Coin_Transaction_History o WHERE o.account.username like ?1 ORDER BY o.timestamp DESC")
+	Page<Coin_Transaction_History> findByAccountUsernameLikeOrderByTimeStampDesc(String account, Pageable pageable);
+	
 	@Query(value="select ISNULL(sum(coin_value), 0) from coin_transaction_history", nativeQuery=true)
 	float revenue();
 	
@@ -47,4 +50,8 @@ public interface Coin_Transaction_HistoryDAO extends JpaRepository<Coin_Transact
 	@Query(value="select ISNULL(sum(coin_value), 0) from coin_transaction_history "
 			+ " where year(timestamp) = ?1 ", nativeQuery=true)
 	float revenueByYear(int year);
+	
+	@Query(value="select ISNULL(sum(coin_value), 0) from coin_transaction_history "
+			+ " where account = ?1", nativeQuery=true)
+	float getTotalByAccount(int account);
 }

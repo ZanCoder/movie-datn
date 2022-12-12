@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html th:replace="~{/layout/base :: dynamic(~{::main})}">
 
-<head>
+<head th:include="fragments/layout :: headerFragment">
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title id="pageTitle">Watch [[${movie.title}]]</title>
 </head>
 <main>
 	<style th:inline="css">

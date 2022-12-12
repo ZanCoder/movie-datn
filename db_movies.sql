@@ -28,7 +28,7 @@ create table [account](
 	[power] float default 0, -- số tiền đã tiêu
 	[joined_date] DATETIME DEFAULT CURRENT_TIMESTAMP, -- ngày tham gia
 	[role] bigint foreign key references [account_role]([id]) default 3, -- vai trò
-	[status] bit default 1, -- trạng thái (online hay offline)
+	[status] bit default 1, -- trạng thái (cho phép hoạt động hoặc ban)
 	[public_wl] bit default 1 -- công khai danh sách yêu thích (có hay ko)
 )
 go
@@ -531,3 +531,4 @@ movie.id <> 12 and
 (genre.id in (select movie_genre.genre from [movie_genre] where movie_genre.movie = 12)
 or country.id in (select movie_country.country from movie_country where movie_country.movie = 12))
 group by movie.type, movie.title
+

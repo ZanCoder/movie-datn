@@ -43,6 +43,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (account == null) {
 			System.out.println("User not found! " + account);
 			throw new UsernameNotFoundException("User " + account + " was not found in the database");
+		}else if(account.getStatus() == false) {
+			throw new UsernameNotFoundException("Account has been banned");
 		}
 
 		System.out.println("Found User: " + account.getUsername());

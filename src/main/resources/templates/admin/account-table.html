@@ -20,8 +20,9 @@
 									<h4 class="card-title">Accounts Table</h4>
 									<form>
 										<label for="search-account">
-										<input type="text" name="q" id="admin-account-search" placeholder="Search username..." 
-											style="background: none; border: none; border-bottom: 1px solid white; color: white;"></label>
+											<input type="text" name="q" id="admin-account-search"
+												placeholder="Search username..."
+												style="background: none; border: none; border-bottom: 1px solid white; color: white;"></label>
 									</form>
 								</div>
 								</p>
@@ -42,7 +43,7 @@
 										<tbody>
 											<tr th:each="account: ${accounts}">
 												<td class="py-1">
-													<img th:src="${account.avatar}" alt="image" />
+													<img class="img-status" th:classappend="${account.status} ? 'active' : ''" th:src="${account.avatar}" alt="image" />
 												</td>
 												<td> [[${account.username}]] </td>
 												<td> [[${account.email}]] </td>
@@ -121,7 +122,8 @@
 																						<input type="file" name="img[]"
 																							class="file-upload-default"
 																							th:attr="data-id=${account.id}"
-																							th:id="'admin-account-avatar-' + ${account.id}" accept="image/*">
+																							th:id="'admin-account-avatar-' + ${account.id}"
+																							accept="image/*">
 																						<div
 																							class="input-group col-xs-12">
 																							<input type="text"
@@ -141,15 +143,6 @@
 																					</div>
 																					<div class="form-group">
 																						<label
-																							for="admin-account-password">Password</label>
-																						<input type="password"
-																							class="form-control"
-																							th:id="'admin-account-password-' + ${account.id}"
-																							placeholder="Password"
-																							required>
-																					</div>
-																					<div class="form-group">
-																						<label
 																							for="admin-account-budget">Budget</label>
 																						<div class="input-group">
 																							<div
@@ -166,6 +159,18 @@
 																								<span
 																									class="input-group-text">.00</span>
 																							</div>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<div
+																							class="custom-control custom-switch">
+																							<input type="checkbox"
+																								class="custom-control-input"
+																								th:id="'admin-account-status-' + ${account.id}"
+																								th:checked="${account.status}">
+																							<label
+																								class="custom-control-label p-0 m-0"
+																								th:for="'admin-account-status-' + ${account.id}">Status</label>
 																						</div>
 																					</div>
 																					<div
@@ -188,7 +193,9 @@
 														th:attr="data-target='#modeladminacccount-delete-' + ${account.id}"><i
 															class="fa-solid fa-trash text-white"></i></button>
 													<!-- Modal delete -->
-													<div class="modal fade" th:id="'modeladminacccount-delete-' + ${account.id}" tabindex="-1">
+													<div class="modal fade"
+														th:id="'modeladminacccount-delete-' + ${account.id}"
+														tabindex="-1">
 														<div class="modal-dialog">
 															<div class="modal-content">
 																<div class="modal-header">
@@ -198,14 +205,19 @@
 																		aria-label="Close"></button>
 																</div>
 																<form action="/delete_admin_account" method="POST">
-																	<input type="hidden" th:value="${account.id}" name="id">
+																	<input type="hidden" th:value="${account.id}"
+																		name="id">
 																	<div class="modal-body">
-																		<p>Are you sure you want to delete [[${account.username}]]</p>
+																		<p>Are you sure you want to delete
+																			[[${account.username}]]</p>
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal" aria-label="Close">Close</button>
-																		<button type="submit" class="btn-delete-admin-account btn btn-primary" th:attr="data-id=${account.id}">Save
+																			data-dismiss="modal"
+																			aria-label="Close">Close</button>
+																		<button type="submit"
+																			class="btn-delete-admin-account btn btn-primary"
+																			th:attr="data-id=${account.id}">Save
 																			changes</button>
 																	</div>
 																</form>

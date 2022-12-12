@@ -30,7 +30,7 @@ import com.fpoly.spring.model.Account;
 
 public class WebUtils {
 	static String visa = "4687898882707317";
-	static String mastercard = "5467348748950712";
+	static String mastercard = "i";
 	static String american_express = "379195325087295";
 	static String discover = "6505231411996190";
 	static String jcb = "3560625266009331";

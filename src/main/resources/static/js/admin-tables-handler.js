@@ -7,11 +7,11 @@ $('.file-upload-default').change(function(e) {
 	var id = $(this).attr('data-id');
 	$(`.file-upload-info.admin-account#${id}`).val(window.URL.createObjectURL(this.files[0]));
 });
-function submit_account(id, username, email, password, budget, avatar, loading, error, success) {
+function submit_account(id, username, email, budget, avatar, status, loading, error, success) {
 	$.ajax({
 		type: 'POST',
 		url: "/edit_admin_account",
-		data: { id, username: username, email: email, password: password, budget: budget, avatar: avatar },
+		data: { id, username: username, email: email, budget: budget, avatar: avatar, status: status },
 		success: function(response) {
 			loading.css('display', 'none');
 			if (response['validated']) {
@@ -33,9 +33,9 @@ $('.form-admin-account').submit(function(e) {
 	data['id'] = $(this).children('#admin-account-id').val();
 	data['username'] = $(`#admin-account-username-${data['id']}`).val();
 	data['email'] = $(`#admin-account-email-${data['id']}`).val();
-	data['password'] = $(`#admin-account-password-${data['id']}`).val();
 	data['budget'] = $(`#admin-account-budget-${data['id']}`).val();
 	data['avatar'] = $(`.file-upload-info.admin-account#${data['id']}`).val();
+	data['status'] = $(`#admin-account-status-${data['id']}`).prop("checked");
 
 	var file = document.getElementById(`admin-account-avatar-${data['id']}`);
 
@@ -65,14 +65,14 @@ $('.form-admin-account').submit(function(e) {
 			var jx = JSON.parse(response);
 			data['avatar'] = jx.data.url;
 			submit_account(data['id'], data['username'], data['email'],
-				data['password'], data['budget'], data['avatar'], loading, error, success);
+				 data['budget'], data['avatar'], data['status'], loading, error, success);
 		}).fail(function() {
 			toastr.error(response['errorMessages'].error, '', { timeout: 5000, positionClass: 'toast-bottom-right' });
 			return;
 		});
 	} else {
 		submit_account(data['id'], data['username'], data['email'],
-			data['password'], data['budget'], data['avatar'], loading, error, success);
+			data['budget'], data['avatar'], data['status'], loading, error, success);
 	}
 });
 

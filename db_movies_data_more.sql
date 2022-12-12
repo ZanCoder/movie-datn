@@ -81,3 +81,7 @@ values	(1, 28, DATEADD(month, -1, GETDATE())),
 		(1, 29, DATEADD(day, -1, GETDATE()))
 go
 
+
+select ISNULL(sum(movie.budget), 0) from movie_purchase_history
+join movie on movie_purchase_history.movie = movie.id
+where account = 1

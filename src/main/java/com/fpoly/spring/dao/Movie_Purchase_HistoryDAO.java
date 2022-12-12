@@ -27,6 +27,9 @@ public interface Movie_Purchase_HistoryDAO extends JpaRepository<Movie_Purchase_
 	@Query("SELECT o FROM Movie_Purchase_History o WHERE o.account.id = ?1 ORDER BY o.timestamp DESC")
 	Page<Movie_Purchase_History> findByAccountOderByTimeStampDesc(int account, Pageable pageable);
 	
+	@Query("SELECT o FROM Movie_Purchase_History o WHERE o.account.username like ?1 ORDER BY o.timestamp DESC")
+	Page<Movie_Purchase_History> findByAccountUsernameLikeOderByTimeStampDesc(String account, Pageable pageable);
+	
 	@Query(value="select ISNULL(sum(budget), 0) from movie_purchase_history "
 			+ " join movie on movie_purchase_history.movie = movie.id ", nativeQuery=true)
 	float sales();
@@ -71,4 +74,9 @@ public interface Movie_Purchase_HistoryDAO extends JpaRepository<Movie_Purchase_
 			+ " group by movie "
 			+ " order by count(movie) desc ", nativeQuery=true)
 	List<Integer> getTopMoviePurchased();
+	
+	@Query(value="select ISNULL(sum(movie.budget), 0) from movie_purchase_history "
+			+ " join movie on movie_purchase_history.movie = movie.id "
+			+ " where account = ?1", nativeQuery=true)
+	float getTotalByAccount(int account);
 }

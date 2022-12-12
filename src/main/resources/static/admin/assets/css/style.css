@@ -25973,8 +25973,8 @@ div.tagsinput {
 .jsgrid .jsgrid-table th img,
 .table td img,
 .jsgrid .jsgrid-table td img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
 }
 
@@ -30996,4 +30996,13 @@ div.tagsinput span.tag a {
         -webkit-transform: scale(1);
         transform: scale(1)
     }
+}
+
+/* account status */
+.table td img.img-status {
+	border: 3px solid #9ea7ad;
+}
+
+.table td img.img-status.active {
+	border: 3px solid #56f000;
 }

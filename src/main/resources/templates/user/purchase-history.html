@@ -13,6 +13,12 @@
 						</li>
 					</ul>
 				</div>
+				<div th:if="${type} == 1" class="float-right text-white" style="font-size:15px">
+					Total: -[[${total}]] <i style="color: yellow" class="fas fa-coins"></i>
+				</div>
+				<div th:if="${type} == 2" class="float-right text-white" style="font-size:15px">
+					Total: +[[${total}]] <i style="color: yellow" class="fas fa-coins"></i>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="inbox-item-list">
@@ -33,7 +39,7 @@
 									<span style="color: #fff">
 										<a th:href="@{ /movie/{slug}/{season} (slug=${mph.getMovieSlug()}, season=1) }"
 											class="highlight-text text-white">
-											[[${ mph.getMovieTitle() }]]</a> - Bought at [[${#dates.format(mph.timestamp, 'dd-MM-yyyy hh:mm:ss')}]]
+											[[${ mph.getMovieTitle() }]]</a> - Bought at [[${#dates.format(mph.timestamp, 'EEE, d MMM yyyy HH:mm a')}]]
 									</span>
 								</div>
 								<div class="ii-content ii-mark"> <i style="color: yellow"

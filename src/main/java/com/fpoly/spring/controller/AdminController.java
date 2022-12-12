@@ -255,8 +255,8 @@ public class AdminController {
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String avatar = request.getParameter("avatar");
-		String password = request.getParameter("password");
 		double budget = Double.parseDouble(request.getParameter("budget") == null ? "0" : request.getParameter("budget"));
+		boolean status = Boolean.parseBoolean(request.getParameter("status"));
 		
 		if(account.getRole().getId() == 2 || account.getRole().getId() == 3) {
 			response.setValidated(false);
@@ -280,14 +280,12 @@ public class AdminController {
             }});
 		}else {
 			try {
-				String encrytedPassword = this.passwordEncoder.encode(password);
-				
 				Account accountNew = accountDao.findById(id).get();
 				accountNew.setUsername(username);
 				accountNew.setEmail(email);
 				accountNew.setAvatar(avatar);
 				accountNew.setBudget(budget);
-				accountNew.setPassword_hash(encrytedPassword);
+				accountNew.setStatus(status);
 				
 				accountDao.save(accountNew);
 				
@@ -674,11 +672,26 @@ public class AdminController {
 		return "/admin/notification-movie-form";
 	}
 	
-	@GetMapping("/admin/purchase-table")
-	public String purchaseTable(Model model) {
-		model.addAttribute("coins", cthDao.findAll());
-		model.addAttribute("movies", mphDao.findAll());
-		return "/admin/purchased-table";
+	@GetMapping("/admin/transaction-history-table")
+	public String purchaseTable(Model model, @RequestParam("type") Optional<Integer> t, @RequestParam("q") Optional<String> q, @RequestParam("page") Optional<Integer> currentPage) {
+		int type = t.orElse(1);
+		String keyword = q.orElse("").trim();
+		Pageable pageable = PageRequest.of(currentPage.orElse(1) - 1, 5);
+		
+		if(type == 1) {
+			model.addAttribute("coins", cthDao.findByAccountUsernameLikeOrderByTimeStampDesc("%" + keyword + "%", pageable));
+			model.addAttribute("pages", cthDao.findByAccountUsernameLikeOrderByTimeStampDesc("%" + keyword + "%", pageable));
+		}else {
+			model.addAttribute("movies", mphDao.findByAccountUsernameLikeOderByTimeStampDesc("%" + keyword + "%", pageable));
+			model.addAttribute("pages", mphDao.findByAccountUsernameLikeOderByTimeStampDesc("%" + keyword + "%", pageable));
+		}
+		
+		model.addAttribute("url", "admin-transaction-table");
+		model.addAttribute("q", keyword);
+		model.addAttribute("type", type);
+		model.addAttribute("currentPage", currentPage.orElse(1));
+
+		return "/admin/transaction-history-table";
 	}
 	
 	@GetMapping("/admin/authorize-table")

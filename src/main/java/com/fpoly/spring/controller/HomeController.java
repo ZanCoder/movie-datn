@@ -559,11 +559,13 @@ public class HomeController {
 	    			model.addAttribute("pages", mphs);
 		    		model.addAttribute("mphs", mphs);
 		    		model.addAttribute("type", type.orElse("1"));
+		    		model.addAttribute("total", mphDao.getTotalByAccount(account.getId()));
 	    		}else {
 		    		Page<Coin_Transaction_History> cths = cthDao.findByAccountOrderByTimeStampDesc(account.getId(), pageable);
 		    		model.addAttribute("pages", cths);
 		    		model.addAttribute("cths", cths);
 		    		model.addAttribute("type", type.orElse("2"));
+		    		model.addAttribute("total", cthDao.getTotalByAccount(account.getId()));
 	    		}
 	    		break;
 	    }
