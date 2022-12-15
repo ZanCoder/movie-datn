@@ -669,7 +669,7 @@ public class AdminController {
 		
 		model.addAttribute("adminMovieEpisodeForm", new AdminMovieEpisodeForm());
 		
-		return "/admin/notification-movie-form";
+		return "redirect:/admin/notification-movie-form";
 	}
 	
 	@GetMapping("/admin/transaction-history-table")

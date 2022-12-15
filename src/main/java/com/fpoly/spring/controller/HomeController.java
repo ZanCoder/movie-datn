@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -140,7 +146,6 @@ public class HomeController {
 		List<Movie> latestEps = movieDao.getTop12LatestEps();
 		List<Movie> newMovies = movieDao.getTop12NewMovies(); 
 		List<Movie> upComings = movieDao.getTop12Upcomings();
-		
 		List<Genre> genres = genreDao.findAll();
 		
 		model.addAttribute("movies", movies);
@@ -681,11 +686,36 @@ public class HomeController {
 		return "test";
 	}
 	
+	@GetMapping("/error")
+	public String handleError(HttpServletRequest request) {
+		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+	    
+	    if (status != null) {
+	        Integer statusCode = Integer.valueOf(status.toString());
+	    
+	        if(statusCode == HttpStatus.NOT_FOUND.value()) {
+	            return "/error/404";
+	        }
+	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+	            return "/error/500";
+	        }
+	    }
+	    
+	    return "/error/404";
+	}
+	
 	@ModelAttribute
 	public void foo(Model model) {
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String email = loggedInUser.getName(); 
 	    Account account = accountDao.findByEmail(email);
+	    
+	    if(account != null) {
+	    	Pageable pageable = PageRequest.of(0, 5);
+	    	Page<Notification_Movie> noti_movies = noti_movieDao.findByAccountOrderByTimestamp(account.getId(), pageable);
+	    	model.addAttribute("noti_movies", noti_movies);
+	    	model.addAttribute("noti_movies_size", noti_movieDao.findByAccountAndNewNoti(account.getId(), true).size());
+	    }
 	    
 	    RegisterForm registerForm = new RegisterForm();
 	    ProfileForm profileForm = new ProfileForm();

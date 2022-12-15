@@ -24,6 +24,9 @@ public interface Notification_MovieDAO extends JpaRepository<Notification_Movie,
 	@Query(value="SELECT o FROM Notification_Movie o WHERE o.account.id = ?1 and o.new_noti = ?2")
 	List<Notification_Movie> findByAccountAndNewNoti(int accountId, boolean new_noti);
 	
+	@Query(value="SELECT o FROM Notification_Movie o WHERE o.account.id = ?1 and o.new_noti = ?2 ORDER BY o.timestamp DESC")
+	Page<Notification_Movie> findByAccountAndNewNotiOrderByTimestamp(int accountId, boolean new_noti, Pageable pageable);
+	
 	@Modifying(clearAutomatically=true)
     @Transactional
 	@Query(value="update notification_movie "

@@ -58,10 +58,12 @@
 		</a>
 		<div class="header__functions-btn">
 			<div sec:authorize="isAnonymous()">
-				<button class="header__functions-donate-btn" data-toggle="modal" data-target="#modallogin">Recharge</button>
+				<button class="header__functions-donate-btn" data-toggle="modal"
+					data-target="#modallogin">Recharge</button>
 			</div>
 			<div sec:authorize="isAuthenticated()">
-				<button class="header__functions-donate-btn" data-toggle="modal" data-target="#modalrecharge">Recharge</button>
+				<button class="header__functions-donate-btn" data-toggle="modal"
+					data-target="#modalrecharge">Recharge</button>
 			</div>
 		</div>
 	</div>
@@ -74,16 +76,51 @@
 
 			<div id="header_right">
 				<div class="hr-notifications">
-					<div class="hrn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-							class="fas fa-bell" style="color: white;font-size:15px;"></i></div>
+					<div class="hrn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="number" th:if="${noti_movies_size > 9}">+9</span>
+						<span class="number" th:if="${noti_movies_size == 0}" style="display:none"></span>
+						<span class="number" th:if="${noti_movies_size < 9 and noti_movies_size != 0}">[[${noti_movies_size}]]</span>
+						<i class="fas fa-bell" style="color: white;font-size:15px;"></i></div>
 					<div class="dropdown-menu dropdown-menu-noti new-noti-list" aria-labelledby="noti-list">
+						<div class="nnl-head">
+							<ul class="nav nav-tabs pre-tabs pre-tabs-min mb-0 border-0">
+								<li class="nav-item">
+									<a data-toggle="tab" data-type="1" href="#notify-1"
+										class="nav-link notify-type show active">
+										Error Movie
+									</a>
+								</li>
+								<li class="nav-item">
+									<a data-toggle="tab" data-type="2" href="#notify-2" class="nav-link notify-type">
+										Community
+									</a>
+								</li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
 						<div class="nnl-mark">
-							<a class="btn btn-xs btn-noti-maar" data-position="dropdown"><i
+							<a href="javascript:;" class="btn btn-xs btn-noti-maar" data-position="dropdown"><i
 									class="fas fa-check mr-2"></i> Mark all as read</a>
 						</div>
-						<div style="display: block; padding: 25px 15px; text-align: center; font-size: 14px;">
+						<div th:if="${noti_movies} == null"
+							style="display: block; padding: 25px 15px; text-align: center; font-size: 14px;">
 							<div class="block mb-2"><i class="fas fa-box-open" style="font-size: 20px;"></i></div>
 							No Notifications
+						</div>
+						<div th:if="${noti_movies}" class="nnl-list">
+							<a th:each="noti: ${noti_movies}" class="nnl-item with-poster" th:classappend="${noti.new_noti} ? 'new' : ''"
+								th:href="@{/watch-movie/{slug}/{se_ep}(slug=${noti.getMovieSlug()}, se_ep=${noti.getMovieSeason()}+'-'+${noti.getMovieEp()})}">
+								<div class="film-poster"><img th:src="${noti.getMoviePoster()}" class="film-poster-img"
+										th:alt="${noti.getMovieTitle()}"></div>
+								<strong class="noti-title">[[${ noti.getMovieTitle() }]]</strong> - <strong>[[${
+									noti.description }]]</strong>
+								<div class="small ii-time mb-1 text-white" style="font-size: 11px;"
+									th:attr="data-date=${noti.timestamp}">
+								</div>
+							</a>
+							<a th:if="${noti_movies.hasNext}" class="nnl-item nnl-more" href="/user/notification?type=1">
+			                    <div class="text-center text-white">View all</div>
+			                </a>
 						</div>
 					</div>
 				</div>
@@ -102,7 +139,8 @@
 									<div class="user-detail">
 										<div class="name d-flex justify-content-between">
 											<strong>[[${ account.username }]]</strong>
-											<a th:if="${account.role.id} == 1 or ${account.role.id} == 2" href="/admin/dashboard" style="color:red">Manage</a>
+											<a th:if="${account.role.id} == 1 or ${account.role.id} == 2"
+												href="/admin/dashboard" style="color:red">Manage</a>
 										</div>
 										<div class="mail">[[${ account.email }]]</div>
 									</div>
@@ -119,7 +157,7 @@
 										List</a>
 									<a class="dropdown-item" href="/user/notification"><i
 											class="fas fa-bell mr-2"></i>Notification</a>
-									<a class="dropdown-item" href="/user/purchase-history"><i 
+									<a class="dropdown-item" href="/user/purchase-history"><i
 											class="fas fa-coins mr-2"></i>Purchase History
 									</a>
 								</div>

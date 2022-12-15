@@ -593,6 +593,22 @@ html {
     bottom: auto!important;
 }
 
+#header_right .hr-notifications .dropdown-menu-noti .nnl-mark {
+	padding: 10px 15px;
+    background: rgba(0,0,0,.2);
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-mark a {
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	font-size: 10px;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-mark a:hover {
+	color: #CAE962;
+}
+
 #header_right .hr-notifications .dropdown-menu-noti .nnl-head {
     padding: 12px 15px;
     background: #4c4f57;
@@ -633,6 +649,55 @@ html {
     padding: 0 3px;
     color: #fff;
     background: #f02849;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-list .nnl-item {
+    border-bottom: 1px solid #4a4d59;
+    display: block;
+    font-size: 12px;
+    line-height: 1.5em;
+    color: #fff;
+    padding: 10px 15px;
+    position: relative;
+    opacity: .4;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-list .nnl-item:hover {
+	background: #4C4F57;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-list .nnl-item.new {
+	opacity: 1;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-list .nnl-item .film-poster {
+    width: 36px;
+    padding-bottom: 0;
+    height: 47px;
+    bottom: 0;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-list .nnl-item.with-poster {
+    padding-left: 64px;
+    min-height: 78px;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-list .nnl-item .film-poster-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#header_right .hr-notifications .dropdown-menu-noti .nnl-list .nnl-item.new strong.noti-title {
+	color: #cae962;
 }
 
 #user-slot {

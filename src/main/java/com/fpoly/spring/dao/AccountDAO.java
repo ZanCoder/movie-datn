@@ -84,4 +84,7 @@ public interface AccountDAO extends JpaRepository<Account, Integer>{
 	
 	@Query(value="select dbo.get_achievement(?1)", nativeQuery=true)
 	String getAchievement(int account);
+	
+	@Query(value="select * from account where dbo.get_achievement(account.id) = ?1", nativeQuery=true)
+	List<Account> getAllByAchievement(String achievement);
 }

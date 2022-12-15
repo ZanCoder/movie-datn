@@ -1,3 +1,5 @@
+use db_movies
+go
 
 insert into continue_watching(account, movie_episode)
 values	(1, 1),
@@ -44,17 +46,6 @@ insert into movie_view (movie)
 values	(1), (1), (2), (3), (4), (5), (3), (3), (3), (4)
 go
 
-select * from [account]
-select * from [movie]
-select * from [movie_view]
-select * from [continue_watching]
-select * from [watch_list]
-select * from [notification_movie]
-select * from [movie_episode]
-select * from [coin_transaction_history]
-select * from [movie_purchase_history]
-select * from [comment_movie_detail]
-
 insert into [notification_movie](account, movie_episode, description, new_noti)
 values	(1, 1, 'Full Movie Available NOW!', 1),
 	    (1, 3, 'Full Movie Available NOW!', 1),
@@ -81,7 +72,5 @@ values	(1, 28, DATEADD(month, -1, GETDATE())),
 		(1, 29, DATEADD(day, -1, GETDATE()))
 go
 
-
-select ISNULL(sum(movie.budget), 0) from movie_purchase_history
-join movie on movie_purchase_history.movie = movie.id
-where account = 1
+use master
+go
