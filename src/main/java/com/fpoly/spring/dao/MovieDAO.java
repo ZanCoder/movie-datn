@@ -18,7 +18,10 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	@Query(value="select * from movie where id=22 or id=30 or id=17 or id=18 or id=20", nativeQuery=true)
 	List<Movie> getSpotlights();
 	
-	@Query(value="select * from movie where id=2 or id=3 or id=4 or id=5 or id=8 or id=9", nativeQuery=true)
+	@Query(value="select top 10 * from [movie]"
+			+ " order by "
+			+ " (select count(*) from [movie_view] "
+			+ " where movie_view.movie = movie.id and movie_view.view_date > = DATEDIFF(hour, -72, GETDATE())) desc", nativeQuery=true)
 	List<Movie> getTrends();
 	
 	@Query(value="select top 5 * from [movie] order by dbo.get_movie_viewed(movie.id) desc", nativeQuery=true)
@@ -131,6 +134,9 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	
 	@Query(value="SELECT o FROM Movie o WHERE o.type.id = ?1 ORDER BY o.add_date DESC")
 	Page<Movie> findByTypeOrderByAddDateDesc(Integer id, Pageable pageable);
+	
+	@Query(value="SELECT o FROM Movie o WHERE o.vip = ?1 ORDER BY o.add_date DESC")
+	Page<Movie> findByVipOrderByAddDateDesc(boolean vip, Pageable pageable);
 	
 	@Query(value="select count(*) from movie", nativeQuery=true)
 	Integer getCountAll();

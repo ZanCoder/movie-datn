@@ -21,6 +21,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
 		integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- Swiper -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">
@@ -83,13 +85,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
 		integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- Swiper -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 	<!-- Moment -->
 	<script type="text/javascript" th:src="@{/js/moment.min.js}"></script>
 	<!-- Emoji Picker -->
 	<script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 
 	<script type="text/javascript" th:src="@{/js/change-server.js}"></script>
-	<script type="text/javascript" th:src="@{/js/slider.js}"></script>
+	<!-- <script type="text/javascript" th:src="@{/js/slider.js}"></script> -->
 	<script type="text/javascript" th:src="@{/js/navbar-menu.js}"></script>
 	<script type="text/javascript" th:src="@{/js/genre-more.js}"></script>
 	<script type="text/javascript" th:src="@{/js/country-more.js}"></script>
@@ -117,7 +121,6 @@
 	<script type="text/javascript" th:src="@{/js/promotion-modal-toggle.js}"></script>
 	<script type="text/javascript" th:src="@{/js/view-most-viewed.js}"></script>
 	<script type="text/javascript" th:src="@{/js/load-comment-movie.js}"></script>
-	<script type="text/javascript" th:src="@{/js/notification-socket.js}"></script>
 
 	<script>
 		document.addEventListener("scroll", function () {
@@ -137,6 +140,29 @@
 				});
 			}
 		});
+
+		const swiper = new Swiper('.swiper-container-horizontal', {
+			loop: true,
+			speed: 600,
+			parallax: true,
+			autoplay: {
+	          delay: 5000,
+	          disableOnInteraction: false,
+	        },
+			navigation: {
+	          nextEl: ".swiper-next",
+	          prevEl: ".swiper-prev",
+	        },
+		});
+		
+		var swiper_page = new Swiper(".swiper-container-page", {
+	        slidesPerView: 6,
+	        spaceBetween: 0,
+	        navigation: {
+	          nextEl: ".navi-next",
+	          prevEl: ".navi-prev",
+	        },
+	      });
 	</script>
 </body>
 

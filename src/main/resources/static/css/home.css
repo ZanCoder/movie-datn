@@ -269,29 +269,14 @@
 }
 
 .slider__content-time-hd {
-    color: var(--black-color);
-}
-
-.slider__content-time-sub {
-    color: var(--black-color);
-}
-
-.slider__content-time-dub {
-    color: var(--black-color);
-}
-
-.slider-background-hd {
-    margin-right: 10px;
-    padding: 2px;
-    background-color: #cae962;
-    border-radius: 2px;
-}
-
-.slider-background-sub {
-    margin-right: 10px;
-    padding: 2px;
-    background-color: var(--white-color);
-    border-radius: 2px;
+    display: inline-block;
+    padding: 3px 4px;
+    background: #cae962;
+    color: #111;
+    border-radius: 5px;
+    line-height: 1em;
+    font-weight: 600;
+    font-size: 12px;
 }
 
 .slider-background-dub {
@@ -402,7 +387,8 @@
 
 /* Movies Trending */
 #moviesTrending {
-    padding-left: 40px;
+	position: relative;
+    padding: 0 20px;
     background-color: #1D1E22;
 }
 
@@ -415,7 +401,7 @@
 
 .moviesTrending__list {
     display: flex;
-    
+    position: relative;
 }
 
 .moviesTrending__list-items {
@@ -454,10 +440,6 @@
     font-weight: 600;
 }
 
-.moviesTrending__list-img {
-    margin-right: 20px;
-}
-
 .moviesTrending__list-img-item {
     width: 182px;
     height: 255px;
@@ -467,11 +449,46 @@
     opacity: 0.8;
 }
 
+.trending-navi {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+}
+
+.trending-navi>div {
+    position: absolute;
+    height: 48%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #2a2b31;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    outline: 0;
+    box-shadow: none;
+}
+
+.trending-navi>div>i {
+    position: absolute;
+    font-size: 24px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.trending-navi>div.navi-prev {
+    bottom: 0;
+    top: auto;
+}
+
 /* Contact Content */
 #contactList {
     padding-top: 20px;
     display: flex;
-    background-color: rgb(18,19,21);
+    background-color: #1D1E22;
 }
 
 .contactList__gif {
@@ -1478,7 +1495,7 @@
     margin-bottom: 5px;
 }
 
-#close-bg #close .donate-btn > button {
+#close-bg #close .donate-btn > a {
     cursor: pointer;
     line-height: 36px;
     border-radius: 20px;
@@ -1492,12 +1509,12 @@
     width: 100%;
 }
 
-#close-bg #close .community-btn > button > i {
+#close-bg #close .community-btn > a > i {
     color: #cae962;
     margin-right: 2px;
 }
 
-#close-bg #close .community-btn > button {
+#close-bg #close .community-btn > a {
     cursor: pointer;
     background-color: #222327;
     color: #fff;

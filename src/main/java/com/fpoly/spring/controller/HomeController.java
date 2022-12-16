@@ -391,6 +391,40 @@ public class HomeController {
 		return "movie/search_results";
 	}
 	
+	@GetMapping("/vip-movies")
+	public String vip_movies_result(Model model, @RequestParam("page") Optional<Integer> currentPage) {
+		Pageable pageable = PageRequest.of(currentPage.orElse(1) - 1, 16);
+		Page<Movie> pages = movieDao.findByVipOrderByAddDateDesc(true, pageable);
+		
+		List<Movie> movies = pages.getContent();
+		
+		model.addAttribute("topic", "Vip Movies");
+		model.addAttribute("movies", movies);
+		model.addAttribute("movie_eps", movie_episodeDao);
+		model.addAttribute("pages", pages);
+		model.addAttribute("currentPage", currentPage.orElse(1));
+		model.addAttribute("url", "movies");
+		
+		return "movie/search_results";
+	}
+	
+	@GetMapping("/free-movies")
+	public String free_movies_result(Model model, @RequestParam("page") Optional<Integer> currentPage) {
+		Pageable pageable = PageRequest.of(currentPage.orElse(1) - 1, 16);
+		Page<Movie> pages = movieDao.findByVipOrderByAddDateDesc(false, pageable);
+		
+		List<Movie> movies = pages.getContent();
+		
+		model.addAttribute("topic", "Free Movies");
+		model.addAttribute("movies", movies);
+		model.addAttribute("movie_eps", movie_episodeDao);
+		model.addAttribute("pages", pages);
+		model.addAttribute("currentPage", currentPage.orElse(1));
+		model.addAttribute("url", "movies");
+		
+		return "movie/search_results";
+	}
+	
 	@GetMapping("/tv-series")
 	public String tvseries_result(Model model, @RequestParam("page") Optional<Integer> currentPage) {
 		Pageable pageable = PageRequest.of(currentPage.orElse(1) - 1, 16);
@@ -679,6 +713,11 @@ public class HomeController {
 	    model.addAttribute("movie_ep", movie_ep);
 	    
 		return "/movie/comment-movie-more";
+	}
+	
+	@GetMapping(value= {"/community", "/watch2gether"})
+	public String comingSoon() {
+		return "/coming_soon";
 	}
 	
 	@GetMapping("/test")
