@@ -136,7 +136,7 @@ public class HomeController {
 	@GetMapping("/home")
 	public String home(Model model) {
 		List<Movie> movies = movieDao.findAll();
-		
+
 		List<Movie> spotlights = movieDao.getSpotlights();
 		List<Movie> trends = movieDao.getTrends();
 		List<Movie> topIMDBs = movieDao.getTop5TopIMDB();
